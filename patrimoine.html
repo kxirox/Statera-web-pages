@@ -146,6 +146,8 @@
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     .page-hero { animation: fadeUp 0.55s ease both; }
 
+    .repartition-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+
     @media (max-width: 900px) {
       .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
       .two-col, .two-col.wide-img, .two-col.wide-img-left { grid-template-columns: 1fr; gap: 2rem; }
@@ -154,6 +156,7 @@
       .tf-block { grid-template-columns: 1fr; gap: 2rem; }
       .xirr-callout { grid-template-columns: 1fr; gap: 2rem; }
       .tab-divider-desc { display: none; }
+      .repartition-boxes { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -290,7 +293,7 @@
       <img src="patrimoine-repartition.png" alt="Stateri — Répartition du patrimoine par banque et par type de compte" />
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+    <div class="repartition-boxes">
       <div class="info-box blue" style="margin-top: 0;">
         <div class="info-box-icon">🏦</div>
         <div><strong>Répartition par banque</strong> — visualisez d'un coup d'œil quelle banque concentre la majorité de votre patrimoine, et si vous êtes suffisamment diversifié entre plusieurs établissements.</div>
