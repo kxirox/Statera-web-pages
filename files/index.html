@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statera — Gérez vos finances, partout, sans internet</title>
+  <meta name="description" content="Statera, application de gestion de budget personnelle offline-first. Vos données sauvegardées sur votre propre Google Drive. Multi-compte, multi-devise, prévisions, investissements." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(247,246,242,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { font-size: 0.875rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.55rem 1.25rem; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
+    .nav-cta:hover { opacity: 0.82; }
+
+    .hero { padding: 9rem 2rem 5rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); display: inline-block; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 3.4rem); line-height: 1.1; margin-bottom: 1.25rem; }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p { font-size: 1.05rem; color: var(--ink-2); margin-bottom: 2rem; max-width: 480px; line-height: 1.75; font-weight: 300; }
+    .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.75rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+    .btn-secondary { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink); background: transparent; border: 1px solid var(--border); border-radius: 50px; padding: 0.75rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; }
+    .btn-secondary:hover { background: var(--surface-2); }
+
+    .hero-visual { position: relative; }
+    .hero-screenshot { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.05); }
+    .hero-screenshot img { width: 100%; display: block; }
+    .hero-badge { position: absolute; bottom: -16px; right: -16px; background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); border-radius: var(--r); padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--gold); font-weight: 500; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .hero-badge strong { display: block; font-size: 1.05rem; }
+
+    .stats-bar { background: var(--ink); color: #fff; padding: 1.5rem 2rem; }
+    .stats-bar-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; }
+    .stat-item strong { display: block; font-family: var(--font-display); font-size: 2rem; }
+    .stat-item span { font-size: 0.82rem; opacity: 0.55; font-weight: 300; }
+
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; margin-bottom: 1rem; max-width: 600px; }
+    .section-subtitle { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 520px; line-height: 1.75; margin-bottom: 3rem; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .feature-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+    .feature-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 1rem; }
+    .fi-green { background: var(--accent-light); } .fi-gold { background: var(--gold-light); } .fi-slate { background: var(--surface-2); }
+    .feature-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .feature-card p { font-size: 0.875rem; color: var(--ink-2); line-height: 1.65; font-weight: 300; }
+    .feature-card a { display: inline-block; margin-top: 1rem; font-size: 0.82rem; color: var(--accent); text-decoration: none; font-weight: 500; }
+    .feature-card a:hover { text-decoration: underline; }
+
+    .screenshot-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 5rem; }
+    .screenshot-section:last-child { margin-bottom: 0; }
+    .screenshot-section.reverse { direction: rtl; }
+    .screenshot-section.reverse > * { direction: ltr; }
+    .feature-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 1px; }
+    .screenshot-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.07); }
+    .screenshot-img img { width: 100%; display: block; }
+
+    .gdrive-section { background: var(--ink); color: #fff; }
+    .gdrive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .gdrive-points { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .gdrive-point { display: flex; gap: 1rem; }
+    .gdrive-point-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .gdrive-point h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem; }
+    .gdrive-point p { font-size: 0.82rem; opacity: 0.55; font-weight: 300; line-height: 1.6; }
+    .gdrive-visual { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.75rem; }
+    .gdv-title { font-size: 0.78rem; opacity: 0.5; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .gdv-row { display: flex; align-items: center; gap: 10px; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.82rem; }
+    .gdv-row:last-child { border-bottom: none; }
+    .gdv-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .gdv-text { flex: 1; opacity: 0.75; }
+    .gdv-status { font-size: 0.72rem; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+    .s-gdrive { background: rgba(66,133,244,0.2); color: #7aabf7; }
+    .s-never { background: rgba(148,153,165,0.25); color: #9499a5; }
+    .gdrive-highlight { margin-top: 1.5rem; padding: 1rem; background: rgba(93,202,165,0.08); border: 1px solid rgba(93,202,165,0.2); border-radius: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+    .gdrive-highlight strong { color: #5dcaa5; display: block; margin-bottom: 4px; font-size: 0.85rem; }
+
+    .pages-nav-section { background: var(--surface-2); }
+    .pages-nav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .page-nav-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem; text-decoration: none; color: var(--ink); transition: transform 0.2s, box-shadow 0.2s; display: block; }
+    .page-nav-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+    .page-nav-card .pnc-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .page-nav-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .page-nav-card p { font-size: 0.8rem; color: var(--ink-3); font-weight: 300; line-height: 1.5; }
+    .page-nav-card .pnc-link { display: inline-block; margin-top: 0.75rem; font-size: 0.78rem; color: var(--accent); font-weight: 500; }
+
+    .pricing-section { background: var(--surface-2); }
+    .pricing-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 680px; }
+    .pricing-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; }
+    .pricing-card.featured { border-color: var(--accent-mid); border-width: 2px; position: relative; }
+    .pricing-card.featured::before { content: 'Recommandé'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.72rem; font-weight: 500; padding: 3px 12px; border-radius: 20px; }
+    .price-label { font-size: 0.78rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 0.5rem; }
+    .price-amount { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 0.25rem; }
+    .price-desc { font-size: 0.82rem; color: var(--ink-2); font-weight: 300; margin-bottom: 1.5rem; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+    .price-features li { font-size: 0.85rem; color: var(--ink-2); display: flex; gap: 8px; }
+    .price-features li::before { content: '✓'; color: var(--accent); font-weight: 600; flex-shrink: 0; }
+    .price-btn { width: 100%; padding: 0.7rem; border-radius: 50px; border: 1px solid var(--border); background: transparent; font-family: var(--font-body); font-size: 0.875rem; cursor: pointer; font-weight: 500; transition: all 0.2s; text-decoration: none; display: block; text-align: center; color: var(--ink); }
+    .price-btn:hover { background: var(--surface); }
+    .price-btn.filled { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .price-btn.filled:hover { opacity: 0.82; }
+
+    .cta-section { text-align: center; padding: 6rem 2rem; }
+
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-content { animation: fadeUp 0.6s ease both; }
+    .hero-visual { animation: fadeUp 0.6s 0.2s ease both; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .screenshot-section { grid-template-columns: 1fr; gap: 2rem; }
+      .screenshot-section.reverse { direction: ltr; }
+      .gdrive-grid { grid-template-columns: 1fr; }
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+      .pricing-cards { grid-template-columns: 1fr; }
+      .pages-nav-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 500px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .pages-nav-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Statera</span></a>
+  <div class="nav-links">
+    <a href="#fonctionnalites">Fonctionnalités</a>
+    <a href="#donnees">Vos données</a>
+    <a href="#explorer">Explorer</a>
+    <a href="#tarifs">Tarifs</a>
+  </div>
+  <a href="#" class="nav-cta">Essayer gratuitement</a>
+</nav>
+
+<section style="padding: 0;">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Offline-first · Vos données sur votre Drive · Gratuit</div>
+      <h1>Vos finances,<br /><em>maîtrisées.</em><br />Partout.</h1>
+      <p>Statera est le gestionnaire de budget personnel qui fonctionne même sans connexion. Vos données sont entièrement sauvegardées sur <strong>votre propre Google Drive</strong> — personne d'autre n'y a accès.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">📲 Installer Statera</a>
+        <a href="#fonctionnalites" class="btn-secondary">Voir les fonctionnalités</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-screenshot">
+        <img src="screenshot1.png" alt="Statera — Répartition des dépenses par catégorie" />
+      </div>
+      <div class="hero-badge">
+        <strong>Vos données = votre Drive</strong>
+        Aucun serveur tiers
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item"><strong>100%</strong><span>Hors-ligne</span></div>
+    <div class="stat-item"><strong>0 €</strong><span>Abonnement</span></div>
+    <div class="stat-item"><strong>∞</strong><span>Comptes & devises</span></div>
+    <div class="stat-item"><strong>0</strong><span>Données partagées</span></div>
+  </div>
+</div>
+
+<section id="fonctionnalites">
+  <div class="section-inner">
+    <div class="section-tag">Fonctionnalités</div>
+    <h2 class="section-title">Tout ce dont vous avez besoin, rien de superflu.</h2>
+    <p class="section-subtitle">Statera est conçu pour ceux qui veulent vraiment comprendre et piloter leurs finances personnelles.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon fi-green">💳</div>
+        <h3>Multi-compte & multi-devise</h3>
+        <p>Gérez plusieurs comptes bancaires, plusieurs banques et plusieurs devises dans une interface unifiée.</p>
+        <a href="comptes.html">Découvrir →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-gold">📊</div>
+        <h3>Statistiques & prévisions</h3>
+        <p>Camemberts par catégorie, histogramme 12 mois, évolution du solde et prévisions budgétaires configurables.</p>
+        <a href="statistiques.html">Découvrir →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-slate">🔁</div>
+        <h3>Transactions récurrentes</h3>
+        <p>Loyer, abonnements, revenus mensuels — définissez vos récurrences par intervalle et laissez Statera les gérer.</p>
+        <a href="transactions.html">Découvrir →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-green">🤖</div>
+        <h3>Auto-catégorisation</h3>
+        <p>Importez vos relevés CSV, Excel ou Crédit Mutuel — la reconnaissance par mots-clés catégorise automatiquement.</p>
+        <a href="transactions.html">Découvrir →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-gold">📈</div>
+        <h3>Investissements & patrimoine</h3>
+        <p>Portefeuille avec snapshots, suivi du patrimoine net et des dettes pour une vision financière complète.</p>
+        <a href="patrimoine.html">Découvrir →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-slate">👥</div>
+        <h3>Multi-personnes</h3>
+        <p>Partagez les frais entre plusieurs personnes avec remboursements et coefficients de contribution.</p>
+        <a href="comptes.html">Découvrir →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background: var(--surface-2);">
+  <div class="section-inner">
+    <div class="screenshot-section">
+      <div>
+        <div class="section-tag">Analyse</div>
+        <h2 class="section-title">12 mois de dépenses en un coup d'œil</h2>
+        <p style="color:var(--ink-2); font-weight:300; line-height:1.75;">L'histogramme empilé par catégorie vous permet d'identifier vos pics de dépenses et de comparer chaque mois en détail, sur toute une année.</p>
+        <ul class="feature-list">
+          <li>Toutes vos catégories empilées par mois</li>
+          <li>Comparaison visuelle mois par mois</li>
+          <li>Cliquez sur une catégorie pour filtrer</li>
+          <li>Filtres par compte ou banque</li>
+        </ul>
+      </div>
+      <div class="screenshot-img">
+        <img src="screenshot2.png" alt="Statera — Dépenses par catégorie sur 12 mois" />
+      </div>
+    </div>
+    <div class="screenshot-section reverse">
+      <div>
+        <div class="section-tag">Patrimoine</div>
+        <h2 class="section-title">Évolution de votre patrimoine dans le temps</h2>
+        <p style="color:var(--ink-2); font-weight:300; line-height:1.75;">Visualisez la courbe de votre fortune totale et de vos investissements sur 6 mois, 1 an, 3 ans ou tout l'historique. Suivez votre progression sur le long terme.</p>
+        <ul class="feature-list">
+          <li>Fortune totale et investissements distincts</li>
+          <li>Filtres : 6 mois, 1 an, 3 ans, tout</li>
+          <li>Snapshots d'investissements historiques</li>
+          <li>Patrimoine brut et net calculés automatiquement</li>
+        </ul>
+      </div>
+      <div class="screenshot-img">
+        <img src="screenshot3.png" alt="Statera — Évolution du patrimoine" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="donnees" class="gdrive-section">
+  <div class="section-inner">
+    <div class="gdrive-grid">
+      <div>
+        <div class="section-tag" style="color:var(--accent-mid);">Vos données, votre contrôle</div>
+        <h2 class="section-title" style="color:#fff; max-width:100%;">Entièrement sauvegardé sur <em style="color:var(--accent-mid);">votre</em> Google Drive.</h2>
+        <p style="color:rgba(255,255,255,0.5); font-weight:300; line-height:1.75; margin-bottom:0;">Contrairement aux applications fintech classiques, Statera ne stocke rien sur ses propres serveurs. Toutes vos données sont écrites directement sur votre compte Google Drive personnel. Vous gardez un contrôle total et absolu sur vos finances.</p>
+        <div class="gdrive-points">
+          <div class="gdrive-point">
+            <div class="gdrive-point-icon">☁️</div>
+            <div>
+              <h4>Backup sur votre propre Drive</h4>
+              <p>Vos données sont dans un fichier sur votre Drive. Vous pouvez les consulter, exporter ou supprimer indépendamment de Statera.</p>
+            </div>
+          </div>
+          <div class="gdrive-point">
+            <div class="gdrive-point-icon">🔒</div>
+            <div>
+              <h4>Zéro serveur Statera</h4>
+              <p>Aucun backend, aucune base de données côté Statera. Vos finances n'appartiennent qu'à vous.</p>
+            </div>
+          </div>
+          <div class="gdrive-point">
+            <div class="gdrive-point-icon">📶</div>
+            <div>
+              <h4>100% offline entre les syncs</h4>
+              <p>L'app fonctionne sans connexion. La synchronisation Drive se fait quand vous le décidez.</p>
+            </div>
+          </div>
+          <div class="gdrive-point">
+            <div class="gdrive-point-icon">📱</div>
+            <div>
+              <h4>Multi-appareils via votre Drive</h4>
+              <p>Vos données sur votre Drive = accessibles depuis tous vos appareils, à tout moment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="gdrive-visual">
+        <div class="gdv-title">Où vont vos données</div>
+        <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Transactions & soldes</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
+        <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Catégories & règles</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
+        <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Budgets & prévisions</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
+        <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Investissements & patrimoine</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
+        <div class="gdv-row"><div class="gdv-dot" style="background:#555"></div><span class="gdv-text">Serveurs Statera</span><span class="gdv-status s-never">Inexistants</span></div>
+        <div class="gdv-row"><div class="gdv-dot" style="background:#555"></div><span class="gdv-text">Publicité / tracking</span><span class="gdv-status s-never">Jamais</span></div>
+        <div class="gdrive-highlight">
+          <strong>✓ Vérifiez par vous-même</strong>
+          Ouvrez votre Google Drive — vous y trouverez un fichier <code>statera-backup.json</code> contenant toutes vos données, lisible et exportable librement.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="explorer" class="pages-nav-section">
+  <div class="section-inner">
+    <div class="section-tag">Explorer l'application</div>
+    <h2 class="section-title">Découvrez chaque fonctionnalité en détail.</h2>
+    <p class="section-subtitle">Chaque onglet de Statera fait l'objet d'une page dédiée avec explications et captures d'écran.</p>
+    <div class="pages-nav-grid">
+      <a href="transactions.html" class="page-nav-card">
+        <div class="pnc-icon">💸</div>
+        <h3>Transactions</h3>
+        <p>Saisie, import CSV/Excel, auto-catégorisation, récurrences et remboursements.</p>
+        <span class="pnc-link">Voir la page →</span>
+      </a>
+      <a href="statistiques.html" class="page-nav-card">
+        <div class="pnc-icon">📊</div>
+        <h3>Statistiques</h3>
+        <p>Camemberts, histogramme 12 mois, évolution du solde et prévisions budgétaires.</p>
+        <span class="pnc-link">Voir la page →</span>
+      </a>
+      <a href="patrimoine.html" class="page-nav-card">
+        <div class="pnc-icon">📈</div>
+        <h3>Patrimoine</h3>
+        <p>Fortune nette, investissements avec snapshots, dettes et évolution dans le temps.</p>
+        <span class="pnc-link">Voir la page →</span>
+      </a>
+      <a href="comptes.html" class="page-nav-card">
+        <div class="pnc-icon">🏦</div>
+        <h3>Comptes & partage</h3>
+        <p>Multi-compte, multi-banque, multi-devise et gestion multi-personnes avec coefficients.</p>
+        <span class="pnc-link">Voir la page →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="tarifs" class="pricing-section">
+  <div class="section-inner">
+    <div class="section-tag">Tarifs</div>
+    <h2 class="section-title">Simple et transparent.</h2>
+    <p class="section-subtitle">Statera est gratuit. Toujours. Vos données vous appartiennent — nous n'avons aucune raison de vous facturer.</p>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <div class="price-label">Sans backup</div>
+        <div class="price-amount">0 €</div>
+        <div class="price-desc">Données locales uniquement.</div>
+        <ul class="price-features">
+          <li>Transactions illimitées</li>
+          <li>Multi-compte & multi-devise</li>
+          <li>Statistiques complètes</li>
+          <li>Import CSV / Excel</li>
+          <li>Fonctionne hors-ligne</li>
+        </ul>
+        <a href="#" class="price-btn">Commencer maintenant</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="price-label">Avec Google Drive</div>
+        <div class="price-amount">0 €</div>
+        <div class="price-desc">Sauvegarde sur votre propre Drive.</div>
+        <ul class="price-features">
+          <li>Tout du plan de base</li>
+          <li>Backup automatique sur votre Drive</li>
+          <li>Accès multi-appareils</li>
+          <li>Restauration en un clic</li>
+          <li>Contrôle total de vos données</li>
+        </ul>
+        <a href="#" class="price-btn filled">Installer Statera</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="section-inner">
+    <div class="section-tag" style="display:inline-block; margin-bottom:0.75rem;">Commencer</div>
+    <h2 class="section-title" style="max-width:100%; margin:0 auto 1rem;">Prêt à reprendre le contrôle de vos finances ?</h2>
+    <p class="section-subtitle" style="margin:0 auto 2.5rem;">Installez Statera en quelques secondes. Aucun compte requis, aucune carte bleue, vos données restent sur votre Google Drive.</p>
+    <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+      <a href="#" class="btn-primary" style="font-size:1rem; padding:0.85rem 2rem;">📲 Installer Statera</a>
+      <a href="#fonctionnalites" class="btn-secondary" style="font-size:1rem; padding:0.85rem 1.75rem;">En savoir plus</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Statera</div>
+    <div class="footer-links">
+      <a href="#">Confidentialité</a>
+      <a href="#">GitHub</a>
+      <a href="#">Contact</a>
+    </div>
+    <div>© 2025 Statera — Vos finances, votre Google Drive.</div>
+  </div>
+</footer>
+
+</body>
+</html>
