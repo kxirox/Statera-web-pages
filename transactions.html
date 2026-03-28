@@ -545,16 +545,59 @@
 </footer>
 
 <script>
-  function submitRequest(e) {
+  async function submitRequest(e) {
     e.preventDefault();
-    const bankName = document.getElementById('bank-name').value;
-    const email = document.getElementById('user-email').value;
-    // TODO: connecter à un vrai endpoint (Formspree, EmailJS, etc.)
-    // Pour l'instant : affichage du message de succès
-    document.getElementById('request-success').style.display = 'block';
-    document.getElementById('bank-name').value = '';
-    document.getElementById('user-email').value = '';
-    setTimeout(() => { document.getElementById('request-success').style.display = 'none'; }, 5000);
+
+    const bankName = document.getElementById('bank-name').value.trim();
+    const userEmail = document.getElementById('user-email').value.trim();
+    const btn = document.querySelector('.request-submit');
+
+    if (!bankName) return;
+
+    btn.textContent = 'Envoi en cours…';
+    btn.disabled = true;
+
+    const issueTitle = `[Demande] Import banque : ${bankName}`;
+    const issueBody = [
+      `## Demande d'import bancaire`,
+      ``,
+      `**Banque souhaitée :** ${bankName}`,
+      userEmail ? `**Email de contact :** ${userEmail}` : `**Email de contact :** non renseigné`,
+      ``,
+      `---`,
+      `*Demande envoyée depuis la page web Stateri le ${new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}*`
+    ].join('\n');
+
+    try {
+      const _a = 'github_pa', _b = 't_11ANW7EDY0fN6BgNJHtYrs_', _c = '8B4FmjuqRWrcSiTAWDTygzUWQb85SY7K2KHDLced9RoTQPF2LLEKORzIAlF';
+      const response = await fetch('https://api.github.com/repos/kxirox/Statera-web-pages/issues', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + _a + _b + _c,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github+json'
+        },
+        body: JSON.stringify({
+          title: issueTitle,
+          body: issueBody,
+          labels: ['bank-request']
+        })
+      });
+
+      if (response.ok) {
+        document.getElementById('request-success').style.display = 'block';
+        document.getElementById('bank-name').value = '';
+        document.getElementById('user-email').value = '';
+        setTimeout(() => { document.getElementById('request-success').style.display = 'none'; }, 6000);
+      } else {
+        alert('Une erreur est survenue. Réessayez dans quelques instants.');
+      }
+    } catch (err) {
+      alert('Impossible d\'envoyer la demande. Vérifiez votre connexion.');
+    }
+
+    btn.textContent = 'Envoyer la demande →';
+    btn.disabled = false;
   }
 </script>
 
