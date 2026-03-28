@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patrimoine — Pilotez votre fortune nette — Stateri</title>
+  <meta name="description" content="Suivez votre fortune nette, votre répartition par banque et par type de compte, et calculez votre autonomie financière avec l'onglet Patrimoine de Stateri." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* HERO */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    /* FEATURE PILLS */
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    /* SECTIONS */
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .content-section.dark { background: var(--ink); color: #fff; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-tag.light { color: var(--accent-mid); }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+    .section-desc.light { color: rgba(255,255,255,0.55); }
+
+    /* TWO COL */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.wide-img-left { grid-template-columns: 1.4fr 1fr; }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    /* SCREENSHOTS */
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+    .app-img.large { box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 8px 24px rgba(0,0,0,0.08); }
+    .app-img.dark-shadow { border-color: rgba(255,255,255,0.12); box-shadow: 0 24px 64px rgba(0,0,0,0.40), 0 8px 24px rgba(0,0,0,0.25); }
+
+    /* FULL WIDTH SCREENSHOT */
+    .full-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 56px rgba(0,0,0,0.11), 0 6px 18px rgba(0,0,0,0.07); margin-top: 2.5rem; }
+    .full-img img { width: 100%; display: block; }
+
+    /* STAT CARDS */
+    .stat-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .stat-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 1.5rem; }
+    .stat-card-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.5rem; }
+    .stat-card-value { font-family: var(--font-display); font-size: 1.6rem; color: var(--ink); margin-bottom: 0.2rem; }
+    .stat-card-value.green { color: var(--accent); }
+    .stat-card-value.blue { color: var(--blue); }
+    .stat-card-sub { font-size: 0.78rem; color: var(--ink-3); font-weight: 300; }
+
+    /* TIME FREEDOM BLOCK */
+    .tf-block { background: var(--ink); color: #fff; border-radius: 20px; padding: 2.5rem; margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .tf-block-text .section-tag { color: var(--accent-mid); }
+    .tf-block-text .section-title { color: #fff; }
+    .tf-block-text .section-desc { color: rgba(255,255,255,0.55); margin-bottom: 0; }
+    .tf-metrics { display: flex; flex-direction: column; gap: 1rem; }
+    .tf-metric { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.1rem 1.4rem; }
+    .tf-metric-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.35rem; }
+    .tf-metric-value { font-family: var(--font-display); font-size: 1.5rem; color: #fff; }
+    .tf-metric-value.orange { color: #f59e42; }
+    .tf-metric-sub { font-size: 0.78rem; color: rgba(255,255,255,0.35); font-weight: 300; margin-top: 0.2rem; }
+
+    /* INFO BOX */
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* FEATURE LIST */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+    .feature-list.light li { color: rgba(255,255,255,0.6); }
+    .feature-list.light li::before { background: rgba(93,202,165,0.15); border-color: rgba(93,202,165,0.4); }
+
+    /* CTA BANNER */
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img, .two-col.wide-img-left { grid-template-columns: 1fr; gap: 2rem; }
+      .two-col.reverse { direction: ltr; }
+      .stat-cards { grid-template-columns: 1fr; }
+      .tf-block { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">Patrimoine · Bilan · Time Freedom</div>
+    <h1>Votre fortune nette,<br /><em>toujours à portée.</em></h1>
+    <p>L'onglet Patrimoine de Stateri agrège tous vos comptes — courants, livrets, investissements — pour vous donner une vision instantanée et complète de ce que vous possédez réellement.</p>
+    <div class="feature-pills">
+      <span class="pill">🏦 Multi-banques</span>
+      <span class="pill">📊 Répartition par type</span>
+      <span class="pill">⏱️ Time Freedom</span>
+      <span class="pill">📈 Évolution historique</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="patrimoine-overview.png" alt="Stateri — Onglet Patrimoine, fortune totale nette et Time Freedom" />
+  </div>
+</div>
+
+<!-- ══ FORTUNE TOTALE NETTE ══ -->
+<div class="content-section" id="fortune">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Fortune totale nette</div>
+        <h2 class="section-title">Tout votre argent, agrégé en un seul chiffre</h2>
+        <p class="section-desc">Connectez autant de banques que vous le souhaitez. Stateri additionne automatiquement tous vos soldes pour afficher votre <strong>fortune totale nette</strong> en temps réel — et la détaille par type de compte.</p>
+
+        <ul class="feature-list">
+          <li><strong>Comptes courants</strong> — vos soldes bancaires du quotidien, toutes banques confondues</li>
+          <li><strong>Livrets d'épargne</strong> — Livret A, LDDS, LEP, comptes épargne… tous agrégés</li>
+          <li><strong>Investissements</strong> — PEA, CTO, crypto, actifs physiques, affichés en bleu pour les distinguer</li>
+          <li>Chaque type affiche sa part en pourcentage du total pour visualiser votre allocation</li>
+        </ul>
+
+        <div class="info-box green" style="margin-top: 1.75rem;">
+          <div class="info-box-icon">💡</div>
+          <div>Chaque compte est rattaché à une banque et un type lors de sa création. Stateri fait le reste : pas de saisie manuelle, pas de calcul à faire.</div>
+        </div>
+      </div>
+
+      <div class="app-img large">
+        <img src="patrimoine-overview.png" alt="Stateri — Fortune totale nette avec répartition comptes courants, livrets et investissements" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TIME FREEDOM ══ -->
+<div class="content-section alt" id="time-freedom">
+  <div class="section-inner">
+    <div class="section-tag">Autonomie financière</div>
+    <h2 class="section-title">Combien de temps pouvez-vous<br />vivre sans travailler ?</h2>
+    <p class="section-desc" style="max-width: 680px;">La section <strong>Time Freedom</strong> répond à cette question en croisant automatiquement votre fortune nette avec vos dépenses réelles des 12 derniers mois. Un indicateur concret pour piloter votre liberté financière.</p>
+
+    <div class="tf-block">
+      <div class="tf-block-text">
+        <div class="section-tag light">Time Freedom</div>
+        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;">Un calcul automatique, mis à jour en continu</h3>
+        <p class="section-desc light" style="margin-bottom: 1.5rem;">Stateri calcule vos dépenses moyennes mensuelles sur les 12 derniers mois, puis divise votre fortune nette par ce montant. Le résultat s'exprime en <strong>mois d'autonomie</strong> et en <strong>années</strong>.</p>
+        <ul class="feature-list light">
+          <li>Dépenses moyennes calculées sur 12 mois glissants</li>
+          <li>Mise à jour automatique à chaque nouvelle transaction</li>
+          <li>Barre de progression visuelle jusqu'à 5 ans d'autonomie</li>
+        </ul>
+      </div>
+      <div class="tf-metrics">
+        <div class="tf-metric">
+          <div class="tf-metric-label">Autonomie financière</div>
+          <div class="tf-metric-value orange">2.4 mois</div>
+          <div class="tf-metric-sub">= Fortune nette ÷ Dépenses moy./mois</div>
+        </div>
+        <div class="tf-metric">
+          <div class="tf-metric-label">Dépenses moyennes / mois</div>
+          <div class="tf-metric-value">5 270 €</div>
+          <div class="tf-metric-sub">Calculé sur les 12 derniers mois</div>
+        </div>
+        <div class="tf-metric">
+          <div class="tf-metric-label">En années</div>
+          <div class="tf-metric-value">0.20 ans</div>
+          <div class="tf-metric-sub">Objectif : atteindre 5 ans d'autonomie</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box gold" style="margin-top: 2rem;">
+      <div class="info-box-icon">⭐</div>
+      <div>La barre de progression sous les métriques indique visuellement où vous en êtes par rapport à un objectif de <strong>5 ans d'autonomie</strong> — une référence courante dans la communauté FIRE (Financial Independence, Retire Early).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ÉVOLUTION DU PATRIMOINE ══ -->
+<div class="content-section" id="evolution">
+  <div class="section-inner">
+    <div class="two-col wide-img-left">
+      <div>
+        <div class="section-tag">Graphique historique</div>
+        <h2 class="section-title">Visualisez la progression de votre patrimoine dans le temps</h2>
+        <p class="section-desc">Le graphique d'évolution du patrimoine vous montre, mois par mois, comment votre fortune totale et vos investissements ont évolué depuis que vous utilisez Stateri.</p>
+
+        <ul class="feature-list">
+          <li>5 périodes au choix : <strong>6 mois, 1 an, 3 ans, 5 ans, Tout</strong></li>
+          <li>Deux courbes superposées : fortune totale (bleu) et investissements seuls (vert pointillé)</li>
+          <li>Idéal pour mesurer l'effet de l'épargne et de la valorisation des placements</li>
+          <li>Visualisation instantanée des grandes étapes de votre vie financière</li>
+        </ul>
+      </div>
+
+      <div class="app-img large">
+        <img src="patrimoine-overview.png" alt="Stateri — Graphique évolution du patrimoine avec filtres 6 mois à Tout" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RÉPARTITION PAR BANQUE & TYPE ══ -->
+<div class="content-section alt" id="repartition">
+  <div class="section-inner">
+    <div class="section-tag">Répartition</div>
+    <h2 class="section-title">Où est votre argent, et sous quelle forme ?</h2>
+    <p class="section-desc" style="max-width: 680px;">Deux graphiques en donut vous donnent une lecture instantanée de la concentration de votre patrimoine : par établissement bancaire, et par nature d'actifs.</p>
+
+    <div class="full-img">
+      <img src="patrimoine-repartition.png" alt="Stateri — Répartition du patrimoine par banque et par type de compte" />
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+      <div class="info-box blue" style="margin-top: 0;">
+        <div class="info-box-icon">🏦</div>
+        <div><strong>Répartition par banque</strong> — visualisez d'un coup d'œil quelle banque concentre la majorité de votre patrimoine, et si vous êtes suffisamment diversifié entre plusieurs établissements.</div>
+      </div>
+      <div class="info-box green" style="margin-top: 0;">
+        <div class="info-box-icon">📊</div>
+        <div><strong>Répartition par type</strong> — comparez la part de votre argent en comptes courants, en livrets d'épargne et en investissements pour ajuster votre allocation selon vos objectifs.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INVESTISSEMENTS ══ -->
+<div class="content-section" id="investissements">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Détail des investissements</div>
+        <h2 class="section-title">Chaque ligne d'actif, visible et pondérée</h2>
+        <p class="section-desc">Le graphique <strong>Investissements par ligne d'actif</strong> décompose le détail de vos placements : ETF, actions, or physique, crypto… avec le poids de chacun en pourcentage et en valeur absolue.</p>
+
+        <ul class="feature-list">
+          <li>Un donut par ligne d'actif avec sa couleur propre</li>
+          <li>Pourcentage et valeur affichés côte à côte pour chaque actif</li>
+          <li>Total des investissements réconcilié avec la fortune nette</li>
+          <li>Idéal pour vérifier que votre allocation cible est bien respectée</li>
+        </ul>
+
+        <div class="info-box gold" style="margin-top: 1.75rem;">
+          <div class="info-box-icon">📌</div>
+          <div>Chaque actif est rattaché à une banque lors de sa saisie. Vous pouvez ainsi suivre vos ETF Degiro, vos actions Boursobank et votre or physique dans un seul et même onglet.</div>
+        </div>
+      </div>
+
+      <div class="app-img large">
+        <img src="patrimoine-investissements.png" alt="Stateri — Investissements par ligne d'actif : ETF, actions, or, crypto" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner" style="border-top: 1px solid var(--border);">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Prêt à suivre votre patrimoine ?</div>
+  <h2>Installez Stateri en 30 secondes</h2>
+  <p>Ajoutez vos comptes, saisissez vos soldes, et voyez votre fortune nette s'afficher instantanément — avec l'évolution historique et votre autonomie financière.</p>
+  <a href="installer.html" class="btn-primary">Installer l'application →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="transactions.html">Transactions</a>
+      <a href="statistiques.html">Statistiques</a>
+      <a href="installer.html">Installer</a>
+    </div>
+    <div>© 2026 Stateri — Application de budget personnel</div>
+  </div>
+</footer>
+
+</body>
+</html>
