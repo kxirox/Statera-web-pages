@@ -112,11 +112,17 @@
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     .page-hero { animation: fadeUp 0.55s ease both; }
 
+    /* HISTORIQUE FILTRE */
+    .historique-filtre-grid { display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; margin-top: 2.5rem; }
+    .historique-filtre-img { width: 220px; flex-shrink: 0; }
+
     @media (max-width: 900px) {
       .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
       .two-col, .two-col.wide-img, .two-col.wide-img-left { grid-template-columns: 1fr; gap: 2rem; }
       .two-col.reverse { direction: ltr; }
       .zoom-callout { grid-template-columns: 1fr; }
+      .historique-filtre-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .historique-filtre-img { width: 100%; max-width: 320px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -224,8 +230,8 @@
       <div><strong>Astuce :</strong> cliquer sur une part du camembert ou une barre de l'histogramme vous redirige directement vers l'onglet <strong>Historique</strong>, filtré sur cette catégorie et cette période — vous pouvez alors consulter et modifier chaque dépense individuellement.</div>
     </div>
 
-    <div style="margin-top: 2.5rem; display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center;">
-      <div class="app-img" style="width: 220px; flex-shrink: 0; box-shadow: 0 20px 56px rgba(0,0,0,0.14), 0 6px 18px rgba(0,0,0,0.08);">
+    <div class="historique-filtre-grid">
+      <div class="app-img historique-filtre-img" style="box-shadow: 0 20px 56px rgba(0,0,0,0.14), 0 6px 18px rgba(0,0,0,0.08);">
         <img src="stats-historique-filtre.png" alt="Stateri — Onglet Historique filtré par catégorie" />
       </div>
       <div>
