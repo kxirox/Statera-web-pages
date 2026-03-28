@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Statera — Gérez vos finances, partout, sans internet</title>
-  <meta name="description" content="Statera, application de gestion de budget personnelle offline-first. Vos données sauvegardées sur votre propre Google Drive. Multi-compte, multi-devise, prévisions, investissements." />
+  <title>Stateri — Gérez vos finances, partout, sans internet</title>
+  <meta name="description" content="Stateri, application de gestion de budget personnelle offline-first. Vos données sauvegardées sur votre propre Google Drive. Multi-compte, multi-devise, prévisions, investissements." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
@@ -53,7 +53,7 @@
     .hero-visual { position: relative; }
     .hero-screenshot { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.05); }
     .hero-screenshot img { width: 100%; display: block; }
-    .hero-badge { position: absolute; bottom: -16px; right: -16px; background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); border-radius: var(--r); padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--gold); font-weight: 500; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .hero-badge { position: absolute; bottom: -16px; right: 0; background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); border-radius: var(--r); padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--gold); font-weight: 500; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
     .hero-badge strong { display: block; font-size: 1.05rem; }
 
     .stats-bar { background: var(--ink); color: #fff; padding: 1.5rem 2rem; }
@@ -88,12 +88,15 @@
     .screenshot-img img { width: 100%; display: block; }
 
     .gdrive-section { background: var(--ink); color: #fff; }
-    .gdrive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .gdrive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     .gdrive-points { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
     .gdrive-point { display: flex; gap: 1rem; }
     .gdrive-point-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
     .gdrive-point h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem; }
     .gdrive-point p { font-size: 0.82rem; opacity: 0.55; font-weight: 300; line-height: 1.6; }
+    .gdrive-right { display: flex; flex-direction: column; gap: 1.5rem; }
+    .gdrive-screenshot { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.30); }
+    .gdrive-screenshot img { width: 100%; display: block; }
     .gdrive-visual { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.75rem; }
     .gdv-title { font-size: 0.78rem; opacity: 0.5; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.08em; }
     .gdv-row { display: flex; align-items: center; gap: 10px; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.82rem; }
@@ -103,7 +106,7 @@
     .gdv-status { font-size: 0.72rem; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
     .s-gdrive { background: rgba(66,133,244,0.2); color: #7aabf7; }
     .s-never { background: rgba(148,153,165,0.25); color: #9499a5; }
-    .gdrive-highlight { margin-top: 1.5rem; padding: 1rem; background: rgba(93,202,165,0.08); border: 1px solid rgba(93,202,165,0.2); border-radius: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+    .gdrive-highlight { padding: 1rem; background: rgba(93,202,165,0.08); border: 1px solid rgba(93,202,165,0.2); border-radius: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
     .gdrive-highlight strong { color: #5dcaa5; display: block; margin-bottom: 4px; font-size: 0.85rem; }
 
     .pages-nav-section { background: var(--surface-2); }
@@ -114,22 +117,6 @@
     .page-nav-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
     .page-nav-card p { font-size: 0.8rem; color: var(--ink-3); font-weight: 300; line-height: 1.5; }
     .page-nav-card .pnc-link { display: inline-block; margin-top: 0.75rem; font-size: 0.78rem; color: var(--accent); font-weight: 500; }
-
-    .pricing-section { background: var(--surface-2); }
-    .pricing-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 680px; }
-    .pricing-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 2rem; }
-    .pricing-card.featured { border-color: var(--accent-mid); border-width: 2px; position: relative; }
-    .pricing-card.featured::before { content: 'Recommandé'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-size: 0.72rem; font-weight: 500; padding: 3px 12px; border-radius: 20px; }
-    .price-label { font-size: 0.78rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 0.5rem; }
-    .price-amount { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 0.25rem; }
-    .price-desc { font-size: 0.82rem; color: var(--ink-2); font-weight: 300; margin-bottom: 1.5rem; }
-    .price-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-    .price-features li { font-size: 0.85rem; color: var(--ink-2); display: flex; gap: 8px; }
-    .price-features li::before { content: '✓'; color: var(--accent); font-weight: 600; flex-shrink: 0; }
-    .price-btn { width: 100%; padding: 0.7rem; border-radius: 50px; border: 1px solid var(--border); background: transparent; font-family: var(--font-body); font-size: 0.875rem; cursor: pointer; font-weight: 500; transition: all 0.2s; text-decoration: none; display: block; text-align: center; color: var(--ink); }
-    .price-btn:hover { background: var(--surface); }
-    .price-btn.filled { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .price-btn.filled:hover { opacity: 0.82; }
 
     .cta-section { text-align: center; padding: 6rem 2rem; }
 
@@ -151,7 +138,6 @@
       .screenshot-section.reverse { direction: ltr; }
       .gdrive-grid { grid-template-columns: 1fr; }
       .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
-      .pricing-cards { grid-template-columns: 1fr; }
       .pages-nav-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
     }
@@ -164,14 +150,13 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">⚖️ <span>Statera</span></a>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
   <div class="nav-links">
     <a href="#fonctionnalites">Fonctionnalités</a>
     <a href="#donnees">Vos données</a>
     <a href="#explorer">Explorer</a>
-    <a href="#tarifs">Tarifs</a>
   </div>
-  <a href="#" class="nav-cta">Essayer gratuitement</a>
+  <a href="installer.html" class="nav-cta">Installer l'application</a>
 </nav>
 
 <section style="padding: 0;">
@@ -179,15 +164,15 @@
     <div class="hero-content">
       <div class="hero-eyebrow">Offline-first · Vos données sur votre Drive · Gratuit</div>
       <h1>Vos finances,<br /><em>maîtrisées.</em><br />Partout.</h1>
-      <p>Statera est le gestionnaire de budget personnel qui fonctionne même sans connexion. Vos données sont entièrement sauvegardées sur <strong>votre propre Google Drive</strong> — personne d'autre n'y a accès.</p>
+      <p>Stateri est le gestionnaire de budget personnel qui fonctionne même sans connexion. Vos données sont entièrement sauvegardées sur <strong>votre propre Google Drive</strong> — personne d'autre n'y a accès.</p>
       <div class="hero-actions">
-        <a href="#" class="btn-primary">📲 Installer Statera</a>
+        <a href="installer.html" class="btn-primary">📲 Installer Stateri</a>
         <a href="#fonctionnalites" class="btn-secondary">Voir les fonctionnalités</a>
       </div>
     </div>
     <div class="hero-visual">
       <div class="hero-screenshot">
-        <img src="screenshot1.png" alt="Statera — Répartition des dépenses par catégorie" />
+        <img src="screenshot1.png" alt="Stateri — Répartition des dépenses par catégorie" />
       </div>
       <div class="hero-badge">
         <strong>Vos données = votre Drive</strong>
@@ -200,7 +185,7 @@
 <div class="stats-bar">
   <div class="stats-bar-inner">
     <div class="stat-item"><strong>100%</strong><span>Hors-ligne</span></div>
-    <div class="stat-item"><strong>0 €</strong><span>Abonnement</span></div>
+    <div class="stat-item"><strong>0 €</strong><span>Pour toujours</span></div>
     <div class="stat-item"><strong>∞</strong><span>Comptes & devises</span></div>
     <div class="stat-item"><strong>0</strong><span>Données partagées</span></div>
   </div>
@@ -210,7 +195,7 @@
   <div class="section-inner">
     <div class="section-tag">Fonctionnalités</div>
     <h2 class="section-title">Tout ce dont vous avez besoin, rien de superflu.</h2>
-    <p class="section-subtitle">Statera est conçu pour ceux qui veulent vraiment comprendre et piloter leurs finances personnelles.</p>
+    <p class="section-subtitle">Stateri est conçu pour ceux qui veulent vraiment comprendre et piloter leurs finances personnelles.</p>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon fi-green">💳</div>
@@ -227,7 +212,7 @@
       <div class="feature-card">
         <div class="feature-icon fi-slate">🔁</div>
         <h3>Transactions récurrentes</h3>
-        <p>Loyer, abonnements, revenus mensuels — définissez vos récurrences par intervalle et laissez Statera les gérer.</p>
+        <p>Loyer, abonnements, revenus mensuels — définissez vos récurrences par intervalle et laissez Stateri les gérer.</p>
         <a href="transactions.html">Découvrir →</a>
       </div>
       <div class="feature-card">
@@ -267,7 +252,7 @@
         </ul>
       </div>
       <div class="screenshot-img">
-        <img src="screenshot2.png" alt="Statera — Dépenses par catégorie sur 12 mois" />
+        <img src="screenshot2.png" alt="Stateri — Dépenses par catégorie sur 12 mois" />
       </div>
     </div>
     <div class="screenshot-section reverse">
@@ -283,7 +268,7 @@
         </ul>
       </div>
       <div class="screenshot-img">
-        <img src="screenshot3.png" alt="Statera — Évolution du patrimoine" />
+        <img src="screenshot3.png" alt="Stateri — Évolution du patrimoine" />
       </div>
     </div>
   </div>
@@ -295,27 +280,27 @@
       <div>
         <div class="section-tag" style="color:var(--accent-mid);">Vos données, votre contrôle</div>
         <h2 class="section-title" style="color:#fff; max-width:100%;">Entièrement sauvegardé sur <em style="color:var(--accent-mid);">votre</em> Google Drive.</h2>
-        <p style="color:rgba(255,255,255,0.5); font-weight:300; line-height:1.75; margin-bottom:0;">Contrairement aux applications fintech classiques, Statera ne stocke rien sur ses propres serveurs. Toutes vos données sont écrites directement sur votre compte Google Drive personnel. Vous gardez un contrôle total et absolu sur vos finances.</p>
+        <p style="color:rgba(255,255,255,0.5); font-weight:300; line-height:1.75; margin-bottom:0;">Contrairement aux applications fintech classiques, Stateri ne stocke rien sur ses propres serveurs. Toutes vos données sont écrites directement sur votre compte Google Drive personnel. Vous gardez un contrôle total et absolu sur vos finances.</p>
         <div class="gdrive-points">
           <div class="gdrive-point">
             <div class="gdrive-point-icon">☁️</div>
             <div>
               <h4>Backup sur votre propre Drive</h4>
-              <p>Vos données sont dans un fichier sur votre Google Drive. Vous pouvez les consulter, exporter ou supprimer indépendamment de Statera (un fichier json est créé dans votre Google Drive a chaque sauvegarde).</p>
+              <p>Vos données sont dans un fichier sur votre Google Drive. Vous pouvez les consulter, exporter ou supprimer indépendamment de Stateri (un fichier json est créé dans votre Google Drive à chaque sauvegarde).</p>
             </div>
           </div>
           <div class="gdrive-point">
             <div class="gdrive-point-icon">🔒</div>
             <div>
-              <h4>Zéro serveur Statera</h4>
-              <p>Aucun backend, aucune base de données côté Statera. Vos finances n'appartiennent qu'à vous.</p>
+              <h4>Zéro serveur Stateri</h4>
+              <p>Aucun backend, aucune base de données côté Stateri. Vos finances n'appartiennent qu'à vous.</p>
             </div>
           </div>
           <div class="gdrive-point">
             <div class="gdrive-point-icon">📶</div>
             <div>
               <h4>100% offline entre les syncs</h4>
-              <p>L'app fonctionne sans connexion. La synchronisation Drive se fait automatiquement après chaque modifications ou quand vous le décidez.</p>
+              <p>L'app fonctionne sans connexion. La synchronisation Drive se fait automatiquement après chaque modification ou quand vous le décidez.</p>
             </div>
           </div>
           <div class="gdrive-point">
@@ -327,17 +312,23 @@
           </div>
         </div>
       </div>
-      <div class="gdrive-visual">
-        <div class="gdv-title">Où vont vos données</div>
-        <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Transactions & soldes</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
-        <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Catégories & règles</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
-        <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Budgets & prévisions</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
-        <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Investissements & patrimoine</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
-        <div class="gdv-row"><div class="gdv-dot" style="background:#555"></div><span class="gdv-text">Serveurs Statera</span><span class="gdv-status s-never">Inexistants</span></div>
-        <div class="gdv-row"><div class="gdv-dot" style="background:#555"></div><span class="gdv-text">Publicité / tracking</span><span class="gdv-status s-never">Jamais</span></div>
-        <div class="gdrive-highlight">
-          <strong>✓ Vérifiez par vous-même</strong>
-          Ouvrez votre Google Drive — vous y trouverez un fichier <code>statera-backup.json</code> contenant toutes vos données, lisible et exportable librement.
+      <div class="gdrive-right">
+        <!-- SCREENSHOT : remplacez screenshot-settings.png par la capture de l'onglet Paramètres / sauvegarde Google Drive -->
+        <div class="gdrive-screenshot">
+          <img src="screenshot-settings.png" alt="Stateri — Paramètres et sauvegarde Google Drive" />
+        </div>
+        <div class="gdrive-visual">
+          <div class="gdv-title">Où vont vos données</div>
+          <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Transactions & soldes</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
+          <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Catégories & règles</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
+          <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Budgets & prévisions</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
+          <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Investissements & patrimoine</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
+          <div class="gdv-row"><div class="gdv-dot" style="background:#555"></div><span class="gdv-text">Serveurs Stateri</span><span class="gdv-status s-never">Inexistants</span></div>
+          <div class="gdv-row"><div class="gdv-dot" style="background:#555"></div><span class="gdv-text">Publicité / tracking</span><span class="gdv-status s-never">Jamais</span></div>
+          <div class="gdrive-highlight">
+            <strong>✓ Vérifiez par vous-même</strong>
+            Ouvrez votre Google Drive — vous y trouverez un fichier <code>stateri-backup.json</code> contenant toutes vos données, lisible et exportable librement.
+          </div>
         </div>
       </div>
     </div>
@@ -348,7 +339,7 @@
   <div class="section-inner">
     <div class="section-tag">Explorer l'application</div>
     <h2 class="section-title">Découvrez chaque fonctionnalité en détail.</h2>
-    <p class="section-subtitle">Chaque onglet de Statera fait l'objet d'une page dédiée avec explications et captures d'écran.</p>
+    <p class="section-subtitle">Chaque onglet de Stateri fait l'objet d'une page dédiée avec explications et captures d'écran.</p>
     <div class="pages-nav-grid">
       <a href="transactions.html" class="page-nav-card">
         <div class="pnc-icon">💸</div>
@@ -378,49 +369,13 @@
   </div>
 </section>
 
-<section id="tarifs" class="pricing-section">
-  <div class="section-inner">
-    <div class="section-tag">Tarifs</div>
-    <h2 class="section-title">Simple et transparent.</h2>
-    <p class="section-subtitle">Statera est gratuit. Toujours. Vos données vous appartiennent — nous n'avons aucune raison de vous facturer.</p>
-    <div class="pricing-cards">
-      <div class="pricing-card">
-        <div class="price-label">Sans backup</div>
-        <div class="price-amount">0 €</div>
-        <div class="price-desc">Données locales uniquement.</div>
-        <ul class="price-features">
-          <li>Transactions illimitées</li>
-          <li>Multi-compte & multi-devise</li>
-          <li>Statistiques complètes</li>
-          <li>Import CSV / Excel</li>
-          <li>Fonctionne hors-ligne</li>
-        </ul>
-        <a href="#" class="price-btn">Commencer maintenant</a>
-      </div>
-      <div class="pricing-card featured">
-        <div class="price-label">Avec Google Drive</div>
-        <div class="price-amount">0 €</div>
-        <div class="price-desc">Sauvegarde sur votre propre Drive.</div>
-        <ul class="price-features">
-          <li>Tout du plan de base</li>
-          <li>Backup automatique sur votre Drive</li>
-          <li>Accès multi-appareils</li>
-          <li>Restauration en un clic</li>
-          <li>Contrôle total de vos données</li>
-        </ul>
-        <a href="#" class="price-btn filled">Installer Statera</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="cta-section">
   <div class="section-inner">
     <div class="section-tag" style="display:inline-block; margin-bottom:0.75rem;">Commencer</div>
     <h2 class="section-title" style="max-width:100%; margin:0 auto 1rem;">Prêt à reprendre le contrôle de vos finances ?</h2>
-    <p class="section-subtitle" style="margin:0 auto 2.5rem;">Installez Statera en quelques secondes. Aucun compte requis, aucune carte bleue, vos données restent sur votre Google Drive.</p>
+    <p class="section-subtitle" style="margin:0 auto 2.5rem;">Installez Stateri en quelques secondes. Aucun compte requis, aucune carte bleue, vos données restent sur votre Google Drive.</p>
     <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-      <a href="#" class="btn-primary" style="font-size:1rem; padding:0.85rem 2rem;">📲 Installer Statera</a>
+      <a href="installer.html" class="btn-primary" style="font-size:1rem; padding:0.85rem 2rem;">📲 Installer Stateri</a>
       <a href="#fonctionnalites" class="btn-secondary" style="font-size:1rem; padding:0.85rem 1.75rem;">En savoir plus</a>
     </div>
   </div>
@@ -428,13 +383,13 @@
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">⚖️ Statera</div>
+    <div class="footer-logo">⚖️ Stateri</div>
     <div class="footer-links">
       <a href="#">Confidentialité</a>
       <a href="#">GitHub</a>
       <a href="#">Contact</a>
     </div>
-    <div>© 2025 Statera — Vos finances, votre Google Drive.</div>
+    <div>© 2025 Stateri — Vos finances, votre Google Drive.</div>
   </div>
 </footer>
 
