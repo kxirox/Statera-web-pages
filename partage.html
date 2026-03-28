@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comptes partagés & multi-personnes — Stateri</title>
+  <meta name="description" content="Gérez un compte commun à deux en toute précision : taux de contribution par compte, calcul automatique selon les virements, et vue 'Ma part' dans les statistiques." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --purple: #6b3fa0; --purple-light: #f0eafa;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .content-section.dark { background: var(--ink); color: #fff; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-tag.light { color: var(--accent-mid); }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.wide-img-left { grid-template-columns: 1.4fr 1fr; }
+
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+    .app-img.large { box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 8px 24px rgba(0,0,0,0.08); }
+
+    .full-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 56px rgba(0,0,0,0.11), 0 6px 18px rgba(0,0,0,0.07); margin-top: 2.5rem; }
+    .full-img img { width: 100%; display: block; }
+
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box.purple { background: var(--purple-light); border: 1px solid rgba(107,63,160,0.2); color: #4a1e80; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+
+    /* MODE CARDS */
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .mode-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
+    .mode-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .mode-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .mode-card p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+    .mode-card p + p { margin-top: 0.5rem; }
+    .mode-card.highlight { background: var(--accent-light); border-color: rgba(93,202,165,0.4); }
+    .mode-card.highlight h3 { color: #1a5c30; }
+    .mode-card.highlight p { color: #2a6040; }
+
+    /* CONTRIBUTIONS TABLE */
+    .contrib-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 0.875rem; }
+    .contrib-table th { text-align: left; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); padding: 0.5rem 1rem; border-bottom: 1px solid var(--border); }
+    .contrib-table td { padding: 0.7rem 1rem; border-bottom: 1px solid rgba(15,17,23,0.05); color: var(--ink-2); font-weight: 300; }
+    .contrib-table td.coeff { font-weight: 500; color: var(--ink); }
+    .contrib-table td.moi { color: var(--accent); font-weight: 400; }
+
+    /* TOGGLE PREVIEW */
+    .toggle-preview { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .toggle-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 50px; font-size: 0.875rem; font-weight: 500; border: 1.5px solid var(--border); background: #fff; color: var(--ink-2); cursor: default; }
+    .toggle-btn.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+    .toggle-btn.reset { background: var(--blue-light); color: var(--blue); border-color: rgba(26,74,138,0.25); }
+
+    /* ZOOM CALLOUT */
+    .zoom-callout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-top: 2.5rem; }
+    .zoom-callout-img { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .zoom-callout-img img { width: 100%; display: block; }
+    .zoom-callout-text h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .zoom-callout-text p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+    .zoom-callout-text p + p { margin-top: 0.6rem; }
+
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img, .two-col.wide-img-left { grid-template-columns: 1fr; gap: 2rem; }
+      .mode-grid { grid-template-columns: 1fr; }
+      .zoom-callout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">Multi-personnes · Comptes partagés · Ma part</div>
+    <h1>Un compte commun,<br /><em>votre part à vous.</em></h1>
+    <p>Vous partagez un compte avec votre conjoint(e) ? Stateri calcule automatiquement votre taux de contribution réel mois par mois — et isole votre part dans toutes les statistiques, sans double comptage.</p>
+    <div class="feature-pills">
+      <span class="pill">👫 Comptes partagés</span>
+      <span class="pill">📐 Taux par compte</span>
+      <span class="pill">⚡ Calcul automatique</span>
+      <span class="pill">👤 Vue "Ma part"</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="partage-taux.png" alt="Stateri — Taux de contribution par compte bancaire dans les paramètres" />
+  </div>
+</div>
+
+<!-- ══ TAUX DE CONTRIBUTION ══ -->
+<div class="content-section" id="taux-contribution">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Paramètres</div>
+        <h2 class="section-title">Définissez votre part sur chaque compte</h2>
+        <p class="section-desc">Dans les paramètres, chaque compte bancaire dispose d'un <strong>taux de contribution</strong> — le pourcentage des dépenses de ce compte qui vous appartient réellement. Par défaut : 100 %.</p>
+
+        <ul class="feature-list">
+          <li>Un compte partagé 50/50 → passez le taux à <strong>50 %</strong></li>
+          <li>Un compte dont vous assumez 70 % des dépenses → <strong>70 %</strong></li>
+          <li>Vos comptes personnels restent à <strong>100 %</strong> — aucun changement à faire</li>
+          <li>Le taux s'applique à toutes les statistiques via le toggle <strong>"Ma part"</strong></li>
+        </ul>
+
+        <div class="info-box blue" style="margin-top: 1.75rem;">
+          <div class="info-box-icon">🎯</div>
+          <div>Dans l'exemple ci-contre, le <strong>Crédit Mutuel — Livret Orange</strong> est à 50 % — c'est un livret partagé dont chaque moitié appartient à une personne. Tous les autres comptes sont personnels à 100 %.</div>
+        </div>
+      </div>
+
+      <div class="app-img large">
+        <img src="partage-taux.png" alt="Stateri — Taux de contribution par compte : 100% personnel, 50% partagé" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CALCUL AUTOMATIQUE ══ -->
+<div class="content-section alt" id="calcul-auto">
+  <div class="section-inner">
+    <div class="section-tag">Calcul automatique</div>
+    <h2 class="section-title">Le taux s'ajuste selon les virements réels</h2>
+    <p class="section-desc" style="max-width: 700px;">Pour les comptes communs, Stateri peut calculer automatiquement votre taux de contribution en analysant les virements entrants — celui qui a versé le plus contribue proportionnellement plus.</p>
+
+    <div class="mode-grid">
+      <div class="mode-card highlight">
+        <div class="mode-card-icon">⚡</div>
+        <h3>Mode automatique</h3>
+        <p>Stateri analyse les virements entrants sur le compte commun et calcule le coefficient de chaque personne mois par mois.</p>
+        <p>Exemple : vous virez <strong>700 €</strong> et votre conjoint(e) <strong>300 €</strong> → votre taux = <strong>70 %</strong>, le leur = <strong>30 %</strong>. Ce coefficient varie chaque mois selon la réalité des virements.</p>
+      </div>
+      <div class="mode-card">
+        <div class="mode-card-icon">✏️</div>
+        <h3>Mode manuel</h3>
+        <p>Vous préférez un taux fixe ? Saisissez directement le pourcentage qui vous correspond dans les paramètres.</p>
+        <p>Il reste stable jusqu'à ce que vous le modifiiez — idéal si votre contribution est toujours la même quelle que soit le mois.</p>
+      </div>
+    </div>
+
+    <div class="zoom-callout">
+      <div class="zoom-callout-img">
+        <img src="partage-contributions.png" alt="Stateri — Tableau des contributions mensuelles sur le compte commun" />
+      </div>
+      <div class="zoom-callout-text">
+        <h3>📅 Contributions détaillées mois par mois</h3>
+        <p>Pour chaque mois, Stateri affiche ce que vous avez versé (<em>Moi</em>), ce que votre conjoint(e) a versé (<em>Conjoint</em>), et le <strong>coefficient</strong> qui en résulte.</p>
+        <p>Ici : en janvier 2026, vous avez versé <strong>2 400 €</strong> vs 3 050 € → coefficient de <strong>44 %</strong>. En février : 1 453 € vs 750 € → <strong>66 %</strong>. Le coefficient reflète fidèlement la réalité de chaque mois.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VUE MA PART ══ -->
+<div class="content-section" id="ma-part">
+  <div class="section-inner">
+    <div class="two-col wide-img-left">
+      <div class="app-img large">
+        <img src="partage-toggle.png" alt="Stateri — Boutons Dépenses brutes, Mes dépenses réelles, Ma part dans l'historique" />
+      </div>
+
+      <div>
+        <div class="section-tag">Onglet Historique & Stats</div>
+        <h2 class="section-title">Trois vues pour analyser vos dépenses à votre rythme</h2>
+        <p class="section-desc">Dans l'onglet Historique, trois boutons permettent de basculer instantanément entre trois lectures de vos finances :</p>
+
+        <div class="toggle-preview">
+          <span class="toggle-btn">Dépenses brutes</span>
+          <span class="toggle-btn">Mes dépenses réelles</span>
+          <span class="toggle-btn active">👫 Ma part</span>
+          <span class="toggle-btn reset">↺ Réinitialiser les filtres</span>
+        </div>
+
+        <ul class="feature-list" style="margin-top: 2rem;">
+          <li><strong>Dépenses brutes</strong> — toutes les dépenses de tous vos comptes à 100 %, sans filtre ni pondération</li>
+          <li><strong>Mes dépenses réelles</strong> — vos dépenses personnelles, hors virements, remboursements et épargne</li>
+          <li><strong>Ma part</strong> — applique le taux de contribution défini dans les paramètres sur chaque compte : la vision la plus précise de ce que vous coûte réellement votre vie à deux</li>
+        </ul>
+
+        <div class="info-box purple" style="margin-top: 1.75rem;">
+          <div class="info-box-icon">👫</div>
+          <div>Le toggle <strong>"Ma part"</strong> fonctionne aussi dans les graphiques de l'onglet Statistiques : les camemberts, l'histogramme et les soldes s'ajustent tous en tenant compte de vos taux de contribution.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner" style="border-top: 1px solid var(--border);">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Compte commun, budget personnel</div>
+  <h2>Votre part, enfin calculée avec précision</h2>
+  <p>Installez Stateri, configurez votre taux de contribution, et obtenez une vision 100 % personnelle de vos finances — même en partageant des comptes.</p>
+  <a href="installer.html" class="btn-primary">Installer l'application →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="devises.html">Multi-devise</a>
+      <a href="statistiques.html">Statistiques</a>
+      <a href="patrimoine.html">Patrimoine</a>
+      <a href="installer.html">Installer</a>
+    </div>
+    <div>© 2026 Stateri — Application de budget personnel</div>
+  </div>
+</footer>
+
+</body>
+</html>
