@@ -120,6 +120,29 @@
     .footer-links a { color: inherit; text-decoration: none; }
     .footer-links a:hover { color: rgba(255,255,255,0.8); }
 
+    /* TAB DIVIDER */
+    .tab-divider { padding: 0 2rem; margin: 0; }
+    .tab-divider-inner { max-width: 1100px; margin: 0 auto; padding: 4rem 0 0; border-top: 2px dashed var(--border); display: flex; align-items: center; gap: 1.5rem; }
+    .tab-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-size: 0.82rem; font-weight: 500; padding: 7px 18px; border-radius: 50px; white-space: nowrap; }
+    .tab-badge.prev { background: var(--surface-3); color: var(--ink-2); }
+    .tab-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .tab-divider-desc { font-size: 0.88rem; color: var(--ink-3); font-weight: 300; max-width: 400px; }
+
+    /* XIRR CALLOUT */
+    .xirr-callout { background: linear-gradient(135deg, #0f1117 0%, #1a2a1e 100%); border-radius: 20px; padding: 2.5rem; margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .xirr-callout-text { color: #fff; }
+    .xirr-callout-text .section-tag { color: var(--accent-mid); }
+    .xirr-callout-text h3 { font-family: var(--font-display); font-size: 1.6rem; color: #fff; margin-bottom: 0.75rem; line-height: 1.2; }
+    .xirr-callout-text p { font-size: 0.9rem; color: rgba(255,255,255,0.55); font-weight: 300; line-height: 1.75; }
+    .xirr-callout-text p + p { margin-top: 0.75rem; }
+    .xirr-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .xirr-metric { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.1rem 1.3rem; }
+    .xirr-metric-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.35rem; }
+    .xirr-metric-value { font-family: var(--font-display); font-size: 1.35rem; }
+    .xirr-metric-value.green { color: var(--accent-mid); }
+    .xirr-metric-value.white { color: #fff; }
+    .xirr-metric-sub { font-size: 0.75rem; color: rgba(255,255,255,0.3); font-weight: 300; margin-top: 0.2rem; }
+
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     .page-hero { animation: fadeUp 0.55s ease both; }
 
@@ -129,6 +152,8 @@
       .two-col.reverse { direction: ltr; }
       .stat-cards { grid-template-columns: 1fr; }
       .tf-block { grid-template-columns: 1fr; gap: 2rem; }
+      .xirr-callout { grid-template-columns: 1fr; gap: 2rem; }
+      .tab-divider-desc { display: none; }
     }
   </style>
 </head>
@@ -307,11 +332,103 @@
   </div>
 </div>
 
+<!-- ══ TAB DIVIDER ══ -->
+<div class="tab-divider" style="background: var(--surface); padding-top: 3rem;">
+  <div class="tab-divider-inner">
+    <span class="tab-badge prev">📊 Onglet Patrimoine</span>
+    <div class="tab-divider-line"></div>
+    <span class="tab-badge">📈 Onglet Investissements</span>
+    <div class="tab-divider-line"></div>
+    <span class="tab-divider-desc">Un onglet dédié pour piloter vos placements avec des métriques financières avancées</span>
+  </div>
+</div>
+
+<!-- ══ INVESTISSEMENTS : INTRO ══ -->
+<div class="content-section" id="onglet-investissements" style="border-top: none; padding-top: 3rem;">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Onglet Investissements</div>
+        <h2 class="section-title">Votre portefeuille,<br />analysé avec précision</h2>
+        <p class="section-desc">Au-delà du solde total, l'onglet Investissements vous donne une vision analytique complète de vos placements : évolution de la valeur, répartition par type d'actif, et métriques de rendement avancées.</p>
+
+        <ul class="feature-list">
+          <li><strong>Évolution du portefeuille</strong> — courbe de la valeur totale vs capital investi sur la durée</li>
+          <li><strong>Répartition par type d'actif</strong> — ETF, actions, or, crypto… avec leur poids respectif</li>
+          <li><strong>Performance globale</strong> — gain en euros et en pourcentage depuis le premier achat</li>
+          <li><strong>Métriques de rendement</strong> — rendement annualisé, XIRR global, TWR global</li>
+        </ul>
+      </div>
+
+      <div class="app-img large">
+        <img src="invest-overview.png" alt="Stateri — Onglet Investissements : évolution du portefeuille et métriques globales" />
+      </div>
+    </div>
+
+    <!-- XIRR CALLOUT -->
+    <div class="xirr-callout">
+      <div class="xirr-callout-text">
+        <div class="section-tag light">La métrique qui compte</div>
+        <h3>Le XIRR : le seul vrai indicateur de rentabilité</h3>
+        <p>Le rendement annualisé classique suppose que vous avez investi tout votre capital en une seule fois. Ce n'est jamais le cas en pratique.</p>
+        <p>Le <strong>XIRR (Extended Internal Rate of Return)</strong> prend en compte la date et le montant exact de chaque versement — ce qui le rend particulièrement précis pour les investisseurs qui pratiquent le <strong>DCA (Dollar Cost Averaging)</strong> : des achats réguliers, mois après mois.</p>
+        <p style="margin-top: 0.75rem;">Résultat : un taux de rendement annualisé qui reflète <em>réellement</em> la performance de votre stratégie d'investissement programmé.</p>
+      </div>
+      <div class="xirr-metrics">
+        <div class="xirr-metric">
+          <div class="xirr-metric-label">Performance totale</div>
+          <div class="xirr-metric-value green">+818,88 €</div>
+          <div class="xirr-metric-sub">+26.02 % sur la période</div>
+        </div>
+        <div class="xirr-metric">
+          <div class="xirr-metric-label">Rendement annualisé</div>
+          <div class="xirr-metric-value white">+4.95 %/an</div>
+          <div class="xirr-metric-sub">Hypothèse : capital investi d'un coup</div>
+        </div>
+        <div class="xirr-metric" style="grid-column: 1 / -1; border-color: rgba(93,202,165,0.3); background: rgba(93,202,165,0.08);">
+          <div class="xirr-metric-label" style="color: var(--accent-mid);">XIRR global ★ La vraie mesure</div>
+          <div class="xirr-metric-value green" style="font-size: 1.75rem;">+13.35 %/an</div>
+          <div class="xirr-metric-sub" style="color: rgba(255,255,255,0.45);">Taux interne de rendement — tient compte de chaque achat programmé</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INVESTISSEMENTS : DÉTAIL PAR COMPTE ══ -->
+<div class="content-section alt" id="detail-comptes">
+  <div class="section-inner">
+    <div class="two-col wide-img-left">
+      <div>
+        <div class="section-tag">Détail par compte</div>
+        <h2 class="section-title">Chaque compte d'investissement analysé individuellement</h2>
+        <p class="section-desc">En scrollant, chaque compte apparaît avec ses propres métriques : valeur actuelle, capital investi, performance en euros et en %, durée, XIRR et TWR individuels.</p>
+
+        <ul class="feature-list">
+          <li><strong>Valeur actuelle</strong> vs <strong>capital investi</strong> pour mesurer la plus-value réelle</li>
+          <li>XIRR individuel par compte — comparez la rentabilité de votre PEA vs votre CTO</li>
+          <li>Durée de détention calculée automatiquement depuis le premier achat</li>
+          <li>Bouton <strong>"Historique & détails"</strong> pour voir chaque achat ligne par ligne</li>
+        </ul>
+
+        <div class="info-box green" style="margin-top: 1.75rem;">
+          <div class="info-box-icon">💡</div>
+          <div>Vous pouvez aussi ajouter un <strong>snapshot de valorisation</strong> à n'importe quelle date pour alimenter le TWR (Time-Weighted Return) — utile si votre courtier fournit des relevés mensuels.</div>
+        </div>
+      </div>
+
+      <div class="app-img large">
+        <img src="invest-comptes.png" alt="Stateri — Détail des comptes d'investissement avec XIRR, performance et historique" />
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ CTA ══ -->
 <div class="cta-banner" style="border-top: 1px solid var(--border);">
   <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Prêt à suivre votre patrimoine ?</div>
   <h2>Installez Stateri en 30 secondes</h2>
-  <p>Ajoutez vos comptes, saisissez vos soldes, et voyez votre fortune nette s'afficher instantanément — avec l'évolution historique et votre autonomie financière.</p>
+  <p>Ajoutez vos comptes, saisissez vos soldes, et suivez votre fortune nette, votre autonomie financière et la rentabilité réelle de vos investissements.</p>
   <a href="installer.html" class="btn-primary">Installer l'application →</a>
 </div>
 
