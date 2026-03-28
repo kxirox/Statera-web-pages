@@ -1,1 +1,0 @@
-# Statera-web-pages
