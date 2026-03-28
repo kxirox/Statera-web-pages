@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transactions — Import & Export — Stateri</title>
+  <meta name="description" content="Importez vos données depuis Crédit Mutuel, Revolut ou un CSV personnalisé. Exportez toutes vos transactions en un clic." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --cm-blue: #003f8a; --cm-light: #e8f0fb;
+      --revolut-purple: #5c11d4; --revolut-light: #ede8fd;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* HERO */
+    .page-hero { padding: 8rem 2rem 4rem; max-width: 820px; margin: 0 auto; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1.05rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; max-width: 620px; }
+
+    /* JUMP LINKS */
+    .jump-links { max-width: 1100px; margin: 0 auto; padding: 0 2rem 3rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .jump-link { font-size: 0.82rem; font-weight: 500; padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid var(--border); background: #fff; color: var(--ink-2); text-decoration: none; transition: all 0.2s; white-space: nowrap; }
+    .jump-link:hover { background: var(--surface-2); color: var(--ink); }
+
+    /* SECTIONS */
+    .content-section { padding: 4rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; max-width: 600px; margin-bottom: 2.5rem; }
+
+    /* BANK BADGE */
+    .bank-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600; padding: 5px 14px 5px 10px; border-radius: 50px; margin-bottom: 1rem; }
+    .bb-cm { background: var(--cm-light); color: var(--cm-blue); border: 1px solid rgba(0,63,138,0.18); }
+    .bb-revolut { background: var(--revolut-light); color: var(--revolut-purple); border: 1px solid rgba(92,17,212,0.18); }
+    .bb-csv { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(93,202,165,0.35); }
+    .bb-export { background: var(--gold-light); color: var(--gold); border: 1px solid rgba(191,138,46,0.25); }
+
+    /* TWO COL LAYOUT */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    /* APP SCREENSHOT */
+    .app-screenshot { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-screenshot img { width: 100%; display: block; }
+
+    /* STEPS COMPACT */
+    .steps-compact { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+    .step-c { display: flex; gap: 12px; align-items: flex-start; }
+    .step-c-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); color: var(--accent); font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-c-num.blue { background: var(--cm-light); border-color: rgba(0,63,138,0.3); color: var(--cm-blue); }
+    .step-c-num.purple { background: var(--revolut-light); border-color: rgba(92,17,212,0.3); color: var(--revolut-purple); }
+    .step-c p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+    .step-c strong { color: var(--ink); font-weight: 500; }
+
+    /* DOWNLOAD BTN */
+    .download-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; padding: 0.7rem 1.4rem; border-radius: 50px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
+    .download-btn:hover { opacity: 0.82; transform: translateY(-1px); }
+    .download-btn.secondary { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+    .download-btn.secondary:hover { background: var(--surface-2); }
+
+    /* CSV FORMAT TABLE */
+    .csv-format { margin: 2rem 0; }
+    .csv-format h3 { font-size: 0.9rem; font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+    .csv-table-wrap { overflow-x: auto; border-radius: var(--r); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; background: #fff; }
+    thead tr { background: var(--ink); color: #fff; }
+    thead th { padding: 0.65rem 1rem; text-align: left; font-weight: 500; white-space: nowrap; }
+    tbody tr:nth-child(even) { background: var(--surface); }
+    tbody td { padding: 0.6rem 1rem; color: var(--ink-2); line-height: 1.5; vertical-align: top; }
+    tbody td:first-child { font-family: monospace; font-size: 0.82rem; color: var(--accent); font-weight: 600; white-space: nowrap; }
+    .col-required { display: inline-block; font-size: 0.65rem; font-weight: 600; background: var(--accent-light); color: var(--accent); border-radius: 4px; padding: 1px 5px; margin-left: 4px; vertical-align: middle; }
+    .col-optional { display: inline-block; font-size: 0.65rem; font-weight: 600; background: var(--surface-2); color: var(--ink-3); border-radius: 4px; padding: 1px 5px; margin-left: 4px; vertical-align: middle; }
+
+    /* CSV EXAMPLE */
+    .csv-example { background: #1a1d27; border-radius: var(--r); padding: 1.25rem 1.5rem; overflow-x: auto; margin: 1.5rem 0; }
+    .csv-example pre { font-family: monospace; font-size: 0.78rem; color: #a8b4c8; line-height: 1.8; white-space: pre; }
+    .csv-example .csv-header { color: #5dcaa5; }
+    .csv-example .csv-income { color: #7aabf7; }
+    .csv-example .csv-expense { color: #f78c8c; }
+    .csv-example .csv-reimb { color: #f7c07a; }
+
+    /* INFO BOX */
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.83rem; line-height: 1.65; font-weight: 300; margin: 1.5rem 0; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.blue { background: var(--cm-light); border: 1px solid rgba(0,63,138,0.2); color: var(--cm-blue); }
+    .info-box.purple { background: var(--revolut-light); border: 1px solid rgba(92,17,212,0.2); color: var(--revolut-purple); }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* FULL WIDTH SCREENSHOT */
+    .full-screenshot { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10); margin-top: 2rem; }
+    .full-screenshot img { width: 100%; display: block; }
+
+    /* REQUEST SECTION */
+    .request-section { background: var(--ink); color: #fff; }
+    .request-inner { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .request-inner h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); color: #fff; margin-bottom: 1rem; line-height: 1.15; }
+    .request-inner h2 em { font-style: italic; color: var(--accent-mid); }
+    .request-inner p { color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.75; font-size: 0.95rem; margin-bottom: 1.75rem; }
+    .banks-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .bank-row { display: flex; align-items: center; gap: 12px; padding: 0.75rem 1rem; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+    .bank-row-icon { font-size: 1.2rem; }
+    .bank-row-name { font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.85); flex: 1; }
+    .bank-status { font-size: 0.72rem; font-weight: 600; padding: 2px 10px; border-radius: 20px; }
+    .bs-ok { background: rgba(93,202,165,0.15); color: #5dcaa5; border: 1px solid rgba(93,202,165,0.3); }
+    .bs-soon { background: rgba(148,153,165,0.15); color: #9499a5; border: 1px solid rgba(148,153,165,0.2); }
+    .request-form { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .request-input { font-family: var(--font-body); font-size: 0.875rem; padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: #fff; outline: none; transition: border-color 0.2s; }
+    .request-input::placeholder { color: rgba(255,255,255,0.3); }
+    .request-input:focus { border-color: var(--accent-mid); }
+    .request-submit { font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; padding: 0.75rem 1.5rem; border-radius: 50px; background: var(--accent-mid); color: var(--ink); border: none; cursor: pointer; transition: opacity 0.2s; align-self: flex-start; }
+    .request-submit:hover { opacity: 0.85; }
+    #request-success { display: none; font-size: 0.85rem; color: var(--accent-mid); padding: 0.5rem 0; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; gap: 2rem; }
+      .two-col.reverse { direction: ltr; }
+      .request-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-eyebrow">Transactions · Import · Export</div>
+  <h1>Importez, exportez,<br /><em>sans friction.</em></h1>
+  <p>Stateri prend en charge l'import direct depuis votre banque et l'export complet de toutes vos données. Vos relevés bancaires deviennent automatiquement des transactions catégorisées — en quelques secondes.</p>
+</div>
+
+<!-- JUMP LINKS -->
+<div class="jump-links">
+  <a href="#export" class="jump-link">📤 Export CSV</a>
+  <a href="#import-csv" class="jump-link">📥 Import CSV</a>
+  <a href="#credit-mutuel" class="jump-link">🏦 Crédit Mutuel</a>
+  <a href="#revolut" class="jump-link">💜 Revolut</a>
+  <a href="#autres-banques" class="jump-link">➕ Autres banques</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     EXPORT CSV
+═══════════════════════════════════════════ -->
+<div class="content-section" id="export">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <div class="bank-badge bb-export">📤 Export</div>
+        <div class="section-tag">Export</div>
+        <h2 class="section-title">Exportez tout votre historique en un clic</h2>
+        <p class="section-desc">Depuis l'onglet <strong>Paramètres</strong> de l'application, exportez l'intégralité de vos transactions — dépenses, revenus, virements et remboursements — dans un fichier CSV universel.</p>
+
+        <div class="steps-compact">
+          <div class="step-c">
+            <div class="step-c-num">1</div>
+            <p>Ouvrez l'application Stateri et rendez-vous dans l'onglet <strong>Paramètres</strong></p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num">2</div>
+            <p>Dans la section <strong>Export</strong>, appuyez sur <strong>"Exporter CSV (tout l'historique)"</strong></p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num">3</div>
+            <p>Le fichier CSV est téléchargé automatiquement — ouvrez-le avec Excel, Google Sheets ou Numbers</p>
+          </div>
+        </div>
+
+        <div class="info-box gold">
+          <div class="info-box-icon">💡</div>
+          <div>Le fichier exporté est entièrement compatible avec le format d'import CSV de Stateri — vous pouvez l'utiliser pour <strong>migrer vos données</strong> vers un autre appareil ou comme <strong>sauvegarde locale</strong>.</div>
+        </div>
+      </div>
+
+      <!-- Screenshot : section export/import dans les paramètres de l'app -->
+      <div class="app-screenshot">
+        <img src="import-export-ui.png" alt="Stateri — Section Import/Export dans les paramètres" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     IMPORT CSV
+═══════════════════════════════════════════ -->
+<div class="content-section alt" id="import-csv">
+  <div class="section-inner">
+    <div class="bank-badge bb-csv">📥 Import CSV</div>
+    <div class="section-tag">Import CSV</div>
+    <h2 class="section-title">Importez vos données depuis un fichier CSV</h2>
+    <p class="section-desc">Utilisez le format CSV standard de Stateri pour importer en masse vos transactions depuis n'importe quelle source — relevé bancaire préparé, tableur existant, ou export d'une autre application.</p>
+
+    <!-- FORMAT TABLE -->
+    <div class="csv-format">
+      <h3>📋 Format des colonnes</h3>
+      <div class="csv-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Colonne</th>
+              <th>Obligatoire</th>
+              <th>Format</th>
+              <th>Description</th>
+              <th>Exemple</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>date <span class="col-required">requis</span></td>
+              <td>✓</td>
+              <td>AAAA-MM-JJ</td>
+              <td>Date de la transaction</td>
+              <td>2026-01-15</td>
+            </tr>
+            <tr>
+              <td>montant <span class="col-required">requis</span></td>
+              <td>✓</td>
+              <td>Nombre décimal (séparateur : <code>.</code>)</td>
+              <td>Positif = revenu, Négatif = dépense</td>
+              <td>-35.00 ou 1500.00</td>
+            </tr>
+            <tr>
+              <td>kind <span class="col-required">requis</span></td>
+              <td>✓</td>
+              <td>expense / income / reimbursement</td>
+              <td>Type de transaction</td>
+              <td>expense</td>
+            </tr>
+            <tr>
+              <td>linked_expense_id <span class="col-optional">optionnel</span></td>
+              <td>—</td>
+              <td>Nombre entier</td>
+              <td>Lien vers la dépense remboursée (uniquement pour les remboursements)</td>
+              <td>42</td>
+            </tr>
+            <tr>
+              <td>categorie <span class="col-required">requis</span></td>
+              <td>✓</td>
+              <td>Texte libre</td>
+              <td>Doit correspondre exactement à une catégorie de l'app (sinon créée automatiquement)</td>
+              <td>Alimentation</td>
+            </tr>
+            <tr>
+              <td>banque <span class="col-required">requis</span></td>
+              <td>✓</td>
+              <td>Texte libre</td>
+              <td>Doit correspondre exactement à une banque de l'app (sinon créée automatiquement)</td>
+              <td>Crédit Mutuel</td>
+            </tr>
+            <tr>
+              <td>type_compte <span class="col-required">requis</span></td>
+              <td>✓</td>
+              <td>Texte libre</td>
+              <td>Doit correspondre exactement à un type de compte de l'app</td>
+              <td>Compte courant</td>
+            </tr>
+            <tr>
+              <td>note <span class="col-optional">optionnel</span></td>
+              <td>—</td>
+              <td>Texte libre</td>
+              <td>Description libre de la dépense</td>
+              <td>Courses du samedi</td>
+            </tr>
+            <tr>
+              <td>personne <span class="col-optional">optionnel</span></td>
+              <td>—</td>
+              <td>Texte libre</td>
+              <td>Personne à qui affecter la dépense (multi-personnes)</td>
+              <td>Louis</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EXAMPLE -->
+    <div class="csv-example">
+      <pre><span class="csv-header">date,montant,kind,linked_expense_id,categorie,banque,type_compte,note,personne</span>
+<span class="csv-income">2026-01-01,1500.00,income,,Salaire,Crédit Mutuel,Compte courant,Salaire janvier,</span>
+<span class="csv-expense">2026-01-02,-35.00,expense,,Alimentation,Crédit Mutuel,Compte commun,Carrefour,</span>
+<span class="csv-expense">2026-01-03,-100.00,expense,,Transport,Revolut,Compte courant,Billet de train SNCF,Louis</span>
+<span class="csv-reimb">2026-01-03,100.00,reimbursement,3,Transport,Crédit Mutuel,Compte courant,Remboursement billet,Louis</span>
+<span class="csv-expense">2026-01-07,-12.00,expense,,Restaurant,Crédit Mutuel,Compte courant,Burger King,</span></pre>
+    </div>
+
+    <!-- SCREENSHOT + DOWNLOAD -->
+    <div class="two-col" style="margin-top: 2.5rem;">
+      <div>
+        <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: 1rem;">Téléchargez le modèle</h3>
+        <p style="font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; margin-bottom: 1.5rem;">
+          Téléchargez le fichier CSV modèle, remplissez-le avec vos données (dans Excel, Google Sheets ou Numbers), puis importez-le directement dans Stateri via <strong>Paramètres → Importer CSV</strong>.
+        </p>
+        <a href="template-import.csv" download="template-stateri-import.csv" class="download-btn">
+          ⬇ Télécharger le modèle CSV
+        </a>
+
+        <div class="info-box green" style="margin-top: 1.5rem;">
+          <div class="info-box-icon">✅</div>
+          <div>Les catégories, banques et types de compte <strong>inexistants sont créés automatiquement</strong> lors de l'import — pas besoin de les configurer à l'avance.</div>
+        </div>
+
+        <div class="steps-compact" style="margin-top: 1.5rem;">
+          <div class="step-c">
+            <div class="step-c-num">1</div>
+            <p>Téléchargez le modèle et remplissez-le avec vos données</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num">2</div>
+            <p>Dans Stateri : <strong>Paramètres → Importer CSV</strong></p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num">3</div>
+            <p>Choisissez la <strong>banque par défaut</strong> et le <strong>type de compte</strong> puis sélectionnez votre fichier</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num">4</div>
+            <p>Vos transactions apparaissent instantanément dans l'application</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot du CSV dans l'app ou dans Sheets -->
+      <div class="app-screenshot">
+        <img src="csv-format.png" alt="Stateri — Format CSV d'import" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CRÉDIT MUTUEL
+═══════════════════════════════════════════ -->
+<div class="content-section" id="credit-mutuel">
+  <div class="section-inner">
+    <div class="bank-badge bb-cm">🏦 Crédit Mutuel</div>
+    <div class="section-tag">Import banque</div>
+    <h2 class="section-title">Import direct depuis Crédit Mutuel</h2>
+    <p class="section-desc">Téléchargez votre relevé de compte directement depuis votre espace Crédit Mutuel en ligne, et importez-le en un clic dans Stateri. Toutes vos transactions sont importées automatiquement.</p>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: 1.25rem;">Comment télécharger votre relevé Crédit Mutuel</h3>
+        <div class="steps-compact">
+          <div class="step-c">
+            <div class="step-c-num blue">1</div>
+            <p>Connectez-vous à votre espace client <strong>Crédit Mutuel en ligne</strong></p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num blue">2</div>
+            <p>Allez dans <strong>Mes comptes → Relevés de compte</strong> et sélectionnez la période souhaitée</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num blue">3</div>
+            <p>Téléchargez le fichier au <strong>format Excel (.xls ou .xlsx)</strong> — c'est le format natif du Crédit Mutuel</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num blue">4</div>
+            <p>Dans Stateri : <strong>Paramètres → Importer Crédit Mutuel (Excel)</strong>, choisissez votre banque et compte, puis sélectionnez le fichier</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num blue">5</div>
+            <p>Stateri lit automatiquement toutes les lignes du relevé et crée les transactions correspondantes</p>
+          </div>
+        </div>
+
+        <div class="info-box blue">
+          <div class="info-box-icon">ℹ️</div>
+          <div>L'import reconnaît le format standard des exports Excel du Crédit Mutuel. Les colonnes <strong>Date, Libellé, Débit, Crédit</strong> sont lues automatiquement — aucune manipulation préalable n'est nécessaire.</div>
+        </div>
+      </div>
+
+      <!-- Screenshot du fichier Excel CM - vue comptes -->
+      <div>
+        <p style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 0.75rem;">Aperçu du fichier Excel Crédit Mutuel — Vue comptes</p>
+        <div class="app-screenshot" style="margin-bottom: 1.25rem;">
+          <img src="cm-excel-comptes.png" alt="Fichier Excel Crédit Mutuel — Feuille Vos comptes" />
+        </div>
+        <p style="font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 0.75rem;">Aperçu du fichier Excel Crédit Mutuel — Détail transactions</p>
+        <div class="app-screenshot">
+          <img src="cm-excel-transactions.png" alt="Fichier Excel Crédit Mutuel — Détail des transactions" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     REVOLUT
+═══════════════════════════════════════════ -->
+<div class="content-section alt" id="revolut">
+  <div class="section-inner">
+    <div class="bank-badge bb-revolut">💜 Revolut</div>
+    <div class="section-tag">Import banque</div>
+    <h2 class="section-title">Import direct depuis Revolut</h2>
+    <p class="section-desc">Exportez votre historique de transactions depuis l'application Revolut et importez-le directement dans Stateri. Toutes vos opérations Revolut sont intégrées en quelques secondes.</p>
+
+    <div class="two-col reverse">
+      <div>
+        <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: 1.25rem;">Comment exporter depuis Revolut</h3>
+        <div class="steps-compact">
+          <div class="step-c">
+            <div class="step-c-num purple">1</div>
+            <p>Ouvrez l'application <strong>Revolut</strong> sur votre smartphone</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num purple">2</div>
+            <p>Allez dans <strong>Compte → Relevé de compte</strong> (ou depuis l'espace web Revolut)</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num purple">3</div>
+            <p>Sélectionnez la période, choisissez le format <strong>Excel</strong> et téléchargez</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num purple">4</div>
+            <p>Dans Stateri : <strong>Paramètres → Importer Revolut (Excel)</strong>, sélectionnez votre fichier</p>
+          </div>
+          <div class="step-c">
+            <div class="step-c-num purple">5</div>
+            <p>Les transactions sont importées avec leur date, montant et libellé d'origine</p>
+          </div>
+        </div>
+
+        <div class="info-box purple">
+          <div class="info-box-icon">💡</div>
+          <div>Revolut propose des exports multi-devises. Stateri détecte automatiquement la devise de chaque transaction lors de l'import.</div>
+        </div>
+      </div>
+
+      <!-- Placeholder screenshot Revolut -->
+      <div class="app-screenshot" style="background: var(--surface-3); min-height: 220px; display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center; color: var(--ink-3); padding: 2rem;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">📸</div>
+          <div style="font-size: 0.82rem; font-weight: 300;">Screenshot Revolut à venir</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     AUTRES BANQUES
+═══════════════════════════════════════════ -->
+<section class="request-section" id="autres-banques">
+  <div class="request-inner">
+    <div>
+      <div style="font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent-mid); margin-bottom: 0.75rem;">Votre banque n'est pas là ?</div>
+      <h2>Votre banque n'est pas <em>encore</em> supportée ?</h2>
+      <p>Stateri supporte actuellement le Crédit Mutuel et Revolut. D'autres banques arrivent — dites-nous laquelle vous souhaitez en priorité et nous l'ajouterons.</p>
+
+      <form class="request-form" onsubmit="submitRequest(event)">
+        <input type="text" class="request-input" placeholder="Nom de votre banque (ex : BNP Paribas, LCL, Boursorama...)" id="bank-name" required />
+        <input type="email" class="request-input" placeholder="Votre email (optionnel — pour vous prévenir)" id="user-email" />
+        <button type="submit" class="request-submit">Envoyer la demande →</button>
+        <div id="request-success">✅ Merci ! Votre demande a bien été envoyée.</div>
+      </form>
+    </div>
+
+    <div>
+      <div style="font-size: 0.78rem; opacity: 0.4; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.08em;">Compatibilité actuelle</div>
+      <div class="banks-list">
+        <div class="bank-row">
+          <div class="bank-row-icon">🏦</div>
+          <div class="bank-row-name">Crédit Mutuel</div>
+          <span class="bank-status bs-ok">✓ Disponible</span>
+        </div>
+        <div class="bank-row">
+          <div class="bank-row-icon">💜</div>
+          <div class="bank-row-name">Revolut</div>
+          <span class="bank-status bs-ok">✓ Disponible</span>
+        </div>
+        <div class="bank-row">
+          <div class="bank-row-icon">🏦</div>
+          <div class="bank-row-name">BNP Paribas</div>
+          <span class="bank-status bs-soon">À venir</span>
+        </div>
+        <div class="bank-row">
+          <div class="bank-row-icon">🏦</div>
+          <div class="bank-row-name">Boursorama</div>
+          <span class="bank-status bs-soon">À venir</span>
+        </div>
+        <div class="bank-row">
+          <div class="bank-row-icon">🏦</div>
+          <div class="bank-row-name">LCL</div>
+          <span class="bank-status bs-soon">À venir</span>
+        </div>
+        <div class="bank-row">
+          <div class="bank-row-icon">➕</div>
+          <div class="bank-row-name" style="color:rgba(255,255,255,0.4); font-style:italic;">La vôtre ?</div>
+          <span class="bank-status bs-soon">Proposez-la</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="#">Confidentialité</a>
+      <a href="#">GitHub</a>
+      <a href="#">Contact</a>
+    </div>
+    <div>© 2025 Stateri — Vos finances, votre Google Drive.</div>
+  </div>
+</footer>
+
+<script>
+  function submitRequest(e) {
+    e.preventDefault();
+    const bankName = document.getElementById('bank-name').value;
+    const email = document.getElementById('user-email').value;
+    // TODO: connecter à un vrai endpoint (Formspree, EmailJS, etc.)
+    // Pour l'instant : affichage du message de succès
+    document.getElementById('request-success').style.display = 'block';
+    document.getElementById('bank-name').value = '';
+    document.getElementById('user-email').value = '';
+    setTimeout(() => { document.getElementById('request-success').style.display = 'none'; }, 5000);
+  }
+</script>
+
+</body>
+</html>

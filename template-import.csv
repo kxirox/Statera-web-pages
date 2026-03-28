@@ -1,0 +1,7 @@
+date,montant,kind,linked_expense_id,categorie,banque,type_compte,note,personne
+2026-01-01,1500.00,income,,Salaire,Crédit Mutuel,Compte courant,Salaire janvier,
+2026-01-02,-35.00,expense,,Alimentation,Crédit Mutuel,Compte commun,Carrefour,
+2026-01-03,-100.00,expense,,Transport,Revolut,Compte courant,Billet de train SNCF,Louis
+2026-01-03,100.00,reimbursement,3,Transport,Crédit Mutuel,Compte courant,Remboursement billet Louis,Louis
+2026-01-05,-50.00,expense,,Impôts,Crédit Mutuel,Compte courant,Abonnement TGV,
+2026-01-07,-12.00,expense,,Restaurant,Crédit Mutuel,Compte courant,Burger King,
