@@ -89,6 +89,13 @@
     .screenshot-img img { width: 100%; display: block; }
     .screenshot-img.featured { border-radius: 16px; box-shadow: 0 24px 64px rgba(0,0,0,0.16), 0 8px 24px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.06); border: 1px solid rgba(15,17,23,0.08); }
 
+    /* Section patrimoine : texte en 2 colonnes + image pleine largeur */
+    .patrimoine-block { display: flex; flex-direction: column; gap: 2.5rem; }
+    .patrimoine-header { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .patrimoine-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 28px 72px rgba(0,0,0,0.13), 0 8px 24px rgba(0,0,0,0.08); }
+    .patrimoine-img img { width: 100%; display: block; }
+    @media (max-width: 900px) { .patrimoine-header { grid-template-columns: 1fr; gap: 1.5rem; } }
+
     .gdrive-section { background: var(--ink); color: #fff; }
     .gdrive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
     .gdrive-points { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
@@ -258,19 +265,21 @@
         <img src="screenshot2.png" alt="Stateri — Dépenses par catégorie sur 12 mois" />
       </div>
     </div>
-    <div class="screenshot-section reverse">
-      <div>
-        <div class="section-tag">Patrimoine</div>
-        <h2 class="section-title">Évolution de votre patrimoine dans le temps</h2>
-        <p style="color:var(--ink-2); font-weight:300; line-height:1.75;">Visualisez la courbe de votre fortune totale et de vos investissements sur 6 mois, 1 an, 3 ans ou tout l'historique. Suivez votre progression sur le long terme.</p>
-        <ul class="feature-list">
+    <div class="patrimoine-block">
+      <div class="patrimoine-header">
+        <div>
+          <div class="section-tag">Patrimoine</div>
+          <h2 class="section-title">Évolution de votre patrimoine dans le temps</h2>
+          <p style="color:var(--ink-2); font-weight:300; line-height:1.75;">Visualisez la courbe de votre fortune totale et de vos investissements sur 6 mois, 1 an, 3 ans ou tout l'historique. Suivez votre progression sur le long terme.</p>
+        </div>
+        <ul class="feature-list" style="margin-top: 0; align-self: center;">
           <li>Fortune totale et investissements distincts</li>
           <li>Filtres : 6 mois, 1 an, 3 ans, tout</li>
           <li>Snapshots d'investissements historiques</li>
           <li>Patrimoine brut et net calculés automatiquement</li>
         </ul>
       </div>
-      <div class="screenshot-img">
+      <div class="patrimoine-img">
         <img src="screenshot3.png" alt="Stateri — Évolution du patrimoine" />
       </div>
     </div>
