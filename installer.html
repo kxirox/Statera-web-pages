@@ -220,7 +220,7 @@
 <div class="install-hero">
   <div class="hero-eyebrow">Installation gratuite · Sans App Store · 30 secondes</div>
   <h1>Installez <em>Stateri</em><br />sur votre téléphone</h1>
-  <p>Stateri est une <strong>application web progressive (PWA)</strong> — elle s'installe directement depuis votre navigateur, sans passer par l'App Store ou le Play Store. C'est rapide, gratuit, et ça fonctionne comme une vraie application native.</p>
+  <p>Stateri s'installe directement depuis votre navigateur en 30 secondes — sans App Store, sans Play Store, sans compte à créer. Suivez simplement les étapes ci-dessous selon votre téléphone.</p>
 </div>
 
 <!-- URL BANNER -->
@@ -320,7 +320,7 @@
           <div class="step-num sn-ios">1</div>
           <div class="step-content">
             <h4>Ouvrez Safari</h4>
-            <p>Sur iPhone, l'installation PWA ne fonctionne <strong>qu'avec Safari</strong>. Chrome et Firefox ne le permettent pas sur iOS.</p>
+            <p>Sur iPhone, l'ajout à l'écran d'accueil ne fonctionne <strong>qu'avec Safari</strong>. Chrome et Firefox ne le permettent pas sur iOS.</p>
             <div class="tip tip-warning">⚠️ Utilisez Safari, pas Chrome</div>
           </div>
         </div>
@@ -425,11 +425,36 @@
 <script>
   function copyUrl() {
     const url = document.getElementById('app-url').textContent.trim();
-    navigator.clipboard.writeText(url).then(() => {
-      const btn = document.querySelector('.url-copy-btn');
+    const btn = document.querySelector('.url-copy-btn');
+
+    function onSuccess() {
       btn.textContent = '✓ Copié !';
       setTimeout(() => { btn.textContent = '📋 Copier le lien'; }, 2000);
-    });
+    }
+
+    function onError() {
+      // Fallback : sélection + execCommand pour les contextes non-HTTPS ou navigateurs anciens
+      const el = document.getElementById('app-url');
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      try {
+        document.execCommand('copy');
+        onSuccess();
+      } catch (e) {
+        btn.textContent = '⚠️ Copiez manuellement';
+        setTimeout(() => { btn.textContent = '📋 Copier le lien'; }, 3000);
+      }
+      sel.removeAllRanges();
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(onSuccess).catch(onError);
+    } else {
+      onError();
+    }
   }
 </script>
 
