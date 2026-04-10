@@ -53,8 +53,6 @@
     .hero-visual { position: relative; }
     .hero-screenshot { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.05); }
     .hero-screenshot img { width: 100%; display: block; }
-    .hero-badge { position: absolute; bottom: -16px; right: 0; background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); border-radius: var(--r); padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--gold); font-weight: 500; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-    .hero-badge strong { display: block; font-size: 1.05rem; }
 
     .stats-bar { background: var(--ink); color: #fff; padding: 1.5rem 2rem; }
     .stats-bar-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; }
@@ -141,7 +139,10 @@
     .hero-visual { animation: fadeUp 0.6s 0.2s ease both; }
 
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 0 5rem; gap: 2rem; }
+      .hero-content { padding: 0 1.5rem; }
+      .hero-visual { padding: 0; }
+      .hero-screenshot { border-radius: 10px; margin: 0 1.5rem; }
       .features-grid { grid-template-columns: 1fr 1fr; }
       .screenshot-section { grid-template-columns: 1fr; gap: 2rem; }
       .screenshot-section.featured { grid-template-columns: 1fr; }
@@ -182,11 +183,7 @@
     </div>
     <div class="hero-visual">
       <div class="hero-screenshot">
-        <img src="screenshot1.png" alt="Stateri — Répartition des dépenses par catégorie" />
-      </div>
-      <div class="hero-badge">
-        <strong>Sur votre Drive. Nulle part ailleurs.</strong>
-        Zéro serveur tiers
+        <img src="screenshot1.png" alt="Stateri — Vue patrimoine : fortune nette, investissements, Time Freedom" />
       </div>
     </div>
   </div>
