@@ -35,8 +35,10 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--ink); }
-    .nav-cta { font-size: 0.875rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.55rem 1.25rem; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
-    .nav-cta:hover { opacity: 0.82; }
+    .nav-cta { font-size: 0.875rem; font-weight: 500; background: var(--accent); color: #fff; border: none; border-radius: 50px; padding: 0.55rem 1.25rem; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
+    .nav-cta:hover { opacity: 0.85; }
+    .btn-accent { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--accent); color: #fff; border: none; border-radius: 50px; padding: 0.75rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-accent:hover { opacity: 0.88; transform: translateY(-1px); }
 
     .hero { padding: 9rem 2rem 5rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: center; }
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
@@ -167,7 +169,7 @@
     <a href="#donnees">Vos données</a>
     <a href="#explorer">Explorer</a>
   </div>
-  <a href="installer.html" class="nav-cta">Installer l'application</a>
+  <a href="https://app.stateri.fr/" class="nav-cta" target="_blank" rel="noopener">Ouvrir l'application</a>
 </nav>
 
 <section style="padding: 0;">
@@ -177,8 +179,8 @@
       <h1>Votre budget,<br /><em>100% privé.</em><br />Sur votre Drive.</h1>
       <p>Stateri est l'application de budget et de patrimoine qui fonctionne même sans connexion. Vos données sont sauvegardées <strong>uniquement sur votre Google Drive</strong> — sur votre téléphone, sur votre Drive, nulle part ailleurs.</p>
       <div class="hero-actions">
-        <a href="installer.html" class="btn-primary">📲 Installer Stateri</a>
-        <a href="#fonctionnalites" class="btn-secondary">Voir les fonctionnalités</a>
+        <a href="https://app.stateri.fr/" class="btn-accent" target="_blank" rel="noopener">🌐 Ouvrir l'application</a>
+        <a href="installer.html" class="btn-secondary">📲 Installer sur mobile</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -384,8 +386,8 @@
     <h2 class="section-title" style="max-width:100%; margin:0 auto 1rem;">Votre budget et votre patrimoine, <em style="color:var(--accent);">100% privés.</em></h2>
     <p class="section-subtitle" style="margin:0 auto 2.5rem;">Installez Stateri en quelques secondes. Aucun compte requis, aucune carte bleue. Vos données sur votre téléphone, sur votre Drive — nulle part ailleurs.</p>
     <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-      <a href="installer.html" class="btn-primary" style="font-size:1rem; padding:0.85rem 2rem;">📲 Installer Stateri</a>
-      <a href="#fonctionnalites" class="btn-secondary" style="font-size:1rem; padding:0.85rem 1.75rem;">En savoir plus</a>
+      <a href="https://app.stateri.fr/" class="btn-accent" style="font-size:1rem; padding:0.85rem 2rem;" target="_blank" rel="noopener">🌐 Ouvrir l'application</a>
+      <a href="installer.html" class="btn-secondary" style="font-size:1rem; padding:0.85rem 1.75rem;">📲 Installer sur mobile</a>
     </div>
   </div>
 </section>
