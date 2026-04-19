@@ -51,6 +51,20 @@
   </url>
 
   <url>
+    <loc>https://stateri.fr/comment-ca-marche.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/faq.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://stateri.fr/recurrences.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>

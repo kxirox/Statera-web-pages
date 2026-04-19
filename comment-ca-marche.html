@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comment ça marche — Stateri</title>
+  <meta name="description" content="Démarrez avec Stateri en 3 étapes : installez l'app, connectez votre Google Drive, ajoutez vos comptes. Aucun abonnement, aucun serveur tiers, 100% privé." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --purple: #6b3fa0; --purple-light: #f0eafa;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 8rem 2rem 4rem; max-width: 720px; margin: 0 auto; text-align: center; animation: fadeUp 0.5s ease both; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1.05rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; }
+
+    /* ── STEPS ── */
+    .steps-wrap { max-width: 1100px; margin: 0 auto; padding: 0 2rem 5rem; }
+
+    .step { display: grid; grid-template-columns: 80px 1fr 1.3fr; gap: 3rem; align-items: center; padding: 4rem 0; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step.reverse { grid-template-columns: 80px 1.3fr 1fr; }
+    .step.reverse .step-img { order: -1; }
+
+    .step-num { font-family: var(--font-display); font-size: 4rem; color: var(--accent-light); line-height: 1; user-select: none; }
+
+    .step-content {}
+    .step-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+    .step-title { font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .step-title em { font-style: italic; color: var(--accent); }
+    .step-desc { font-size: 0.95rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.25rem; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .step-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .step-list li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 3px; }
+
+    .step-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 56px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06); }
+    .step-img img { width: 100%; display: block; }
+
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.25rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── AFTER START ── */
+    .after-wrap { background: var(--surface-2); border-top: 1px solid var(--border); padding: 5rem 2rem; }
+    .after-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .features-after { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .feature-after { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .feature-after .icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .feature-after h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .feature-after p { font-size: 0.85rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-after a { display: inline-block; margin-top: 0.75rem; font-size: 0.82rem; color: var(--accent); font-weight: 500; text-decoration: none; }
+    .feature-after a:hover { text-decoration: underline; }
+
+    /* ── CTA ── */
+    .cta-banner { text-align: center; padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+    .btn-secondary { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink); background: transparent; border: 1px solid var(--border); border-radius: 50px; padding: 0.8rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; margin-left: 0.75rem; }
+    .btn-secondary:hover { background: var(--surface-2); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      .step, .step.reverse { grid-template-columns: 60px 1fr; gap: 1.5rem; }
+      .step-img, .step.reverse .step-img { order: 0; grid-column: 1 / -1; }
+      .features-after { grid-template-columns: 1fr 1fr; }
+      .page-hero { padding-top: 7rem; }
+    }
+    @media (max-width: 500px) {
+      .step { grid-template-columns: 48px 1fr; }
+      .features-after { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow">Démarrage · Installation · Premiers pas</div>
+  <h1>Prêt en <em>3 minutes</em>,<br />pour toujours privé.</h1>
+  <p>Aucun compte à créer, aucune carte bancaire, aucun serveur tiers. Vos données vivent sur votre Google Drive — et nulle part ailleurs.</p>
+</div>
+
+<div class="steps-wrap">
+
+  <!-- ÉTAPE 1 -->
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-tag">Installation</div>
+      <h2 class="step-title">Installez Stateri<br />sur votre <em>téléphone</em></h2>
+      <p class="step-desc">Stateri est une PWA (Progressive Web App) — elle s'installe directement depuis votre navigateur, sans passer par l'App Store ou le Play Store. Gratuit, léger, toujours à jour.</p>
+      <ul class="step-list">
+        <li>Ouvrez <strong>app.stateri.fr</strong> dans Chrome (Android) ou Safari (iPhone)</li>
+        <li>Appuyez sur <strong>"Ajouter à l'écran d'accueil"</strong> dans le menu du navigateur</li>
+        <li>L'icône Stateri apparaît sur votre téléphone comme une app native</li>
+        <li>Fonctionne également sur ordinateur via le navigateur</li>
+      </ul>
+      <div class="info-box green">
+        <div class="info-box-icon">📲</div>
+        <div>Pas d'App Store, pas de mise à jour manuelle. L'app se met à jour toute seule à chaque ouverture. <a href="installer.html" style="color: var(--accent); font-weight: 500;">Guide d'installation détaillé →</a></div>
+      </div>
+    </div>
+    <div class="step-img">
+      <img src="install-android.png" alt="Stateri — Installation sur Android depuis Chrome" />
+    </div>
+  </div>
+
+  <!-- ÉTAPE 2 -->
+  <div class="step reverse">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-tag">Connexion Google Drive</div>
+      <h2 class="step-title">Connectez votre<br /><em>Google Drive</em></h2>
+      <p class="step-desc">Au premier lancement, Stateri vous demande l'autorisation d'accéder à votre Google Drive. C'est là que toutes vos données seront stockées — uniquement chez vous, pas sur nos serveurs.</p>
+      <ul class="step-list">
+        <li>Cliquez sur <strong>"Se connecter avec Google"</strong></li>
+        <li>Autorisez Stateri à créer un fichier sur votre Drive</li>
+        <li>Un fichier <strong>stateri.json</strong> est créé dans votre Drive personnel</li>
+        <li>Vous pouvez le consulter, le copier ou le supprimer à tout moment</li>
+      </ul>
+      <div class="info-box blue">
+        <div class="info-box-icon">🔒</div>
+        <div>Stateri accède <strong>uniquement au fichier qu'il crée</strong> — pas à vos autres fichiers Drive. L'accès est limité et révocable depuis votre compte Google à tout moment.</div>
+      </div>
+    </div>
+    <div class="step-img">
+      <img src="screenshot-settings.png" alt="Stateri — Connexion et synchronisation Google Drive" />
+    </div>
+  </div>
+
+  <!-- ÉTAPE 3 -->
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-tag">Configuration</div>
+      <h2 class="step-title">Ajoutez vos comptes<br />et <em>c'est parti</em></h2>
+      <p class="step-desc">Renseignez vos comptes bancaires (nom de la banque, type, solde actuel) et choisissez votre devise principale. Stateri crée une transaction de solde initial pour chacun — vous êtes prêt à saisir.</p>
+      <ul class="step-list">
+        <li>Ajoutez autant de comptes que vous voulez : courant, épargne, livret, PEA…</li>
+        <li>Multi-devises : EUR, CHF, et bien d'autres</li>
+        <li>Importez vos transactions passées via CSV si vous souhaitez de l'historique</li>
+        <li>Votre première dépense peut être saisie en moins de 10 secondes</li>
+      </ul>
+      <div class="info-box gold">
+        <div class="info-box-icon">💡</div>
+        <div>Pas besoin de tout renseigner dès le départ. Commencez avec un seul compte et ajoutez les autres au fil du temps — Stateri s'adapte à votre rythme.</div>
+      </div>
+    </div>
+    <div class="step-img">
+      <img src="screenshot1.png" alt="Stateri — Ajout d'un compte bancaire et saisie de la première dépense" />
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ APRÈS LE DÉMARRAGE ══ -->
+<div class="after-wrap">
+  <div class="after-inner">
+    <div class="section-tag">Ensuite</div>
+    <h2 class="section-title">Ce que vous pouvez faire dès le premier jour</h2>
+    <div class="features-after">
+      <div class="feature-after">
+        <div class="icon">🎤</div>
+        <h3>Dicter une dépense</h3>
+        <p>Dites "Carrefour 43 euros alimentation" et Stateri remplit le formulaire automatiquement.</p>
+      </div>
+      <div class="feature-after">
+        <div class="icon">📊</div>
+        <h3>Voir vos statistiques</h3>
+        <p>Camemberts par catégorie, histogramme 12 mois, solde glissant — tout se met à jour en temps réel.</p>
+        <a href="statistiques.html">En savoir plus →</a>
+      </div>
+      <div class="feature-after">
+        <div class="icon">🔮</div>
+        <h3>Planifier le mois</h3>
+        <p>Ouvrez le budget prévisionnel et anticipez votre solde de fin de mois avant qu'il soit trop tard.</p>
+        <a href="previsionnel.html">En savoir plus →</a>
+      </div>
+      <div class="feature-after">
+        <div class="icon">🔁</div>
+        <h3>Enregistrer vos récurrences</h3>
+        <p>Loyer, abonnements, salaire — configurez-les une fois et ne les ressaisissez plus jamais.</p>
+        <a href="recurrences.html">En savoir plus →</a>
+      </div>
+      <div class="feature-after">
+        <div class="icon">📈</div>
+        <h3>Suivre votre patrimoine</h3>
+        <p>Ajoutez vos investissements, votre immobilier et calculez votre fortune nette totale.</p>
+        <a href="patrimoine.html">En savoir plus →</a>
+      </div>
+      <div class="feature-after">
+        <div class="icon">💳</div>
+        <h3>Importer vos relevés</h3>
+        <p>Importez un fichier CSV depuis Crédit Mutuel, Revolut ou n'importe quelle banque.</p>
+        <a href="transactions.html">En savoir plus →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Prêt à démarrer ?</div>
+  <h2>3 minutes pour <em style="font-style:italic; color:var(--accent);">tout configurer.</em></h2>
+  <p>Ouvrez l'application, connectez votre Drive et ajoutez votre premier compte. Aucune carte bleue, aucun abonnement.</p>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener">🌐 Ouvrir Stateri</a>
+  <a href="installer.html" class="btn-secondary">📲 Guide d'installation</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="previsionnel.html">Prévisionnel</a>
+      <a href="statistiques.html">Statistiques</a>
+      <a href="patrimoine.html">Patrimoine</a>
+      <a href="installer.html">Installer</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div>© 2026 Stateri — Application de budget personnel</div>
+  </div>
+</footer>
+
+</body>
+</html>

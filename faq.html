@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Questions fréquentes — Stateri</title>
+  <meta name="description" content="Toutes les réponses aux questions fréquentes sur Stateri : confidentialité, Google Drive, fonctionnement hors ligne, multi-devises, import bancaire et bien plus." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 720px; margin: 0 auto; text-align: center; animation: fadeUp 0.5s ease both; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; }
+
+    /* ── FAQ ── */
+    .faq-wrap { max-width: 780px; margin: 0 auto; padding: 2rem 2rem 6rem; }
+
+    .faq-group { margin-bottom: 3rem; }
+    .faq-group-title { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-light); }
+
+    .faq-item { border: 1px solid var(--border); border-radius: var(--r); background: #fff; margin-bottom: 0.75rem; overflow: hidden; }
+    .faq-question { width: 100%; background: none; border: none; padding: 1.25rem 1.5rem; text-align: left; font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .faq-question:hover { background: var(--surface); }
+    .faq-chevron { font-size: 1rem; color: var(--ink-3); transition: transform 0.25s; flex-shrink: 0; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer { display: none; padding: 0 1.5rem 1.25rem; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-answer a { color: var(--accent); font-weight: 500; text-decoration: none; }
+    .faq-answer a:hover { text-decoration: underline; }
+    .faq-answer strong { color: var(--ink); font-weight: 500; }
+
+    /* ── CONTACT BLOCK ── */
+    .contact-block { background: var(--surface-2); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; text-align: center; margin-top: 2rem; }
+    .contact-block h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .contact-block p { font-size: 0.9rem; color: var(--ink-2); font-weight: 300; margin-bottom: 1.25rem; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.75rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 500px) {
+      .page-hero { padding-top: 7rem; }
+      .faq-question { font-size: 0.875rem; padding: 1rem 1.25rem; }
+      .faq-answer { padding: 0 1.25rem 1rem; padding-top: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow">Questions fréquentes</div>
+  <h1>Tout ce que vous<br />voulez <em>savoir.</em></h1>
+  <p>Confidentialité, Google Drive, import de données, fonctionnalités — les réponses aux questions les plus posées.</p>
+</div>
+
+<div class="faq-wrap">
+
+  <!-- CONFIDENTIALITÉ -->
+  <div class="faq-group">
+    <div class="faq-group-title">🔒 Confidentialité & données</div>
+
+    <div class="faq-item open">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Mes données financières sont-elles vraiment privées ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Oui, à 100 %. Stateri ne possède <strong>aucun serveur</strong> qui stocke vos données. Toutes vos transactions, soldes, budgets et investissements sont écrits directement dans un fichier sur <strong>votre propre Google Drive</strong>. Stateri lui-même n'y a pas accès — seul votre compte Google peut lire ce fichier.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Stateri peut-il accéder à tous mes fichiers Google Drive ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Non. Stateri demande une permission <strong>restreinte</strong> : il peut uniquement créer et modifier le fichier qu'il a lui-même créé (<code>stateri-backup.json</code>). Vos autres fichiers Drive, photos, documents et e-mails sont totalement inaccessibles pour l'application.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Que se passe-t-il si je veux arrêter d'utiliser Stateri ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Supprimez simplement le fichier <code>stateri-backup.json</code> de votre Google Drive et révoquez l'accès de l'application depuis les paramètres de votre compte Google. Vos données disparaissent intégralement — il n'y a rien à supprimer côté Stateri puisque rien n'y est stocké.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Y a-t-il de la publicité ou du tracking dans l'application ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        <strong>Aucun.</strong> Stateri ne contient aucun outil de tracking, aucune publicité, aucune analyse comportementale. L'application n'a aucun intérêt à monétiser vos habitudes de dépense — votre budget ne quitte jamais votre téléphone et votre Drive.
+      </div>
+    </div>
+  </div>
+
+  <!-- FONCTIONNEMENT -->
+  <div class="faq-group">
+    <div class="faq-group-title">⚙️ Fonctionnement</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Stateri fonctionne-t-il sans connexion internet ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Oui. Stateri est une PWA (Progressive Web App) qui fonctionne entièrement <strong>hors ligne</strong> une fois installée. Vous pouvez ajouter des dépenses, consulter vos stats et accéder à votre historique sans réseau. La synchronisation avec Google Drive se déclenche automatiquement à la prochaine connexion.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Puis-je utiliser Stateri sur plusieurs appareils ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Oui. Puisque toutes vos données sont sur votre Google Drive, vous pouvez accéder à Stateri depuis votre téléphone, votre tablette et votre ordinateur. Installez l'application sur chaque appareil et connectez le même compte Google — vos données seront synchronisées via votre Drive.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Faut-il connecter ses identifiants bancaires ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        <strong>Non.</strong> Stateri ne se connecte jamais à votre banque. Vous saisissez vos dépenses manuellement (ou par dictée vocale), ou vous importez un fichier CSV exporté depuis votre espace bancaire. Vos identifiants de banque restent exclusivement entre vous et votre banque.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Comment installer Stateri sur mon téléphone ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Ouvrez <strong>app.stateri.fr</strong> dans Chrome (Android) ou Safari (iPhone), puis utilisez le menu du navigateur pour "Ajouter à l'écran d'accueil". L'application s'installe comme une app native, sans passer par l'App Store ou le Play Store. Consultez notre <a href="installer.html">guide d'installation détaillé →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FONCTIONNALITÉS -->
+  <div class="faq-group">
+    <div class="faq-group-title">✨ Fonctionnalités</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Peut-on utiliser Stateri avec plusieurs devises ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Oui. Stateri supporte le multi-devises nativement — idéal si vous avez des comptes en euros et en francs suisses, par exemple. Chaque compte a sa propre devise, et Stateri convertit les montants dans votre devise d'affichage principale grâce aux taux de change que vous configurez. <a href="devises.html">En savoir plus sur le multi-devises →</a>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Comment importer mes transactions bancaires ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Exportez un fichier CSV ou Excel depuis votre espace bancaire en ligne, puis importez-le dans Stateri depuis l'onglet Transactions. Stateri est compatible avec les formats Crédit Mutuel, Revolut, et tout CSV standard. L'auto-catégorisation reconnaît automatiquement les marchands courants. <a href="transactions.html">Voir le guide d'import →</a>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Le budget prévisionnel est-il difficile à configurer ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Pas du tout. Ouvrez l'onglet Prévisionnel, ajoutez vos dépenses et revenus attendus pour le mois, et Stateri calcule instantanément votre solde projeté à fin de mois. Vous pouvez définir un niveau de certitude (Certain, Probable, Incertain) pour chaque ligne. <a href="previsionnel.html">Découvrir le budget prévisionnel →</a>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Stateri peut-il suivre mes investissements (PEA, assurance-vie, crypto) ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Oui. L'onglet Investissements permet de saisir vos achats par compte (PEA, CTO, assurance-vie, crypto…), de suivre la performance totale en euros et en %, et de calculer votre XIRR (taux de rendement interne réel). Vos investissements s'intègrent dans le calcul de votre patrimoine net total. <a href="patrimoine.html">Découvrir le suivi patrimoine →</a>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Puis-je partager un compte avec mon conjoint(e) ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Stateri gère les comptes partagés via un système de <strong>taux de contribution</strong> : vous définissez le pourcentage des dépenses d'un compte commun qui vous appartient réellement. Un toggle "Ma part" dans les statistiques vous donne une vision personnalisée de votre budget, même sur des comptes partagés. <a href="partage.html">Découvrir les comptes partagés →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TARIFICATION -->
+  <div class="faq-group">
+    <div class="faq-group-title">💰 Tarification</div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Stateri est-il vraiment gratuit ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        <strong>Oui, complètement.</strong> Aucun abonnement, aucune version premium, aucune fonctionnalité cachée derrière un paywall. Toutes les fonctionnalités — budget prévisionnel, suivi patrimoine, multi-devises, import CSV — sont disponibles gratuitement et sans limitation.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.closest('.faq-item').classList.toggle('open')">
+        Comment Stateri se finance-t-il sans abonnement ?
+        <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-answer">
+        Stateri est un projet indépendant développé avec passion. Il n'a pas de modèle de monétisation actuel — aucune publicité, aucune revente de données, aucun abonnement. C'est une application conçue pour être utile, pas pour être rentable à tout prix.
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOC CONTACT -->
+  <div class="contact-block">
+    <h3>Vous n'avez pas trouvé votre réponse ?</h3>
+    <p>Posez-nous directement votre question — nous répondons à chaque message.</p>
+    <a href="feedback.html" class="btn-primary">Contacter l'équipe →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="comment-ca-marche.html">Démarrer</a>
+      <a href="statistiques.html">Statistiques</a>
+      <a href="patrimoine.html">Patrimoine</a>
+      <a href="installer.html">Installer</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div>© 2026 Stateri — Application de budget personnel</div>
+  </div>
+</footer>
+
+<script>
+  /* Ouvre le premier item par défaut au chargement */
+</script>
+</body>
+</html>
