@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dépenses récurrentes & abonnements — Stateri</title>
+  <meta name="description" content="Loyer, abonnements, salaire — enregistrez vos récurrences une seule fois dans Stateri et ne les ressaisissez plus jamais. Prélèvements automatiques et revenus mensuels gérés en quelques secondes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --purple: #6b3fa0; --purple-light: #f0eafa;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    /* ── JUMP LINKS ── */
+    .jump-links { display: flex; flex-wrap: wrap; gap: 0.5rem; max-width: 1100px; margin: 0 auto; padding: 0 2rem 1.5rem; }
+    .jump-link { font-size: 0.82rem; font-weight: 500; color: var(--accent); background: var(--accent-light); border: none; border-radius: 50px; padding: 5px 14px; text-decoration: none; transition: opacity 0.2s; }
+    .jump-link:hover { opacity: 0.78; }
+
+    /* ── SECTIONS ── */
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+
+    /* ── LAYOUTS ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+
+    /* ── INFO BOX ── */
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box.purple { background: var(--purple-light); border: 1px solid rgba(107,63,160,0.2); color: #4a1e80; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── FEATURE LIST ── */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── EXEMPLES GRID ── */
+    .exemples-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .exemple-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .exemple-card .exemple-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .exemple-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .exemple-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
+    .exemple-card li { font-size: 0.82rem; color: var(--ink-2); font-weight: 300; display: flex; align-items: center; gap: 6px; }
+    .exemple-card li::before { content: '·'; color: var(--accent); font-size: 1.2rem; line-height: 1; }
+
+    /* ── RECURRENCE VISUEL ── */
+    .rec-visual { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-top: 2rem; }
+    .rec-visual-header { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1rem; }
+    .rec-row { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(15,17,23,0.06); }
+    .rec-row:last-child { border-bottom: none; }
+    .rec-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .rec-icon.green { background: var(--accent-light); }
+    .rec-icon.gold { background: var(--gold-light); }
+    .rec-icon.blue { background: var(--blue-light); }
+    .rec-icon.purple { background: var(--purple-light); }
+    .rec-info { flex: 1; }
+    .rec-info .rec-name { font-size: 0.9rem; font-weight: 500; color: var(--ink); }
+    .rec-info .rec-detail { font-size: 0.78rem; color: var(--ink-3); font-weight: 300; }
+    .rec-amount { font-size: 0.95rem; font-weight: 500; }
+    .rec-amount.neg { color: #c0392b; }
+    .rec-amount.pos { color: var(--accent); }
+    .rec-badge { font-size: 0.72rem; font-weight: 400; background: var(--surface-2); border: 1px solid var(--border); border-radius: 50px; padding: 2px 8px; color: var(--ink-3); white-space: nowrap; }
+
+    /* ── SYNERGY BLOCK ── */
+    .synergy-block { background: var(--ink); border-radius: 16px; padding: 2.5rem; margin-top: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .synergy-block h3 { font-family: var(--font-display); font-size: 1.5rem; color: #fff; margin-bottom: 0.75rem; }
+    .synergy-block p { font-size: 0.9rem; color: rgba(255,255,255,0.55); font-weight: 300; line-height: 1.75; }
+    .synergy-steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .synergy-step { display: flex; align-items: flex-start; gap: 12px; }
+    .synergy-step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .synergy-step-text { font-size: 0.875rem; color: rgba(255,255,255,0.75); font-weight: 300; line-height: 1.6; }
+    .synergy-step-text strong { color: #fff; font-weight: 500; }
+    .synergy-arrow { text-align: center; padding: 2rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; }
+    .synergy-arrow .arrow-label { font-size: 0.78rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; display: block; }
+    .synergy-arrow .arrow-flow { font-size: 2rem; color: var(--accent-mid); }
+    .synergy-arrow .arrow-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); font-weight: 300; margin-top: 0.75rem; line-height: 1.55; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img { grid-template-columns: 1fr; gap: 2rem; }
+      .two-col.reverse { direction: ltr; }
+      .exemples-grid { grid-template-columns: 1fr 1fr; }
+      .synergy-block { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    @media (max-width: 500px) {
+      .exemples-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">Loyer · Abonnements · Revenus fixes</div>
+    <h1>Vos charges fixes,<br /><em>enregistrées une fois.</em></h1>
+    <p>Loyer, Netflix, salaire, remboursement de crédit — saisissez chaque récurrence une seule fois dans Stateri. L'app s'en souvient, mois après mois, sans que vous ayez à y penser.</p>
+    <div class="feature-pills">
+      <span class="pill">🔄 Mensuel, trimestriel, annuel</span>
+      <span class="pill">💸 Dépenses & revenus</span>
+      <span class="pill">📅 Jour du mois configurable</span>
+      <span class="pill">🔮 Lié au prévisionnel</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="recurrences-overview.png" alt="Stateri — Liste des dépenses récurrentes enregistrées" />
+  </div>
+</div>
+
+<!-- ══ JUMP LINKS ══ -->
+<div class="jump-links">
+  <a class="jump-link" href="#saisie">Saisie en quelques secondes</a>
+  <a class="jump-link" href="#types">Tous types de récurrences</a>
+  <a class="jump-link" href="#previsionnel">Lien avec le prévisionnel</a>
+</div>
+
+<!-- ══ SAISIE ══ -->
+<div class="content-section" id="saisie">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Saisie</div>
+        <h2 class="section-title">Configurez en 30 secondes, oubliez pour toujours</h2>
+        <p class="section-desc">Donnez un nom à votre récurrence, choisissez le montant, la catégorie et le jour du mois. Stateri s'occupe du reste — chaque mois, à la bonne date.</p>
+
+        <ul class="feature-list">
+          <li>Titre libre : "Loyer", "Spotify", "Salaire Net"…</li>
+          <li>Type : dépense, revenu ou virement interne</li>
+          <li>Catégorie et compte bancaire associés</li>
+          <li>Jour du mois de déclenchement configurable</li>
+          <li>Note optionnelle : "prélèvement auto", "virement employeur"…</li>
+        </ul>
+
+        <div class="info-box green">
+          <div class="info-box-icon">⚡</div>
+          <div>Une fois enregistrée, la récurrence apparaît automatiquement dans votre <strong>budget prévisionnel</strong> chaque mois — sans aucune action de votre part.</div>
+        </div>
+      </div>
+
+      <div class="app-img">
+        <img src="recurrences-form.png" alt="Stateri — Formulaire d'ajout d'une dépense récurrente" />
+      </div>
+    </div>
+
+    <!-- Visuel liste récurrences -->
+    <div class="rec-visual" style="margin-top: 3rem;">
+      <div class="rec-visual-header">Récurrences enregistrées — exemple</div>
+      <div class="rec-row">
+        <div class="rec-icon green">🏠</div>
+        <div class="rec-info">
+          <div class="rec-name">Loyer</div>
+          <div class="rec-detail">Mensuel · le 1er du mois · Logement</div>
+        </div>
+        <span class="rec-badge">Tous les mois</span>
+        <span class="rec-amount neg">−850 €</span>
+      </div>
+      <div class="rec-row">
+        <div class="rec-icon purple">🎵</div>
+        <div class="rec-info">
+          <div class="rec-name">Spotify</div>
+          <div class="rec-detail">Mensuel · le 12 · Abonnements</div>
+        </div>
+        <span class="rec-badge">Tous les mois</span>
+        <span class="rec-amount neg">−11 €</span>
+      </div>
+      <div class="rec-row">
+        <div class="rec-icon blue">🎬</div>
+        <div class="rec-info">
+          <div class="rec-name">Netflix</div>
+          <div class="rec-detail">Mensuel · le 18 · Abonnements</div>
+        </div>
+        <span class="rec-badge">Tous les mois</span>
+        <span class="rec-amount neg">−17 €</span>
+      </div>
+      <div class="rec-row">
+        <div class="rec-icon green">💼</div>
+        <div class="rec-info">
+          <div class="rec-name">Salaire net</div>
+          <div class="rec-detail">Mensuel · le 28 · Revenus</div>
+        </div>
+        <span class="rec-badge">Tous les mois</span>
+        <span class="rec-amount pos">+2 400 €</span>
+      </div>
+      <div class="rec-row">
+        <div class="rec-icon gold">🏋️</div>
+        <div class="rec-info">
+          <div class="rec-name">Salle de sport</div>
+          <div class="rec-detail">Mensuel · le 5 · Sport & Loisirs</div>
+        </div>
+        <span class="rec-badge">Tous les mois</span>
+        <span class="rec-amount neg">−35 €</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TYPES ══ -->
+<div class="content-section alt" id="types">
+  <div class="section-inner">
+    <div class="section-tag">Types de récurrences</div>
+    <h2 class="section-title">Tout ce qui revient régulièrement dans votre budget</h2>
+    <p class="section-desc" style="max-width: 680px;">Les récurrences Stateri couvrent toutes les situations : dépenses fixes, revenus réguliers, et même virements entre vos propres comptes.</p>
+
+    <div class="exemples-grid">
+      <div class="exemple-card">
+        <div class="exemple-icon">🏠</div>
+        <h3>Charges de logement</h3>
+        <ul>
+          <li>Loyer mensuel</li>
+          <li>Charges de copropriété</li>
+          <li>Assurance habitation</li>
+          <li>Électricité / gaz / internet</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+        <div class="exemple-icon">📱</div>
+        <h3>Abonnements & services</h3>
+        <ul>
+          <li>Streaming (Netflix, Spotify…)</li>
+          <li>Téléphonie & forfait mobile</li>
+          <li>Logiciels, cloud, stockage</li>
+          <li>Presse en ligne, newsletters</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+        <div class="exemple-icon">💼</div>
+        <h3>Revenus fixes</h3>
+        <ul>
+          <li>Salaire net mensuel</li>
+          <li>Revenus locatifs</li>
+          <li>Allocations, aides</li>
+          <li>Pension ou retraite</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+        <div class="exemple-icon">🏦</div>
+        <h3>Crédits & remboursements</h3>
+        <ul>
+          <li>Mensualité crédit immobilier</li>
+          <li>Remboursement prêt auto</li>
+          <li>Crédit à la consommation</li>
+          <li>Remboursement entre proches</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+        <div class="exemple-icon">💳</div>
+        <h3>Prélèvements automatiques</h3>
+        <ul>
+          <li>Mutuelle santé</li>
+          <li>Assurance vie / prévoyance</li>
+          <li>Cotisations professionnelles</li>
+          <li>Taxes et impôts mensualisés</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+        <div class="exemple-icon">💰</div>
+        <h3>Épargne automatique</h3>
+        <ul>
+          <li>Virement vers livret A</li>
+          <li>Alimentation PEA / assurance-vie</li>
+          <li>Épargne de précaution</li>
+          <li>Investissement mensuel régulier</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTERVALLE ══ -->
+<div class="content-section" id="intervalle">
+  <div class="section-inner">
+    <div class="two-col reverse">
+      <div>
+        <div class="section-tag">Fréquence</div>
+        <h2 class="section-title">Mensuel, bimestriel, trimestriel — vous décidez</h2>
+        <p class="section-desc">Tous vos prélèvements n'ont pas la même fréquence. Configurez le nombre de mois entre chaque occurrence et le jour du mois de déclenchement.</p>
+
+        <ul class="feature-list">
+          <li><strong>Tous les mois</strong> — pour le loyer, les abonnements, le salaire</li>
+          <li><strong>Tous les 2 ou 3 mois</strong> — pour les abonnements trimestriels</li>
+          <li><strong>Tous les 6 ou 12 mois</strong> — pour les assurances annuelles, taxes</li>
+          <li>Date de début configurable pour coller à la réalité</li>
+        </ul>
+
+        <div class="info-box blue">
+          <div class="info-box-icon">📅</div>
+          <div>Chaque récurrence a une <strong>date de début</strong> — pratique pour les abonnements commencés en milieu d'année ou les crédits avec une date de première échéance précise.</div>
+        </div>
+      </div>
+
+      <div class="app-img">
+        <img src="recurrences-frequence.png" alt="Stateri — Configuration de la fréquence d'une dépense récurrente" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LIEN PREVISIONNEL ══ -->
+<div class="content-section alt" id="previsionnel">
+  <div class="section-inner">
+    <div class="section-tag">Synergie</div>
+    <h2 class="section-title">Vos récurrences alimentent automatiquement le prévisionnel</h2>
+    <p class="section-desc" style="max-width: 680px;">Les dépenses récurrentes et le budget prévisionnel de Stateri travaillent ensemble. Une récurrence enregistrée apparaît automatiquement dans le prévisionnel du mois — vous visualisez d'emblée l'impact sur votre solde futur.</p>
+
+    <div class="synergy-block">
+      <div>
+        <h3>Zéro double saisie.</h3>
+        <p>Vous configurez vos récurrences une fois. Chaque mois, elles se glissent automatiquement dans le budget prévisionnel comme des lignes "Certain". Votre projection est prête avant même que vous ayez ouvert l'app.</p>
+        <div class="synergy-steps">
+          <div class="synergy-step">
+            <div class="synergy-step-num">1</div>
+            <div class="synergy-step-text">Enregistrez votre loyer : <strong>−850 € le 1er du mois</strong></div>
+          </div>
+          <div class="synergy-step">
+            <div class="synergy-step-num">2</div>
+            <div class="synergy-step-text">Le 1er janvier, Stateri l'intègre dans le <strong>prévisionnel de janvier</strong> en niveau "Certain"</div>
+          </div>
+          <div class="synergy-step">
+            <div class="synergy-step-num">3</div>
+            <div class="synergy-step-text">Votre <strong>projection fin de mois</strong> tient compte du loyer dès le premier jour</div>
+          </div>
+          <div class="synergy-step">
+            <div class="synergy-step-num">4</div>
+            <div class="synergy-step-text">Quand le prélèvement arrive, <strong>convertissez-le en dépense réelle</strong> en un clic</div>
+          </div>
+        </div>
+      </div>
+      <div class="synergy-arrow">
+        <span class="arrow-label">Du récurrent au réel</span>
+        <div class="arrow-flow">🔄 → 🔮 → ✅</div>
+        <div class="arrow-desc">Récurrences → Prévisionnel → Historique réel<br />Un cycle fluide, sans ressaisie</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner" style="border-top: 1px solid var(--border);">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Charges fixes, tête libre</div>
+  <h2>Enregistrez une fois,<br /><em style="font-style:italic; color:var(--accent);">profitez chaque mois.</em></h2>
+  <p>Installez Stateri, configurez vos récurrences en quelques minutes et laissez l'app gérer l'essentiel. Données 100% privées sur votre Google Drive.</p>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener">🌐 Ouvrir l'application →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="previsionnel.html">Prévisionnel</a>
+      <a href="statistiques.html">Statistiques</a>
+      <a href="patrimoine.html">Patrimoine</a>
+      <a href="installer.html">Installer</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div>© 2026 Stateri — Application de budget personnel</div>
+  </div>
+</footer>
+
+</body>
+</html>
