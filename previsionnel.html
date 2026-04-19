@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget prévisionnel — Stateri</title>
+  <meta name="description" content="Anticipez vos fins de mois avec le budget prévisionnel de Stateri : projection en temps réel, lignes certaines ou probables, alerte seuil et conversion en vraie dépense." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --purple: #6b3fa0; --purple-light: #f0eafa;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    /* ── JUMP LINKS ── */
+    .jump-links { display: flex; flex-wrap: wrap; gap: 0.5rem; max-width: 1100px; margin: 0 auto; padding: 0 2rem 1.5rem; }
+    .jump-link { font-size: 0.82rem; font-weight: 500; color: var(--accent); background: var(--accent-light); border: none; border-radius: 50px; padding: 5px 14px; text-decoration: none; transition: opacity 0.2s; }
+    .jump-link:hover { opacity: 0.78; }
+
+    /* ── SECTIONS ── */
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+
+    /* ── LAYOUTS ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+
+    /* ── INFO BOX ── */
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box.purple { background: var(--purple-light); border: 1px solid rgba(107,63,160,0.2); color: #4a1e80; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── FEATURE LIST ── */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── CERTITUDE CARDS ── */
+    .certitude-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .certitude-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .certitude-card .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 500; padding: 3px 10px; border-radius: 50px; margin-bottom: 0.75rem; }
+    .badge-certain { background: var(--accent-light); color: var(--accent); }
+    .badge-probable { background: var(--gold-light); color: var(--gold); }
+    .badge-incertain { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--border); }
+    .certitude-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .certitude-card p { font-size: 0.85rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+
+    /* ── KPI ROW ── */
+    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .kpi-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; text-align: center; }
+    .kpi-card .kpi-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .kpi-card h3 { font-size: 0.85rem; font-weight: 500; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+    .kpi-card p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+
+    /* ── CONVERT BLOCK ── */
+    .convert-block { background: var(--ink); color: #fff; border-radius: 16px; padding: 2.5rem; margin-top: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .convert-block h3 { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; margin-bottom: 0.75rem; }
+    .convert-block p { font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.75; }
+    .convert-block ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.25rem; }
+    .convert-block li { font-size: 0.875rem; color: rgba(255,255,255,0.75); font-weight: 300; display: flex; align-items: flex-start; gap: 8px; }
+    .convert-block li::before { content: '→'; color: var(--accent-mid); flex-shrink: 0; }
+    .convert-visual { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; }
+    .convert-visual-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.85rem; }
+    .convert-visual-row:last-child { border-bottom: none; }
+    .convert-visual-row .label { color: rgba(255,255,255,0.5); font-weight: 300; }
+    .convert-visual-row .value { color: #fff; font-weight: 500; }
+    .convert-visual-row .value.green { color: var(--accent-mid); }
+    .convert-visual-row .value.gold { color: #f0c060; }
+    .convert-visual-row .value.dim { color: rgba(255,255,255,0.35); }
+    .convert-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 500; padding: 2px 8px; border-radius: 50px; }
+    .convert-badge.certain { background: rgba(93,202,165,0.2); color: var(--accent-mid); }
+    .convert-badge.probable { background: rgba(191,138,46,0.2); color: #f0c060; }
+    .convert-badge.incertain { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img { grid-template-columns: 1fr; gap: 2rem; }
+      .two-col.reverse { direction: ltr; }
+      .certitude-grid { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .convert-block { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    @media (max-width: 500px) {
+      .kpi-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">Budget · Prévision · Projection</div>
+    <h1>Anticipez vos fins de mois,<br /><em>sans mauvaises surprises.</em></h1>
+    <p>Le budget prévisionnel de Stateri projette votre solde en temps réel à partir de vos dépenses planifiées — avec des niveaux de certitude pour distinguer ce qui est sûr de ce qui est probable.</p>
+    <div class="feature-pills">
+      <span class="pill">📊 Projection fin de mois</span>
+      <span class="pill">🎯 Alerte seuil</span>
+      <span class="pill">✅ Certitude / Probable</span>
+      <span class="pill">🔄 Conversion en dépense réelle</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="previsionnel-overview.png" alt="Stateri — Budget prévisionnel avec projection de fin de mois" />
+  </div>
+</div>
+
+<!-- ══ JUMP LINKS ══ -->
+<div class="jump-links">
+  <a class="jump-link" href="#projection">Projection en temps réel</a>
+  <a class="jump-link" href="#certitude">Niveaux de certitude</a>
+  <a class="jump-link" href="#alerte">Alerte seuil</a>
+  <a class="jump-link" href="#conversion">Conversion en dépense</a>
+</div>
+
+<!-- ══ PROJECTION ══ -->
+<div class="content-section" id="projection">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Projection</div>
+        <h2 class="section-title">Votre solde fin de mois, calculé maintenant</h2>
+        <p class="section-desc">Renseignez vos dépenses et revenus prévus pour le mois — Stateri calcule instantanément votre solde projeté à fin de mois. Vous savez en avance si vous allez être à l'aise ou à l'étroit.</p>
+
+        <ul class="feature-list">
+          <li>Solde actuel mis à jour en temps réel depuis vos transactions</li>
+          <li>Projection fin de mois basée sur toutes vos lignes planifiées</li>
+          <li>Écart affiché clairement entre maintenant et la fin du mois</li>
+          <li>Filtrable par compte ou par banque</li>
+        </ul>
+
+        <div class="info-box green">
+          <div class="info-box-icon">💡</div>
+          <div>Les lignes prévisionnelles <strong>n'impactent pas votre historique réel</strong> — elles servent uniquement à simuler et anticiper. Rien n'est enregistré tant que vous ne le validez pas.</div>
+        </div>
+      </div>
+
+      <div class="app-img">
+        <img src="previsionnel-projection.png" alt="Stateri — Solde actuel et projection fin de mois dans le budget prévisionnel" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CERTITUDE ══ -->
+<div class="content-section alt" id="certitude">
+  <div class="section-inner">
+    <div class="section-tag">Niveaux de certitude</div>
+    <h2 class="section-title">Planifiez selon ce que vous savez vraiment</h2>
+    <p class="section-desc" style="max-width: 680px;">Chaque ligne prévisionnelle a un niveau de certitude. Cela vous permet de distinguer les dépenses garanties de celles qui sont encore incertaines — et de comprendre la fiabilité de votre projection.</p>
+
+    <div class="certitude-grid">
+      <div class="certitude-card">
+        <div class="badge badge-certain">✅ Certain</div>
+        <h3>Dépense garantie</h3>
+        <p>Un loyer, un prélèvement automatique, un abonnement. Vous savez avec précision que cette dépense aura lieu et pour quel montant.</p>
+      </div>
+      <div class="certitude-card">
+        <div class="badge badge-probable">🔶 Probable</div>
+        <h3>Dépense probable</h3>
+        <p>Une sortie au restaurant prévue, des courses estimées, un achat envisagé. La dépense est prévue mais le montant ou la date peut encore varier.</p>
+      </div>
+      <div class="certitude-card">
+        <div class="badge badge-incertain">🔘 Incertain</div>
+        <h3>Scénario hypothétique</h3>
+        <p>Un achat en réflexion, une réparation éventuelle. Vous souhaitez tester l'impact sur votre budget sans l'intégrer à la projection principale.</p>
+      </div>
+    </div>
+
+    <div class="info-box blue" style="margin-top: 2rem;">
+      <div class="info-box-icon">📐</div>
+      <div>Stateri peut filtrer la projection selon le niveau de certitude — pour voir votre solde <strong>au pire</strong> (tout inclus) ou <strong>au mieux</strong> (uniquement les certains), selon comment vous préférez anticiper.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ALERTE SEUIL ══ -->
+<div class="content-section" id="alerte">
+  <div class="section-inner">
+    <div class="two-col reverse">
+      <div>
+        <div class="section-tag">Alerte seuil</div>
+        <h2 class="section-title">Définissez le solde minimum à ne pas dépasser</h2>
+        <p class="section-desc">Fixez un seuil d'alerte — par exemple 200 € — et Stateri met en évidence visuellement si votre projection passe en dessous de ce montant. Vous repérez immédiatement les mois à risque.</p>
+
+        <ul class="feature-list">
+          <li>Seuil configurable en euros, par compte ou global</li>
+          <li>Alerte visuelle si la projection passe sous le seuil</li>
+          <li>Idéal pour maintenir un matelas de sécurité</li>
+          <li>Peut être couplé avec votre budget mensuel global</li>
+        </ul>
+
+        <div class="info-box gold">
+          <div class="info-box-icon">🎯</div>
+          <div>Combinez l'alerte seuil avec les dépenses récurrentes pré-enregistrées pour une projection <strong>totalement automatique</strong> chaque début de mois.</div>
+        </div>
+      </div>
+
+      <div class="app-img">
+        <img src="previsionnel-alerte.png" alt="Stateri — Alerte seuil dans le budget prévisionnel" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONVERSION ══ -->
+<div class="content-section alt" id="conversion">
+  <div class="section-inner">
+    <div class="section-tag">Conversion</div>
+    <h2 class="section-title">Transformez une prévision en dépense réelle en un clic</h2>
+    <p class="section-desc">Quand une dépense prévue se réalise, convertissez-la directement depuis le prévisionnel. Elle passe dans votre historique réel — sans re-saisie.</p>
+
+    <div class="convert-block">
+      <div>
+        <h3>Du plan à la réalité, sans ressaisie</h3>
+        <p>Vos lignes prévisionnelles servent de modèle. Une fois la dépense effectuée, un simple bouton la bascule dans votre historique réel avec toutes ses informations déjà renseignées.</p>
+        <ul>
+          <li>Convertir une ligne sélectionnée</li>
+          <li>Convertir toutes les lignes filtrées en une fois</li>
+          <li>Choix du compte cible au moment de la conversion</li>
+          <li>La ligne disparaît du prévisionnel une fois convertie</li>
+        </ul>
+      </div>
+      <div class="convert-visual">
+        <div class="convert-visual-row">
+          <span class="label">Loyer</span>
+          <span class="value">−850 €&nbsp;<span class="convert-badge certain">✅ Certain</span></span>
+        </div>
+        <div class="convert-visual-row">
+          <span class="label">Courses semaine</span>
+          <span class="value">−120 €&nbsp;<span class="convert-badge probable">🔶 Probable</span></span>
+        </div>
+        <div class="convert-visual-row">
+          <span class="label">Sortie restaurant</span>
+          <span class="value">−60 €&nbsp;<span class="convert-badge incertain">🔘 Incertain</span></span>
+        </div>
+        <div class="convert-visual-row">
+          <span class="label">Salaire</span>
+          <span class="value green">+2 400 €&nbsp;<span class="convert-badge certain">✅ Certain</span></span>
+        </div>
+        <div class="convert-visual-row" style="margin-top: 0.5rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.15); border-bottom: none;">
+          <span class="label">Projection fin de mois</span>
+          <span class="value green">+1 370 €</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ KPIs ══ -->
+<div class="content-section">
+  <div class="section-inner">
+    <div class="section-tag">En résumé</div>
+    <h2 class="section-title">Un budget prévisionnel pensé pour la réalité</h2>
+    <p class="section-desc">Pas de configuration complexe. Vous ajoutez vos dépenses planifiées au fil de l'eau, et Stateri fait le reste.</p>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-icon">⚡</div>
+        <h3>Instantané</h3>
+        <p>La projection se recalcule à chaque ligne ajoutée ou modifiée — sans rechargement.</p>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🔒</div>
+        <h3>100 % privé</h3>
+        <p>Vos prévisions sont stockées sur votre Google Drive, comme toutes vos données Stateri.</p>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">📱</div>
+        <h3>Sur mobile</h3>
+        <p>Accessible depuis l'onglet "Prévisionnel" de l'app installée sur votre téléphone.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner" style="border-top: 1px solid var(--border);">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Finis les fins de mois à l'aveugle</div>
+  <h2>Anticipez. Planifiez. <em style="font-style:italic; color:var(--accent);">Maîtrisez.</em></h2>
+  <p>Installez Stateri, ouvrez l'onglet Prévisionnel, et planifiez votre mois en quelques minutes. Données 100% privées sur votre Drive.</p>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener">🌐 Ouvrir l'application →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="statistiques.html">Statistiques</a>
+      <a href="patrimoine.html">Patrimoine</a>
+      <a href="installer.html">Installer</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div>© 2026 Stateri — Application de budget personnel</div>
+  </div>
+</footer>
+
+</body>
+</html>
