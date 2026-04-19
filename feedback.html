@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Feedback — Stateri</title>
+  <meta name="description" content="Signalez un bug, proposez une amélioration ou posez une question à l'équipe Stateri. Nous lisons chaque message." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 680px; margin: 0 auto; text-align: center; animation: fadeUp 0.5s ease both; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; }
+
+    /* ── FORM CARD ── */
+    .form-wrap { max-width: 680px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .form-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; margin-top: 2.5rem; }
+
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+    .form-group label .optional { font-weight: 300; color: var(--ink-3); margin-left: 4px; }
+
+    .form-control {
+      width: 100%; font-family: var(--font-body); font-size: 0.9rem; color: var(--ink);
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.75rem 1rem; transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .form-control:focus { outline: none; border-color: var(--accent-mid); box-shadow: 0 0 0 3px rgba(93,202,165,0.18); }
+    select.form-control { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239499a5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+    textarea.form-control { resize: vertical; min-height: 160px; line-height: 1.65; }
+
+    .form-honeypot { display: none; }
+
+    .btn-submit {
+      width: 100%; font-family: var(--font-body); font-size: 1rem; font-weight: 500;
+      background: var(--accent); color: #fff; border: none; border-radius: 50px;
+      padding: 0.9rem 2rem; cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── TYPE BADGES ── */
+    .type-hints { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .type-hint { display: inline-flex; align-items: center; gap: 5px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: var(--surface-2); border: 1px solid var(--border); color: var(--ink-2); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 500px) {
+      .form-card { padding: 1.5rem; }
+      .page-hero { padding-top: 7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow">Nous contacter</div>
+  <h1>Une idée ? Un bug ?<br /><em>Dites-le nous.</em></h1>
+  <p>Nous lisons chaque message. Votre retour nous aide à améliorer Stateri pour tout le monde.</p>
+</div>
+
+<div class="form-wrap">
+
+  <div class="type-hints">
+    <span class="type-hint">🐛 Signaler un bug</span>
+    <span class="type-hint">💡 Proposer une amélioration</span>
+    <span class="type-hint">❓ Poser une question</span>
+    <span class="type-hint">💬 Autre</span>
+  </div>
+
+  <div class="form-card">
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+      <!-- Honeypot anti-spam -->
+      <div class="form-honeypot">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+      </div>
+      <input type="hidden" name="_subject" value="Nouveau message — Stateri" />
+
+      <div class="form-group">
+        <label for="categorie">Catégorie</label>
+        <select id="categorie" name="categorie" class="form-control" required>
+          <option value="" disabled selected>Choisissez une catégorie…</option>
+          <option value="Bug">🐛 Signaler un bug</option>
+          <option value="Amélioration">💡 Proposer une amélioration</option>
+          <option value="Question">❓ Poser une question</option>
+          <option value="Autre">💬 Autre</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Votre message</label>
+        <textarea id="message" name="message" class="form-control" placeholder="Décrivez votre bug, votre idée, ou votre question…" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Votre adresse e-mail <span class="optional">(facultatif — pour qu'on puisse vous répondre)</span></label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="vous@exemple.fr" />
+      </div>
+
+      <button type="submit" class="btn-submit">Envoyer le message →</button>
+
+    </form>
+
+    <div class="info-box green" style="margin-top: 1.75rem;">
+      <div class="info-box-icon">🔒</div>
+      <div>Vos données ne sont utilisées que pour répondre à votre message. Aucune liste de diffusion, aucune publicité.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="statistiques.html">Statistiques</a>
+      <a href="patrimoine.html">Patrimoine</a>
+      <a href="installer.html">Installer</a>
+    </div>
+    <div>© 2026 Stateri — Application de budget personnel</div>
+  </div>
+</footer>
+
+</body>
+</html>
