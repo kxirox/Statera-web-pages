@@ -3,498 +3,927 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stateri — Votre budget, 100% privé. Sur votre téléphone. Sur votre Drive. Nulle part ailleurs.</title>
-  <meta name="description" content="Stateri, application de budget et de patrimoine personnel 100% privée. Vos données sauvegardées uniquement sur votre propre Google Drive — zéro serveur tiers. Multi-compte, multi-devise, investissements." />
+  <title>Stateri — Gérez votre budget. Vos données restent chez vous.</title>
+  <meta name="description" content="Stateri est une app de budget offline-first. Vos transactions ne quittent jamais votre appareil. Sauvegarde sur votre propre Google Drive. Multi-compte, multi-devise, investissements." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
+    /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
-      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
-      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
-      --gold: #bf8a2e; --gold-light: #faeeda;
-      --border: rgba(15,17,23,0.10);
-      --font-display: 'DM Serif Display', Georgia, serif;
-      --font-body: 'DM Sans', system-ui, sans-serif;
-      --r: 12px;
+      --bg:           #FAF8F4;
+      --surface:      #FFFFFF;
+      --dark:         #1A1A1A;
+      --green:        #2D6A4F;
+      --green-light:  #52B788;
+      --green-pale:   rgba(82,183,136,0.12);
+      --muted:        #6B7280;
+      --border:       #E8E4DC;
+      --title:        'Sora', system-ui, sans-serif;
+      --body:         'Inter', system-ui, sans-serif;
+      --r:            16px;
+      --ease:         0.3s ease;
     }
+
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(247,246,242,0.88); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      padding: 1rem 2.5rem;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
-    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-    .nav-logo span { color: var(--accent); }
-    .nav-links { display: flex; align-items: center; gap: 2rem; }
-    .nav-links a { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-cta { font-size: 0.875rem; font-weight: 500; background: var(--accent); color: #fff; border: none; border-radius: 50px; padding: 0.55rem 1.25rem; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
-    .nav-cta:hover { opacity: 0.85; }
-    .btn-accent { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--accent); color: #fff; border: none; border-radius: 50px; padding: 0.75rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
-    .btn-accent:hover { opacity: 0.88; transform: translateY(-1px); }
+    .navbar.scrolled {
+      border-color: var(--border);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    }
+    .nav-logo {
+      font-family: var(--title);
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--dark); text-decoration: none;
+      display: flex; align-items: center; gap: 9px;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-icon {
+      width: 34px; height: 34px;
+      background: var(--green); border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2.25rem;
+    }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--body); font-size: 0.875rem; font-weight: 600;
+      background: var(--green); color: #fff;
+      border-radius: 8px; padding: 0.6rem 1.3rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      min-height: 40px;
+    }
+    .nav-cta:hover {
+      background: #235940;
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(45,106,79,0.28);
+    }
 
-    .hero { padding: 9rem 2rem 5rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: center; }
-    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
-    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); display: inline-block; }
-    .hero h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 3.4rem); line-height: 1.1; margin-bottom: 1.25rem; }
-    .hero h1 em { font-style: italic; color: var(--accent); }
-    .hero p { font-size: 1.05rem; color: var(--ink-2); margin-bottom: 2rem; max-width: 480px; line-height: 1.75; font-weight: 300; }
-    .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.75rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
-    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
-    .btn-secondary { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink); background: transparent; border: 1px solid var(--border); border-radius: 50px; padding: 0.75rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; }
-    .btn-secondary:hover { background: var(--surface-2); }
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px;
+      background: none; border: none; border-radius: 6px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--dark); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    .hero-visual { position: relative; }
-    .hero-screenshot { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.05); }
-    .hero-screenshot img { width: 100%; display: block; }
+    /* Mobile slide-in menu */
+    .mobile-menu {
+      position: fixed; top: 0; right: 0;
+      width: 280px; height: 100vh;
+      background: var(--surface); z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -8px 0 48px rgba(0,0,0,0.12);
+      padding: 5.5rem 2rem 2.5rem;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--body); font-size: 1rem; font-weight: 500;
+      color: var(--dark); text-decoration: none;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+      display: block;
+    }
+    .mobile-menu .m-cta {
+      margin-top: 1.5rem;
+      background: var(--green); color: #fff;
+      text-align: center; border-radius: 8px;
+      border-bottom: none; padding: 0.9rem;
+      font-weight: 600;
+    }
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3); z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
 
-    .stats-bar { background: var(--ink); color: #fff; padding: 1.5rem 2rem; }
-    .stats-bar-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; }
-    .stat-item strong { display: block; font-family: var(--font-display); font-size: 2rem; }
-    .stat-item span { font-size: 0.82rem; opacity: 0.55; font-weight: 300; }
+    /* ===== HERO ===== */
+    .hero-wrap {
+      background: var(--bg);
+      padding: 0;
+    }
+    .hero {
+      max-width: 1200px; margin: 0 auto;
+      padding: 9rem 2.5rem 5.5rem;
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      gap: 4.5rem;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--green);
+      background: var(--green-pale);
+      border: 1px solid rgba(82,183,136,0.25);
+      border-radius: 100px; padding: 6px 16px;
+      margin-bottom: 1.75rem; letter-spacing: 0.01em;
+    }
+    .hero h1 {
+      font-family: var(--title);
+      font-size: clamp(2.4rem, 4.8vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+    .hero h1 .g { color: var(--green); }
+    .hero-sub {
+      font-size: 1.1rem; line-height: 1.8;
+      color: var(--muted); font-weight: 400;
+      max-width: 480px; margin-bottom: 2.5rem;
+    }
+    .hero-actions {
+      display: flex; align-items: center; gap: 1rem;
+      flex-wrap: wrap; margin-bottom: 2.25rem;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--body); font-size: 1rem; font-weight: 600;
+      background: var(--green); color: #fff;
+      border-radius: 8px; padding: 0.875rem 1.75rem;
+      text-decoration: none; min-height: 50px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      background: #235940;
+      transform: scale(1.03);
+      box-shadow: 0 8px 28px rgba(45,106,79,0.28);
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--body); font-size: 1rem; font-weight: 500;
+      color: var(--green); background: transparent;
+      border: 1.5px solid var(--green);
+      border-radius: 8px; padding: 0.875rem 1.5rem;
+      text-decoration: none; min-height: 50px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover {
+      background: rgba(45,106,79,0.06);
+      transform: scale(1.02);
+    }
+    .hero-trust {
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; color: var(--muted); font-weight: 500;
+    }
+    .trust-item::before {
+      content: '✓';
+      color: var(--green-light); font-weight: 700; font-size: 0.9rem;
+    }
 
-    section { padding: 5rem 2rem; }
+    /* Hero visual */
+    .hero-visual {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-mockup-wrap {
+      width: 100%; max-width: 500px;
+    }
+    .hero-mockup-bg {
+      background: var(--border);
+      border-radius: 24px; padding: 1.25rem;
+      transform: rotate(-3deg);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.14), 0 8px 24px rgba(0,0,0,0.07);
+      animation: float 4s ease-in-out infinite;
+    }
+    .hero-mockup-bg img {
+      width: 100%; display: block;
+      border-radius: 14px;
+    }
+    @keyframes float {
+      0%, 100% { transform: rotate(-3deg) translateY(0); }
+      50%       { transform: rotate(-3deg) translateY(-8px); }
+    }
+
+    /* ===== REASSURANCE BAND ===== */
+    .reassurance {
+      background: var(--border);
+      padding: 1.25rem 2.5rem;
+    }
+    .reassurance-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap;
+    }
+    .r-item {
+      flex: 1; min-width: 140px;
+      text-align: center; padding: 0.75rem 1.5rem;
+      position: relative;
+      font-size: 0.875rem; font-weight: 700; color: var(--dark);
+    }
+    .r-item + .r-item::before {
+      content: '';
+      position: absolute; left: 0; top: 20%; height: 60%;
+      width: 1px; background: rgba(26,26,26,0.14);
+    }
+    .r-item small {
+      display: block; font-size: 0.72rem;
+      font-weight: 400; color: var(--muted); margin-top: 2px;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section { padding: 6rem 2.5rem; }
+    .section-alt { background: var(--surface); }
+    .section-green { background: var(--green); }
     .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
-    .section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; margin-bottom: 1rem; max-width: 600px; }
-    .section-subtitle { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 520px; line-height: 1.75; margin-bottom: 3rem; }
-
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .feature-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem; transition: transform 0.2s, box-shadow 0.2s; }
-    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
-    .feature-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 1rem; }
-    .fi-green { background: var(--accent-light); } .fi-gold { background: var(--gold-light); } .fi-slate { background: var(--surface-2); }
-    .feature-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
-    .feature-card p { font-size: 0.875rem; color: var(--ink-2); line-height: 1.65; font-weight: 300; }
-    .feature-card a { display: inline-block; margin-top: 1rem; font-size: 0.82rem; color: var(--accent); text-decoration: none; font-weight: 500; }
-    .feature-card a:hover { text-decoration: underline; }
-
-    .screenshot-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 5rem; }
-    .screenshot-section:last-child { margin-bottom: 0; }
-    .screenshot-section.reverse { direction: rtl; }
-    .screenshot-section.reverse > * { direction: ltr; }
-    .screenshot-section.featured { grid-template-columns: 1fr 1.65fr; gap: 3rem; }
-    .feature-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
-    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; }
-    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 1px; }
-    .screenshot-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.07); }
-    .screenshot-img img { width: 100%; display: block; }
-    .screenshot-img.featured { border-radius: 16px; box-shadow: 0 24px 64px rgba(0,0,0,0.16), 0 8px 24px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.06); border: 1px solid rgba(15,17,23,0.08); }
-
-    /* Section patrimoine : texte en 2 colonnes + image pleine largeur */
-    .patrimoine-block { display: flex; flex-direction: column; gap: 2.5rem; }
-    .patrimoine-header { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-    .patrimoine-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 28px 72px rgba(0,0,0,0.13), 0 8px 24px rgba(0,0,0,0.08); }
-    .patrimoine-img img { width: 100%; display: block; }
-    @media (max-width: 900px) { .patrimoine-header { grid-template-columns: 1fr; gap: 1.5rem; } }
-
-    .gdrive-section { background: var(--ink); color: #fff; }
-    .gdrive-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .gdrive-points { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
-    .gdrive-point { display: flex; gap: 1rem; }
-    .gdrive-point-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
-    .gdrive-point h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem; }
-    .gdrive-point p { font-size: 0.82rem; opacity: 0.55; font-weight: 300; line-height: 1.6; }
-    .gdrive-right { display: flex; flex-direction: column; gap: 1.5rem; }
-    .gdrive-screenshot { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 8px 32px rgba(0,0,0,0.30); }
-    .gdrive-screenshot img { width: 100%; display: block; }
-    .gdrive-visual { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.75rem; }
-    .gdv-title { font-size: 0.78rem; opacity: 0.5; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.08em; }
-    .gdv-row { display: flex; align-items: center; gap: 10px; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.82rem; }
-    .gdv-row:last-child { border-bottom: none; }
-    .gdv-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .gdv-text { flex: 1; opacity: 0.75; }
-    .gdv-status { font-size: 0.72rem; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
-    .s-gdrive { background: rgba(66,133,244,0.2); color: #7aabf7; }
-    .s-never { background: rgba(148,153,165,0.25); color: #9499a5; }
-    .gdrive-highlight { padding: 1rem; background: rgba(93,202,165,0.08); border: 1px solid rgba(93,202,165,0.2); border-radius: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
-    .gdrive-highlight strong { color: #5dcaa5; display: block; margin-bottom: 4px; font-size: 0.85rem; }
-
-    .pages-nav-section { background: var(--surface-2); }
-    .pages-nav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    .page-nav-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem; text-decoration: none; color: var(--ink); transition: transform 0.2s, box-shadow 0.2s; display: block; }
-    .page-nav-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
-    .page-nav-card .pnc-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
-    .page-nav-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
-    .page-nav-card p { font-size: 0.8rem; color: var(--ink-3); font-weight: 300; line-height: 1.5; }
-    .page-nav-card .pnc-link { display: inline-block; margin-top: 0.75rem; font-size: 0.78rem; color: var(--accent); font-weight: 500; }
-
-    .cta-section { text-align: center; padding: 6rem 2rem; }
-
-    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
-    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { color: inherit; text-decoration: none; }
-    .footer-links a:hover { color: rgba(255,255,255,0.8); }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .hero-content { animation: fadeUp 0.6s ease both; }
-    .hero-visual { animation: fadeUp 0.6s 0.2s ease both; }
-
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding: 7rem 0 5rem; gap: 2rem; }
-      .hero-content { padding: 0 1.5rem; }
-      .hero-visual { padding: 0; }
-      .hero-screenshot { border-radius: 10px; margin: 0 1.5rem; }
-      .features-grid { grid-template-columns: 1fr 1fr; }
-      .screenshot-section { grid-template-columns: 1fr; gap: 2rem; }
-      .screenshot-section.featured { grid-template-columns: 1fr; }
-      .screenshot-section.reverse { direction: ltr; }
-      .gdrive-grid { grid-template-columns: 1fr; }
-      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
-      .pages-nav-grid { grid-template-columns: repeat(2, 1fr); }
-      .nav-links { display: none; }
+    .section-header {
+      text-align: center; max-width: 640px;
+      margin: 0 auto 4rem;
     }
-    @media (max-width: 500px) {
+    .s-tag {
+      display: inline-block;
+      font-size: 0.73rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 1rem;
+    }
+    .s-title {
+      font-family: var(--title);
+      font-size: clamp(1.85rem, 3vw, 2.5rem);
+      font-weight: 800; letter-spacing: -0.028em;
+      line-height: 1.14; color: var(--dark); margin-bottom: 1rem;
+    }
+    .s-title .g { color: var(--green); }
+    .s-desc {
+      font-size: 1rem; color: var(--muted); line-height: 1.75;
+    }
+
+    /* ===== FEATURE CARDS ===== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r); padding: 2rem;
+      transition: transform var(--ease), box-shadow var(--ease);
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    }
+    .fc-icon {
+      width: 50px; height: 50px; border-radius: 13px;
+      background: rgba(45,106,79,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 1.25rem;
+    }
+    .feature-card h3 {
+      font-family: var(--title);
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 0.6rem; color: var(--dark);
+    }
+    .feature-card p {
+      font-size: 0.875rem; color: var(--muted); line-height: 1.7;
+    }
+    .feature-card a {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 1.25rem;
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--green); text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .feature-card a:hover { gap: 9px; }
+
+    /* ===== PRIVACY SECTION ===== */
+    .priv-eyebrow {
+      font-size: 0.73rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 1rem;
+    }
+    .priv-title {
+      font-family: var(--title);
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      font-weight: 800; color: #fff;
+      line-height: 1.18; letter-spacing: -0.028em;
+      max-width: 700px; margin-bottom: 0.9rem;
+    }
+    .priv-sub {
+      font-size: 1rem; color: rgba(255,255,255,0.6);
+      max-width: 560px; line-height: 1.75; margin-bottom: 3rem;
+    }
+    .priv-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .priv-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--r); padding: 1.75rem;
+      backdrop-filter: blur(6px); position: relative;
+    }
+    .priv-card.featured {
+      background: #fff;
+      border-color: #fff;
+    }
+    .priv-badge {
+      position: absolute; top: 1rem; right: 1rem;
+      font-size: 0.68rem; font-weight: 700;
+      color: var(--green);
+      background: rgba(45,106,79,0.1);
+      border-radius: 100px; padding: 3px 10px;
+    }
+    .priv-card-name {
+      font-family: var(--title);
+      font-size: 1.1rem; font-weight: 700;
+      color: rgba(255,255,255,0.88); margin-bottom: 0.75rem;
+    }
+    .priv-card.featured .priv-card-name { color: var(--green); }
+    .priv-card-desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.52); line-height: 1.65;
+    }
+    .priv-card.featured .priv-card-desc { color: var(--muted); font-weight: 500; }
+
+    /* ===== TABS / SCREENSHOTS ===== */
+    .tabs-wrap { max-width: 900px; margin: 0 auto; }
+    .tabs-nav {
+      display: flex; justify-content: center;
+      gap: 0.4rem; margin-bottom: 2.5rem;
+      background: var(--border); border-radius: 11px;
+      padding: 5px; width: fit-content; margin: 0 auto 2.5rem;
+    }
+    .tab-btn {
+      font-family: var(--body);
+      font-size: 0.875rem; font-weight: 600;
+      color: var(--muted); background: transparent;
+      border: none; border-radius: 8px;
+      padding: 0.6rem 1.3rem; cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      min-height: 44px;
+    }
+    .tab-btn.active {
+      background: var(--surface); color: var(--dark);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .tab-panel { display: none; animation: fadeIn 0.3s ease; }
+    .tab-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .browser-frame {
+      background: #f0ede8; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 24px 72px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+    .browser-bar {
+      display: flex; align-items: center; gap: 7px;
+      padding: 12px 18px;
+      background: #e4e0d6;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .b-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .b-dot:nth-child(1) { background: #FF5F57; }
+    .b-dot:nth-child(2) { background: #FEBC2E; }
+    .b-dot:nth-child(3) { background: #28C840; }
+    .browser-frame img { width: 100%; display: block; }
+
+    /* ===== INSTALL SECTION ===== */
+    .install-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .install-steps { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
+    .i-step { display: flex; gap: 1.25rem; align-items: flex-start; }
+    .step-num {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--green); color: #fff;
+      font-family: var(--title); font-weight: 800; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-body h4 {
+      font-family: var(--title); font-size: 1rem; font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .step-body p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+    .install-note {
+      margin-top: 2rem; padding: 1rem 1.25rem;
+      background: rgba(45,106,79,0.06);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.82rem; color: var(--muted);
+      font-style: italic; line-height: 1.65;
+    }
+
+    /* Phone mockup */
+    .phone-wrap { display: flex; justify-content: center; }
+    .phone {
+      background: var(--dark); border-radius: 44px;
+      padding: 14px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.2);
+      max-width: 250px; width: 100%;
+    }
+    .phone-screen {
+      background: var(--bg); border-radius: 33px;
+      padding: 2rem 1.25rem;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.75rem; min-height: 400px;
+    }
+    .phone-app-icon {
+      width: 72px; height: 72px;
+      background: var(--green); border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 8px 24px rgba(45,106,79,0.32);
+      margin-bottom: 0.25rem;
+    }
+    .phone-app-name {
+      font-family: var(--title);
+      font-size: 0.9rem; font-weight: 700; color: var(--dark);
+    }
+    .phone-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 9px; width: 100%; margin-top: 1.25rem;
+    }
+    .ph-icon {
+      aspect-ratio: 1; border-radius: 13px;
+      background: var(--border);
+    }
+    .ph-icon.a { background: rgba(66,133,244,0.15); }
+    .ph-icon.b { background: rgba(255,165,0,0.15); }
+    .ph-icon.c { background: rgba(45,106,79,0.15); }
+    .ph-icon.d { background: rgba(220,53,69,0.15); }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      text-align: center; padding: 6.5rem 2.5rem;
+      background: var(--bg);
+    }
+    .cta-actions {
+      display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+    }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--dark); padding: 3.5rem 2.5rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1.75rem;
+    }
+    .footer-logo {
+      font-family: var(--title);
+      font-size: 1.25rem; font-weight: 800; color: #fff;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .footer-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.38); margin-top: 6px; }
+    .footer-links { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 0.875rem; color: rgba(255,255,255,0.48);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.85); }
+    .footer-bottom {
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+    .footer-app { font-size: 0.8rem; color: var(--green-light); text-decoration: none; font-weight: 500; }
+    .footer-app:hover { text-decoration: underline; }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .fu {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fu.in { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero { gap: 3rem; }
+      .install-grid { gap: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 1.5rem 3.5rem;
+        gap: 2.5rem;
+      }
+      .hero h1 { font-size: clamp(2rem,8vw,2.5rem); }
+      .hero-sub { font-size: 1rem; }
+      .hero-mockup-bg {
+        transform: none;
+        animation: floatMob 4s ease-in-out infinite;
+      }
+      @keyframes floatMob {
+        0%,100% { transform: translateY(0); }
+        50%      { transform: translateY(-6px); }
+      }
+
+      .r-item { min-width: 50%; }
+      .r-item:nth-child(3)::before { display: none; }
+
       .features-grid { grid-template-columns: 1fr; }
-      .pages-nav-grid { grid-template-columns: 1fr; }
+      .priv-cards { grid-template-columns: 1fr; }
+      .install-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .phone { max-width: 200px; }
+      .footer-top { flex-direction: column; }
+      .navbar { padding: 1rem 1.5rem; }
+    }
+
+    @media (max-width: 500px) {
+      .hero { padding: 6.5rem 1.25rem 3rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-ghost { justify-content: center; }
+      .hero-trust { gap: 1rem; }
+      .r-item { min-width: 100%; }
+      .r-item + .r-item::before { display: none; }
+      .section { padding: 4.5rem 1.25rem; }
+      .cta-section { padding: 4.5rem 1.25rem; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon">⚖️</div>
+    Stateri
+  </a>
   <div class="nav-links">
     <a href="#fonctionnalites">Fonctionnalités</a>
-    <a href="#donnees">Vos données</a>
-    <a href="#explorer">Explorer</a>
+    <a href="#confidentialite">Confidentialité</a>
+    <a href="installer.html">Installer</a>
+    <a href="feedback.html">Contact</a>
   </div>
-  <a href="https://app.stateri.fr/" class="nav-cta" target="_blank" rel="noopener">Ouvrir l'application</a>
+  <div class="nav-right">
+    <a href="https://app.stateri.fr/" class="nav-cta" target="_blank" rel="noopener">Essayer gratuitement →</a>
+    <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<section style="padding: 0;">
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#fonctionnalites">Fonctionnalités</a>
+  <a href="#confidentialite">Confidentialité</a>
+  <a href="installer.html">Installer</a>
+  <a href="feedback.html">Contact</a>
+  <a href="https://app.stateri.fr/" class="m-cta" target="_blank" rel="noopener">Essayer gratuitement →</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero-wrap">
   <div class="hero">
     <div class="hero-content">
-      <div class="hero-eyebrow">100% privé · Sur votre Drive · Nulle part ailleurs</div>
-      <h1>Votre budget,<br /><em>100% privé.</em><br />Sur votre Drive.</h1>
-      <p>Stateri est l'application de budget et de patrimoine qui fonctionne même sans connexion. Vos données sont sauvegardées <strong>uniquement sur votre Google Drive</strong> — sur votre téléphone, sur votre Drive, nulle part ailleurs.</p>
-      <div class="hero-actions">
-        <a href="https://app.stateri.fr/" class="btn-accent" target="_blank" rel="noopener">🌐 Ouvrir l'application</a>
-        <a href="installer.html" class="btn-secondary">📲 Installer sur mobile</a>
+      <div class="hero-badge fu">🔒 100% offline — Données sur votre Drive</div>
+      <h1 class="fu" style="--d:.08s">
+        Gérez votre budget.<br />
+        Vos données restent <span class="g">chez vous.</span>
+      </h1>
+      <p class="hero-sub fu" style="--d:.16s">
+        Stateri est une app de budget offline-first. Vos transactions ne quittent
+        jamais votre appareil. Sauvegarde sur votre propre Google Drive.
+      </p>
+      <div class="hero-actions fu" style="--d:.24s">
+        <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener">Essayer gratuitement →</a>
+        <a href="#fonctionnalites" class="btn-ghost">Voir les fonctionnalités ↓</a>
+      </div>
+      <div class="hero-trust fu" style="--d:.32s">
+        <span class="trust-item">Gratuit, sans inscription</span>
+        <span class="trust-item">Fonctionne sans connexion</span>
+        <span class="trust-item">Aucun serveur tiers</span>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-screenshot">
-        <img src="screenshot1.png" alt="Stateri — Vue patrimoine : fortune nette, investissements, Time Freedom" />
+    <div class="hero-visual fu" style="--d:.18s">
+      <div class="hero-mockup-wrap">
+        <div class="hero-mockup-bg">
+          <img src="screenshot1.png" alt="Stateri — Interface de gestion de budget et de patrimoine" />
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-<div class="stats-bar">
-  <div class="stats-bar-inner">
-    <div class="stat-item"><strong>100%</strong><span>Hors-ligne</span></div>
-    <div class="stat-item"><strong>0 €</strong><span>Pour toujours</span></div>
-    <div class="stat-item"><strong>∞</strong><span>Comptes & devises</span></div>
-    <div class="stat-item"><strong>0</strong><span>Données partagées</span></div>
   </div>
 </div>
 
-<section id="fonctionnalites">
+<!-- ===== REASSURANCE BAND ===== -->
+<div class="reassurance">
+  <div class="reassurance-inner">
+    <div class="r-item">100% offline<small>Fonctionne sans connexion</small></div>
+    <div class="r-item">Données sur votre Drive<small>Zéro serveur Stateri</small></div>
+    <div class="r-item">Multi-devises<small>EUR, CHF et plus</small></div>
+    <div class="r-item">Open source<small>Transparent et vérifiable</small></div>
+  </div>
+</div>
+
+<!-- ===== FONCTIONNALITÉS ===== -->
+<section class="section" id="fonctionnalites">
   <div class="section-inner">
-    <div class="section-tag">Fonctionnalités</div>
-    <h2 class="section-title">Tout ce dont vous avez besoin, rien de superflu.</h2>
-    <p class="section-subtitle">Stateri est conçu pour ceux qui veulent vraiment comprendre et piloter leur budget et leur patrimoine — en gardant leurs données 100% privées.</p>
+    <div class="section-header fu">
+      <div class="s-tag">Fonctionnalités</div>
+      <h2 class="s-title">Tout ce dont vous avez besoin</h2>
+      <p class="s-desc">Gestion de budget complète, sans compromis sur la vie privée.</p>
+    </div>
     <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon fi-green">💳</div>
-        <h3>Multi-compte & multi-devise</h3>
-        <p>Gérez plusieurs comptes bancaires, plusieurs banques et plusieurs devises dans une interface unifiée.</p>
+      <div class="feature-card fu" style="--d:0s">
+        <div class="fc-icon">🏦</div>
+        <h3>Multi-comptes et multi-banques</h3>
+        <p>Gérez tous vos comptes bancaires dans une interface unifiée — courant, épargne, bourse, plusieurs banques.</p>
+        <a href="partage.html">Découvrir →</a>
+      </div>
+      <div class="feature-card fu" style="--d:.1s">
+        <div class="fc-icon">💱</div>
+        <h3>Multi-devises (EUR/CHF)</h3>
+        <p>Conversion automatique entre devises. Gérez des comptes en euros et en francs suisses simultanément.</p>
         <a href="devises.html">Découvrir →</a>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-gold">📊</div>
-        <h3>Statistiques & analyse</h3>
+      <div class="feature-card fu" style="--d:.2s">
+        <div class="fc-icon">📊</div>
+        <h3>Statistiques complètes</h3>
         <p>Camemberts par catégorie, histogramme 12 mois, évolution du solde et vue 30 jours glissants.</p>
         <a href="statistiques.html">Découvrir →</a>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-green">🔮</div>
-        <h3>Budget prévisionnel</h3>
-        <p>Planifiez vos dépenses à venir, projetez votre solde fin de mois et recevez une alerte si vous passez sous un seuil.</p>
-        <a href="previsionnel.html">Découvrir →</a>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-slate">🔁</div>
-        <h3>Dépenses récurrentes</h3>
-        <p>Loyer, abonnements, revenus mensuels — enregistrez une fois, Stateri s'en souvient chaque mois et alimente votre prévisionnel.</p>
-        <a href="recurrences.html">Découvrir →</a>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-green">🤖</div>
-        <h3>Auto-catégorisation</h3>
-        <p>Importez vos relevés CSV, Excel ou Crédit Mutuel — la reconnaissance par mots-clés catégorise automatiquement.</p>
+      <div class="feature-card fu" style="--d:.3s">
+        <div class="fc-icon">🔄</div>
+        <h3>Import CSV et Crédit Mutuel</h3>
+        <p>Importez vos relevés bancaires en un clic. Format CSV personnalisé, Excel Crédit Mutuel et Revolut.</p>
         <a href="transactions.html">Découvrir →</a>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-gold">📈</div>
-        <h3>Investissements & patrimoine</h3>
-        <p>Portefeuille avec snapshots, suivi du patrimoine net et des dettes pour une vision complète de votre patrimoine.</p>
+      <div class="feature-card fu" style="--d:.4s">
+        <div class="fc-icon">🏠</div>
+        <h3>Patrimoine et investissements</h3>
+        <p>Suivi du patrimoine net, investissements avec snapshots historiques, dettes et immobilier.</p>
         <a href="patrimoine.html">Découvrir →</a>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon fi-slate">👥</div>
-        <h3>Multi-personnes</h3>
-        <p>Partagez les frais entre plusieurs personnes avec remboursements et coefficients de contribution.</p>
+      <div class="feature-card fu" style="--d:.5s">
+        <div class="fc-icon">👫</div>
+        <h3>Dépenses partagées</h3>
+        <p>Répartissez les frais entre plusieurs personnes avec remboursements et coefficients de contribution.</p>
         <a href="partage.html">Découvrir →</a>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<!-- ===== SECTION PRIVACY ===== -->
+<section class="section section-green" id="confidentialite">
   <div class="section-inner">
-    <div class="screenshot-section reverse">
+    <div class="priv-eyebrow fu">Pourquoi Stateri</div>
+    <h2 class="priv-title fu" style="--d:.08s">Mint a fermé en 2024. 20 millions d'utilisateurs ont tout perdu.</h2>
+    <p class="priv-sub fu" style="--d:.16s">
+      Avec Stateri, même si on ferme demain, vos données restent sur votre Drive.
+      Vous les contrôlez. Toujours.
+    </p>
+    <div class="priv-cards">
+      <div class="priv-card fu">
+        <div class="priv-card-name">Bankin'</div>
+        <div class="priv-card-desc">Agrège vos données bancaires sur ses serveurs. Modèle économique basé sur la monétisation de vos habitudes financières.</div>
+      </div>
+      <div class="priv-card fu" style="--d:.1s">
+        <div class="priv-card-name">Finary</div>
+        <div class="priv-card-desc">Stocke vos données sur ses serveurs. Si l'entreprise ferme ou change de politique, vos données sont compromises.</div>
+      </div>
+      <div class="priv-card featured fu" style="--d:.2s">
+        <div class="priv-badge">Notre choix ✓</div>
+        <div class="priv-card-name">Stateri</div>
+        <div class="priv-card-desc">"On ne peut pas vendre ce qu'on n'a pas." Zéro donnée sur nos serveurs. Tout reste sur votre Drive personnel.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== APERÇU / TABS ===== -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header fu">
+      <div class="s-tag">Aperçu</div>
+      <h2 class="s-title">Voyez par vous-même</h2>
+      <p class="s-desc">Explorez les différentes vues de l'application.</p>
+    </div>
+    <div class="tabs-wrap fu">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="transactions">Transactions</button>
+        <button class="tab-btn" data-tab="statistiques">Statistiques</button>
+        <button class="tab-btn" data-tab="patrimoine">Patrimoine</button>
+      </div>
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="b-dot"></div>
+          <div class="b-dot"></div>
+          <div class="b-dot"></div>
+        </div>
+        <div id="tab-transactions" class="tab-panel active">
+          <img src="import-export-ui.png" alt="Stateri — Transactions et import de relevés" loading="lazy" />
+        </div>
+        <div id="tab-statistiques" class="tab-panel">
+          <img src="stats-overview.png" alt="Stateri — Statistiques et graphiques" loading="lazy" />
+        </div>
+        <div id="tab-patrimoine" class="tab-panel">
+          <img src="patrimoine-overview.png" alt="Stateri — Suivi du patrimoine" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSTALLER ===== -->
+<section class="section" id="installer">
+  <div class="section-inner">
+    <div class="install-grid">
       <div>
-        <div class="section-tag">Saisie vocale</div>
-        <h2 class="section-title">Dictez une dépense, <em style="color:var(--accent);">les mains libres.</em></h2>
-        <p style="color:var(--ink-2); font-weight:300; line-height:1.75;">En voiture, aux courses, au restaurant — appuyez sur le micro et dites simplement "Carrefour 43 euros alimentation". Stateri reconnaît le montant, la description et la catégorie automatiquement.</p>
-        <ul class="feature-list">
-          <li>Reconnaissance du montant, de la description et de la catégorie</li>
-          <li>Aucune saisie clavier nécessaire</li>
-          <li>Idéal en mobilité : conduite, courses, déplacement</li>
-          <li>Disponible directement depuis l'onglet Ajouter</li>
-        </ul>
-      </div>
-      <div class="screenshot-img">
-        <img src="saisie-vocale.png" alt="Stateri — Saisie vocale d'une dépense par microphone" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="background: var(--surface-2);">
-  <div class="section-inner">
-    <div class="screenshot-section featured">
-      <div>
-        <div class="section-tag">Analyse</div>
-        <h2 class="section-title">12 mois de dépenses en un coup d'œil</h2>
-        <p style="color:var(--ink-2); font-weight:300; line-height:1.75;">L'histogramme empilé par catégorie vous permet d'identifier vos pics de dépenses et de comparer chaque mois en détail, sur toute une année.</p>
-        <ul class="feature-list">
-          <li>Toutes vos catégories empilées par mois</li>
-          <li>Comparaison visuelle mois par mois</li>
-          <li>Cliquez sur une catégorie pour filtrer</li>
-          <li>Filtres par compte ou banque</li>
-        </ul>
-      </div>
-      <div class="screenshot-img featured">
-        <img src="screenshot2.png" alt="Stateri — Dépenses par catégorie sur 12 mois" />
-      </div>
-    </div>
-    <div class="patrimoine-block">
-      <div class="patrimoine-header">
-        <div>
-          <div class="section-tag">Patrimoine</div>
-          <h2 class="section-title">Évolution de votre patrimoine dans le temps</h2>
-          <p style="color:var(--ink-2); font-weight:300; line-height:1.75;">Visualisez la courbe de votre fortune totale et de vos investissements sur 6 mois, 1 an, 3 ans ou tout l'historique. Suivez votre progression sur le long terme.</p>
+        <div class="s-tag fu">Installation PWA</div>
+        <h2 class="s-title fu" style="--d:.08s">Installez Stateri en 10 secondes</h2>
+        <div class="install-steps">
+          <div class="i-step fu" style="--d:.16s">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Ouvrez l'application</h4>
+              <p>Rendez-vous sur <strong>app.stateri.fr</strong> dans Chrome (Android) ou Safari (iOS).</p>
+            </div>
+          </div>
+          <div class="i-step fu" style="--d:.24s">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Cliquez "Installer"</h4>
+              <p>Une invite apparaît automatiquement dans la barre du navigateur. Sur iOS, utilisez le menu Partager puis "Sur l'écran d'accueil".</p>
+            </div>
+          </div>
+          <div class="i-step fu" style="--d:.32s">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>C'est prêt</h4>
+              <p>L'icône Stateri apparaît sur votre écran d'accueil. L'app fonctionne même sans connexion internet.</p>
+            </div>
+          </div>
         </div>
-        <ul class="feature-list" style="margin-top: 0; align-self: center;">
-          <li>Fortune totale et investissements distincts</li>
-          <li>Filtres : 6 mois, 1 an, 3 ans, tout</li>
-          <li>Snapshots d'investissements historiques</li>
-          <li>Patrimoine brut et net calculés automatiquement</li>
-        </ul>
+        <div class="install-note fu" style="--d:.4s">
+          ⚠️ Votre sauvegarde Google Drive est privée. Stateri ne peut pas accéder
+          à votre Drive, ni lire vos données. Vos informations financières restent
+          uniquement sur cet appareil et sur votre Google Drive personnel.
+        </div>
       </div>
-      <div class="patrimoine-img">
-        <img src="screenshot3.png" alt="Stateri — Évolution du patrimoine" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="donnees" class="gdrive-section">
-  <div class="section-inner">
-    <div class="gdrive-grid">
-      <div>
-        <div class="section-tag" style="color:var(--accent-mid);">Vos données, votre contrôle</div>
-        <h2 class="section-title" style="color:#fff; max-width:100%;">Entièrement sauvegardé sur <em style="color:var(--accent-mid);">votre</em> Google Drive.</h2>
-        <p style="color:rgba(255,255,255,0.5); font-weight:300; line-height:1.75; margin-bottom:0;">Contrairement aux applications fintech classiques, Stateri ne stocke rien sur ses propres serveurs. Toutes vos données sont écrites directement sur votre compte Google Drive personnel. Sur votre téléphone. Sur votre Drive. <strong style="color:rgba(255,255,255,0.85);">Nulle part ailleurs.</strong></p>
-        <div class="gdrive-points">
-          <div class="gdrive-point">
-            <div class="gdrive-point-icon">☁️</div>
-            <div>
-              <h4>Backup sur votre propre Drive</h4>
-              <p>Vos données sont dans un fichier sur votre Google Drive. Vous pouvez les consulter, exporter ou supprimer indépendamment de Stateri (un fichier json est créé dans votre Google Drive à chaque sauvegarde).</p>
-            </div>
-          </div>
-          <div class="gdrive-point">
-            <div class="gdrive-point-icon">🔒</div>
-            <div>
-              <h4>Zéro serveur Stateri</h4>
-              <p>Aucun backend, aucune base de données côté Stateri. Votre budget et votre patrimoine n'appartiennent qu'à vous.</p>
-            </div>
-          </div>
-          <div class="gdrive-point">
-            <div class="gdrive-point-icon">📶</div>
-            <div>
-              <h4>100% offline entre les syncs</h4>
-              <p>L'app fonctionne sans connexion. La synchronisation Drive se fait automatiquement après chaque modification ou quand vous le décidez.</p>
-            </div>
-          </div>
-          <div class="gdrive-point">
-            <div class="gdrive-point-icon">📱</div>
-            <div>
-              <h4>Multi-appareils via votre Drive</h4>
-              <p>Vos données sur votre Drive = accessibles depuis tous vos appareils, à tout moment.</p>
+      <div class="phone-wrap fu" style="--d:.2s">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-app-icon">⚖️</div>
+            <div class="phone-app-name">Stateri</div>
+            <div class="phone-grid">
+              <div class="ph-icon a"></div>
+              <div class="ph-icon b"></div>
+              <div class="ph-icon c"></div>
+              <div class="ph-icon d"></div>
+              <div class="ph-icon"></div>
+              <div class="ph-icon a"></div>
+              <div class="ph-icon"></div>
+              <div class="ph-icon b"></div>
+              <div class="ph-icon d"></div>
+              <div class="ph-icon c"></div>
+              <div class="ph-icon a"></div>
+              <div class="ph-icon"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="gdrive-right">
-        <!-- SCREENSHOT : remplacez screenshot-settings.png par la capture de l'onglet Paramètres / sauvegarde Google Drive -->
-        <div class="gdrive-screenshot">
-          <img src="screenshot-settings.png" alt="Stateri — Paramètres et sauvegarde Google Drive" />
-        </div>
-        <div class="gdrive-visual">
-          <div class="gdv-title">Où vont vos données</div>
-          <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Transactions & soldes</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
-          <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Catégories & règles</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
-          <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Budgets & prévisions</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
-          <div class="gdv-row"><div class="gdv-dot" style="background:#7aabf7"></div><span class="gdv-text">Investissements & patrimoine</span><span class="gdv-status s-gdrive">Votre Google Drive</span></div>
-          <div class="gdv-row"><div class="gdv-dot" style="background:#555"></div><span class="gdv-text">Serveurs Stateri</span><span class="gdv-status s-never">Inexistants</span></div>
-          <div class="gdv-row"><div class="gdv-dot" style="background:#555"></div><span class="gdv-text">Publicité / tracking</span><span class="gdv-status s-never">Jamais</span></div>
-          <div class="gdrive-highlight">
-            <strong>✓ Vérifiez par vous-même</strong>
-            Ouvrez votre Google Drive — vous y trouverez un fichier <code>stateri-backup.json</code> contenant toutes vos données, lisible et exportable librement.
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<section id="explorer" class="pages-nav-section">
-  <div class="section-inner">
-    <div class="section-tag">Explorer l'application</div>
-    <h2 class="section-title">Découvrez chaque fonctionnalité en détail.</h2>
-    <p class="section-subtitle">Chaque onglet de Stateri fait l'objet d'une page dédiée avec explications et captures d'écran.</p>
-    <div class="pages-nav-grid">
-      <a href="transactions.html" class="page-nav-card">
-        <div class="pnc-icon">💸</div>
-        <h3>Transactions</h3>
-        <p>Saisie, import CSV/Excel, auto-catégorisation, récurrences et remboursements.</p>
-        <span class="pnc-link">Voir la page →</span>
-      </a>
-      <a href="statistiques.html" class="page-nav-card">
-        <div class="pnc-icon">📊</div>
-        <h3>Statistiques</h3>
-        <p>Camemberts, histogramme 12 mois, évolution du solde et prévisions budgétaires.</p>
-        <span class="pnc-link">Voir la page →</span>
-      </a>
-      <a href="patrimoine.html" class="page-nav-card">
-        <div class="pnc-icon">📈</div>
-        <h3>Patrimoine</h3>
-        <p>Fortune nette, investissements avec snapshots, dettes et évolution dans le temps.</p>
-        <span class="pnc-link">Voir la page →</span>
-      </a>
-      <a href="partage.html" class="page-nav-card">
-        <div class="pnc-icon">🏦</div>
-        <h3>Comptes & partage</h3>
-        <p>Multi-compte, multi-banque, multi-devise et gestion multi-personnes avec coefficients.</p>
-        <span class="pnc-link">Voir la page →</span>
-      </a>
-      <a href="comment-ca-marche.html" class="page-nav-card">
-        <div class="pnc-icon">🚀</div>
-        <h3>Comment ça marche</h3>
-        <p>Installation, connexion Google Drive et premiers pas — démarrez en 3 minutes chrono.</p>
-        <span class="pnc-link">Voir le guide →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ══ COMPARATIF ══ -->
-<section style="background: var(--surface-2);">
-  <div class="section-inner">
-    <div class="section-tag">Pourquoi Stateri ?</div>
-    <h2 class="section-title">Pas de serveur. Pas d'abonnement.<br /><em style="color:var(--accent);">Pas de compromis.</em></h2>
-    <p class="section-subtitle">Les apps de budget classiques stockent vos données sur leurs serveurs, monétisent vos habitudes et vous bloquent derrière un abonnement. Stateri fait le contraire.</p>
-    <div style="overflow-x: auto; margin-top: 2rem;">
-      <table style="width:100%; border-collapse: collapse; font-size: 0.9rem; min-width: 560px;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding: 0.75rem 1rem; font-size:0.75rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-3); border-bottom: 2px solid var(--border);"></th>
-            <th style="padding: 0.75rem 1rem; font-size:0.82rem; font-weight:600; color:var(--accent); border-bottom: 2px solid var(--accent-mid); background: var(--accent-light); border-radius: 8px 8px 0 0;">⚖️ Stateri</th>
-            <th style="padding: 0.75rem 1rem; font-size:0.82rem; font-weight:500; color:var(--ink-3); border-bottom: 2px solid var(--border);">Bankin' / Linxo</th>
-            <th style="padding: 0.75rem 1rem; font-size:0.82rem; font-weight:500; color:var(--ink-3); border-bottom: 2px solid var(--border);">YNAB / Copilot</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 0.85rem 1rem; font-size:0.875rem; color:var(--ink); font-weight:400;">Prix</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; background: rgba(225,245,238,0.4); font-weight:600; color:var(--accent);">Gratuit</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Freemium / ~5 €/mois</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">~15 €/mois</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 0.85rem 1rem; font-size:0.875rem; color:var(--ink); font-weight:400;">Vos données stockées</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; background: rgba(225,245,238,0.4); font-weight:600; color:var(--accent);">Sur votre Drive</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Sur leurs serveurs</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Sur leurs serveurs</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 0.85rem 1rem; font-size:0.875rem; color:var(--ink); font-weight:400;">Connexion bancaire requise</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; background: rgba(225,245,238,0.4); font-weight:600; color:var(--accent);">Non</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Oui</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Oui</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 0.85rem 1rem; font-size:0.875rem; color:var(--ink); font-weight:400;">Fonctionne hors ligne</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; background: rgba(225,245,238,0.4); font-weight:600; color:var(--accent);">Oui</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Partiel</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Non</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--border);">
-            <td style="padding: 0.85rem 1rem; font-size:0.875rem; color:var(--ink); font-weight:400;">Budget prévisionnel</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; background: rgba(225,245,238,0.4); font-weight:600; color:var(--accent);">Oui</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Limité</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Oui</td>
-          </tr>
-          <tr>
-            <td style="padding: 0.85rem 1rem; font-size:0.875rem; color:var(--ink); font-weight:400;">Suivi patrimoine & investissements</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; background: rgba(225,245,238,0.4); font-weight:600; color:var(--accent);">Oui</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Non</td>
-            <td style="padding: 0.85rem 1rem; text-align:center; color:var(--ink-2);">Partiel</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
+<!-- ===== CTA FINAL ===== -->
 <section class="cta-section">
   <div class="section-inner">
-    <div class="section-tag" style="display:inline-block; margin-bottom:0.75rem;">Commencer</div>
-    <h2 class="section-title" style="max-width:100%; margin:0 auto 1rem;">Votre budget et votre patrimoine, <em style="color:var(--accent);">100% privés.</em></h2>
-    <p class="section-subtitle" style="margin:0 auto 2.5rem;">Installez Stateri en quelques secondes. Aucun compte requis, aucune carte bleue. Vos données sur votre téléphone, sur votre Drive — nulle part ailleurs.</p>
-    <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-      <a href="https://app.stateri.fr/" class="btn-accent" style="font-size:1rem; padding:0.85rem 2rem;" target="_blank" rel="noopener">🌐 Ouvrir l'application</a>
-      <a href="installer.html" class="btn-secondary" style="font-size:1rem; padding:0.85rem 1.75rem;">📲 Installer sur mobile</a>
+    <div class="s-tag fu" style="display:inline-block;">Commencer</div>
+    <h2 class="s-title fu" style="--d:.08s; max-width:640px; margin:0 auto 1rem;">
+      Votre budget, vos règles.
+    </h2>
+    <p class="s-desc fu" style="--d:.16s; max-width:520px; margin:0 auto 2.5rem;">
+      Aucun compte requis, aucune carte bleue. Vos données sur votre téléphone,
+      sur votre Drive — nulle part ailleurs.
+    </p>
+    <div class="cta-actions fu" style="--d:.24s">
+      <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener">Essayer gratuitement →</a>
+      <a href="installer.html" class="btn-ghost">Guide d'installation →</a>
     </div>
   </div>
 </section>
 
+<!-- ===== FOOTER ===== -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">⚖️ Stateri</div>
-    <div class="footer-links">
-      <a href="#">Confidentialité</a>
-      <a href="#">GitHub</a>
-      <a href="feedback.html">Contact</a>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">⚖️ Stateri</div>
+        <div class="footer-tagline">Vos données, votre contrôle.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#">Mentions légales</a>
+        <a href="feedback.html">Contact</a>
+        <a href="https://github.com/kxirox/Statera-web-pages" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </div>
-    <div>© 2026 Stateri — Votre budget, 100% privé.</div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Stateri — Tous droits réservés</div>
+      <a href="https://app.stateri.fr/" class="footer-app" target="_blank" rel="noopener">app.stateri.fr →</a>
+    </div>
   </div>
 </footer>
 
+<script>
+  // Navbar shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Hamburger mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay   = document.getElementById('overlay');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+  overlay.addEventListener('click', () => toggleMenu(false));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+  // Intersection Observer — fade-up
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const delay = entry.target.style.getPropertyValue('--d') || '0s';
+      entry.target.style.transitionDelay = delay;
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fu').forEach(el => observer.observe(el));
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Smooth scroll on anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
 </body>
 </html>
