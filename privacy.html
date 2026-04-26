@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politique de confidentialité — Stateri</title>
+  <meta name="description" content="Stateri ne collecte aucune donnée personnelle. Vos données financières restent sur votre appareil et sur votre Google Drive." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #FAF8F4;
+      --surface:      #FFFFFF;
+      --dark:         #1A1A1A;
+      --green:        #2D6A4F;
+      --green-light:  #52B788;
+      --green-pale:   rgba(82,183,136,0.12);
+      --muted:        #6B7280;
+      --border:       #E8E4DC;
+      --title:        'Sora', system-ui, sans-serif;
+      --body:         'Inter', system-ui, sans-serif;
+      --r:            16px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .navbar.scrolled {
+      border-color: var(--border);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    }
+    .nav-logo {
+      font-family: var(--title);
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--dark); text-decoration: none;
+      display: flex; align-items: center; gap: 9px;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-img {
+      width: 34px; height: 34px;
+      border-radius: 9px; object-fit: contain; display: block;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2.25rem;
+    }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--body); font-size: 0.875rem; font-weight: 600;
+      background: var(--green); color: #fff;
+      border-radius: 8px; padding: 0.6rem 1.3rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      min-height: 40px;
+    }
+    .nav-cta:hover {
+      background: #235940;
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(45,106,79,0.28);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px;
+      background: none; border: none; border-radius: 6px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--dark); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 0; right: 0;
+      width: 280px; height: 100vh;
+      background: var(--surface); z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -8px 0 48px rgba(0,0,0,0.12);
+      padding: 5.5rem 2rem 2.5rem;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--body); font-size: 1rem; font-weight: 500;
+      color: var(--dark); text-decoration: none;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+      display: block;
+    }
+    .mobile-menu .m-cta {
+      margin-top: 1.5rem;
+      background: var(--green); color: #fff;
+      text-align: center; border-radius: 8px;
+      border-bottom: none; padding: 0.9rem;
+      font-weight: 600;
+    }
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3); z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ===== HERO ===== */
+    .hero-privacy {
+      padding: 9rem 2.5rem 4.5rem;
+      background: var(--bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-privacy::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse at center top, rgba(82,183,136,0.09) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--green);
+      background: var(--green-pale);
+      border: 1px solid rgba(82,183,136,0.25);
+      border-radius: 100px; padding: 6px 16px;
+      margin-bottom: 1.75rem; letter-spacing: 0.01em;
+    }
+    .hero-privacy h1 {
+      font-family: var(--title);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.25rem;
+      color: var(--dark);
+    }
+    .hero-privacy h1 .g { color: var(--green); }
+    .hero-date {
+      font-size: 0.85rem; color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* Summary card */
+    .summary-card {
+      max-width: 680px; margin: 0 auto;
+      background: var(--green);
+      border-radius: 16px; padding: 1.75rem 2rem;
+      display: flex; align-items: flex-start; gap: 1.25rem;
+      text-align: left;
+    }
+    .summary-icon {
+      font-size: 2rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .summary-card strong {
+      display: block;
+      font-family: var(--title); font-size: 1rem; font-weight: 700;
+      color: #fff; margin-bottom: 0.4rem;
+    }
+    .summary-card p {
+      font-size: 0.9rem; color: rgba(255,255,255,0.72); line-height: 1.65;
+    }
+
+    /* ===== CONTENT ===== */
+    .content-wrap {
+      max-width: 760px; margin: 0 auto;
+      padding: 4rem 2.5rem 6rem;
+    }
+
+    /* Table of contents */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 3.5rem;
+    }
+    .toc-title {
+      font-family: var(--title); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 1rem;
+    }
+    .toc ol {
+      list-style: none; display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .toc ol li { display: flex; align-items: center; gap: 0.75rem; }
+    .toc ol li .toc-num {
+      font-family: var(--title); font-size: 0.75rem; font-weight: 700;
+      color: var(--green-light); width: 20px; flex-shrink: 0;
+    }
+    .toc ol li a {
+      font-size: 0.875rem; color: var(--muted);
+      text-decoration: none; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .toc ol li a:hover { color: var(--green); }
+
+    /* Sections */
+    .priv-section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 5rem;
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 0.85rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 2px solid var(--green-pale);
+    }
+    .section-num {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--green-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--title); font-size: 0.85rem; font-weight: 800;
+      color: var(--green); flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-family: var(--title); font-size: 1.1rem; font-weight: 700;
+      color: var(--dark); letter-spacing: -0.015em;
+    }
+
+    .priv-section p {
+      font-size: 0.925rem; color: var(--muted);
+      line-height: 1.8; margin-bottom: 0.85rem;
+    }
+    .priv-section ul {
+      list-style: none; display: flex; flex-direction: column; gap: 0.5rem;
+      margin: 0.75rem 0 1rem;
+    }
+    .priv-section ul li {
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      font-size: 0.925rem; color: var(--muted); line-height: 1.7;
+    }
+    .priv-section ul li::before {
+      content: '→';
+      color: var(--green-light); font-weight: 700;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .priv-section a {
+      color: var(--green); font-weight: 500;
+      text-decoration: none;
+    }
+    .priv-section a:hover { text-decoration: underline; }
+
+    /* Highlight boxes */
+    .highlight-box {
+      background: var(--green-pale);
+      border: 1px solid rgba(82,183,136,0.3);
+      border-left: 3px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+    .highlight-box strong {
+      display: block;
+      font-family: var(--title); font-size: 0.9rem; font-weight: 700;
+      color: var(--green); margin-bottom: 0.4rem;
+    }
+    .highlight-box p {
+      font-size: 0.875rem; color: var(--muted); margin: 0; line-height: 1.7;
+    }
+
+    .quote-box {
+      background: var(--green);
+      border-radius: 14px; padding: 1.5rem 1.75rem;
+      margin: 1.25rem 0;
+      text-align: center;
+    }
+    .quote-box p {
+      font-family: var(--title); font-size: 1.05rem; font-weight: 700;
+      color: #fff; line-height: 1.4; margin: 0;
+    }
+    .quote-box span {
+      display: block; font-family: var(--body);
+      font-size: 0.8rem; font-weight: 400;
+      color: rgba(255,255,255,0.6); margin-top: 0.5rem;
+    }
+
+    code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.82em;
+      background: var(--border); color: var(--green);
+      padding: 2px 7px; border-radius: 5px;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--dark); padding: 3.5rem 2.5rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1.75rem;
+    }
+    .footer-logo {
+      font-family: var(--title);
+      font-size: 1.25rem; font-weight: 800; color: #fff;
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .footer-logo-img {
+      width: 30px; height: 30px; border-radius: 8px;
+      object-fit: contain;
+      filter: brightness(0) invert(1); opacity: 0.85;
+    }
+    .footer-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.38); margin-top: 6px; }
+    .footer-links { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 0.875rem; color: rgba(255,255,255,0.48);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.85); }
+    .footer-bottom {
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+    .footer-app { font-size: 0.8rem; color: var(--green-light); text-decoration: none; font-weight: 500; }
+    .footer-app:hover { text-decoration: underline; }
+
+    /* ===== ANIMATIONS ===== */
+    .fu {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+    }
+    .fu.in { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .navbar { padding: 1rem 1.5rem; }
+      .hero-privacy { padding: 7.5rem 1.5rem 3.5rem; }
+      .content-wrap { padding: 3rem 1.25rem 5rem; }
+      .summary-card { flex-direction: column; gap: 0.75rem; }
+      .footer-top { flex-direction: column; }
+      .toc { padding: 1.25rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo_stateri.png" alt="Stateri" class="nav-logo-img" />
+    Stateri
+  </a>
+  <div class="nav-links">
+    <a href="index.html#fonctionnalites">Fonctionnalités</a>
+    <a href="privacy.html">Confidentialité</a>
+    <a href="installer.html">Installer</a>
+    <a href="faq.html">FAQ</a>
+    <a href="feedback.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://app.stateri.fr/" class="nav-cta" target="_blank" rel="noopener">Essayer gratuitement →</a>
+    <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#fonctionnalites">Fonctionnalités</a>
+  <a href="privacy.html">Confidentialité</a>
+  <a href="installer.html">Installer</a>
+  <a href="faq.html">FAQ</a>
+  <a href="feedback.html">Contact</a>
+  <a href="https://app.stateri.fr/" class="m-cta" target="_blank" rel="noopener">Essayer gratuitement →</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero-privacy">
+  <div class="hero-badge fu">Politique de confidentialité</div>
+  <h1 class="fu" style="--d:.08s">
+    Vos données restent<br /><span class="g">chez vous.</span>
+  </h1>
+  <p class="hero-date fu" style="--d:.14s">Dernière mise à jour : avril 2026</p>
+
+  <div class="summary-card fu" style="--d:.2s">
+    <div class="summary-icon">🔒</div>
+    <div>
+      <strong>Résumé en une phrase</strong>
+      <p>Stateri ne collecte aucune donnée personnelle. Vos données financières restent sur votre appareil et sur votre Google Drive — jamais sur nos serveurs.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="content-wrap">
+
+  <!-- Table of contents -->
+  <div class="toc fu">
+    <div class="toc-title">Sommaire</div>
+    <ol>
+      <li><span class="toc-num">1</span><a href="#s1">Présentation</a></li>
+      <li><span class="toc-num">2</span><a href="#s2">Données collectées</a></li>
+      <li><span class="toc-num">3</span><a href="#s3">Google Drive (sauvegarde optionnelle)</a></li>
+      <li><span class="toc-num">4</span><a href="#s4">Données techniques</a></li>
+      <li><span class="toc-num">5</span><a href="#s5">Cookies et traceurs</a></li>
+      <li><span class="toc-num">6</span><a href="#s6">Partage des données</a></li>
+      <li><span class="toc-num">7</span><a href="#s7">Sécurité</a></li>
+      <li><span class="toc-num">8</span><a href="#s8">Droits des utilisateurs (RGPD)</a></li>
+      <li><span class="toc-num">9</span><a href="#s9">Modifications</a></li>
+      <li><span class="toc-num">10</span><a href="#s10">Contact</a></li>
+    </ol>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="priv-section fu" id="s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>Présentation</h2>
+    </div>
+    <p>Stateri est une application web progressive (PWA) de gestion de budget personnel disponible à l'adresse <a href="https://app.stateri.fr" target="_blank" rel="noopener">app.stateri.fr</a>.</p>
+    <p>Stateri est développée et maintenue par un développeur indépendant (ci-après « nous » ou « l'éditeur »).</p>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="priv-section fu" id="s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>Données collectées</h2>
+    </div>
+    <div class="highlight-box">
+      <strong>Stateri ne collecte aucune donnée personnelle.</strong>
+      <p>L'éditeur n'a accès à aucune de vos informations financières, aucune de vos transactions, et aucune donnée vous identifiant.</p>
+    </div>
+    <p>Toutes les données que vous saisissez dans Stateri (transactions, comptes, catégories, investissements, etc.) sont stockées exclusivement :</p>
+    <ul>
+      <li><strong>Localement</strong> sur votre appareil, dans le stockage local du navigateur (localStorage).</li>
+      <li><strong>Sur votre propre Google Drive</strong> si vous activez la sauvegarde (optionnelle).</li>
+    </ul>
+    <p>Ces données ne transitent jamais par nos serveurs. Nous ne disposons d'aucun serveur de base de données.</p>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="priv-section fu" id="s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>Google Drive (sauvegarde optionnelle)</h2>
+    </div>
+    <p>Si vous choisissez d'activer la sauvegarde Google Drive, Stateri vous demandera l'autorisation d'accéder à votre Google Drive via le protocole OAuth 2.0 de Google.</p>
+    <p>Dans ce cas :</p>
+    <ul>
+      <li>Stateri crée et lit uniquement les fichiers de sauvegarde qu'elle a elle-même créés (dossier dédié sur votre Drive).</li>
+      <li>Les fichiers de sauvegarde sont nommés <code>stateri-YYYY-MM-DD-HH-MM.json</code>.</li>
+      <li>Stateri n'accède à aucun autre fichier de votre Drive.</li>
+      <li>Le token d'accès (refresh token) est stocké localement sur votre appareil uniquement.</li>
+      <li>L'éditeur n'a à aucun moment accès à votre Google Drive, ni à vos fichiers de sauvegarde.</li>
+    </ul>
+    <p>La politique de confidentialité de Google s'applique à l'utilisation de Google Drive : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy →</a></p>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="priv-section fu" id="s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>Données techniques</h2>
+    </div>
+    <p>Stateri est hébergée sur Vercel. Comme tout hébergeur web, Vercel peut collecter des données techniques standards (adresse IP, navigateur, pages visitées) dans ses journaux de serveur, conformément à sa propre politique de confidentialité.</p>
+    <p>L'éditeur n'a pas accès à ces journaux de façon nominative et ne les exploite pas à des fins d'identification ou de profilage.</p>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="priv-section fu" id="s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>Cookies et traceurs</h2>
+    </div>
+    <p>Stateri n'utilise pas de cookies de traçage, pas de pixels publicitaires, pas de Google Analytics, ni aucun outil de mesure d'audience tiers.</p>
+    <div class="highlight-box">
+      <strong>Zéro tracking</strong>
+      <p>Aucun cookie publicitaire. Aucune analyse comportementale. Aucune revente de données.</p>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="priv-section fu" id="s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>Partage des données</h2>
+    </div>
+    <p>Aucune donnée personnelle n'est vendue, louée, partagée ou transmise à des tiers, pour quelque raison que ce soit.</p>
+    <div class="quote-box">
+      <p>"On ne peut pas vendre ce qu'on n'a pas."</p>
+      <span>L'architecture offline-first de Stateri fait que l'éditeur n'a physiquement pas accès à vos données financières.</span>
+    </div>
+  </div>
+
+  <!-- Section 7 -->
+  <div class="priv-section fu" id="s7">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h2>Sécurité</h2>
+    </div>
+    <p>La sécurité de vos données dépend de la sécurité de votre appareil et de votre compte Google. Nous vous recommandons :</p>
+    <ul>
+      <li>D'utiliser un appareil protégé par un code ou un mot de passe.</li>
+      <li>D'activer la sauvegarde Google Drive pour ne pas perdre vos données en cas de changement d'appareil.</li>
+    </ul>
+  </div>
+
+  <!-- Section 8 -->
+  <div class="priv-section fu" id="s8">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <h2>Droits des utilisateurs (RGPD)</h2>
+    </div>
+    <p>Dans la mesure où Stateri ne collecte aucune donnée personnelle sur ses serveurs, les droits d'accès, de rectification et de suppression s'exercent directement sur votre appareil (vidage du localStorage) et sur votre Google Drive (suppression des fichiers de sauvegarde).</p>
+    <p>Pour toute question, vous pouvez nous contacter à : <a href="mailto:contact@stateri.fr">contact@stateri.fr</a></p>
+  </div>
+
+  <!-- Section 9 -->
+  <div class="priv-section fu" id="s9">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <h2>Modifications</h2>
+    </div>
+    <p>Cette politique peut être mise à jour. La date de dernière modification est indiquée en haut de cette page. En cas de modification substantielle, une information sera publiée sur le site.</p>
+  </div>
+
+  <!-- Section 10 -->
+  <div class="priv-section fu" id="s10">
+    <div class="section-header">
+      <div class="section-num">10</div>
+      <h2>Contact</h2>
+    </div>
+    <p>Pour toute question relative à cette politique de confidentialité :</p>
+    <ul>
+      <li>Email : <a href="mailto:contact@stateri.fr">contact@stateri.fr</a></li>
+      <li>Site : <a href="https://stateri.fr">stateri.fr</a></li>
+      <li>Formulaire de contact : <a href="feedback.html">feedback →</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="footer-logo">
+          <img src="logo_stateri.png" alt="Stateri" class="footer-logo-img" />
+          Stateri
+        </a>
+        <div class="footer-tagline">Vos données, votre contrôle.</div>
+      </div>
+      <div class="footer-links">
+        <a href="faq.html">FAQ</a>
+        <a href="installer.html">Installer</a>
+        <a href="feedback.html">Contact</a>
+        <a href="privacy.html">Confidentialité</a>
+        <a href="https://github.com/kxirox/Statera-web-pages" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Stateri — Tous droits réservés</div>
+      <a href="https://app.stateri.fr/" class="footer-app" target="_blank" rel="noopener">app.stateri.fr →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay   = document.getElementById('overlay');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+  overlay.addEventListener('click', () => toggleMenu(false));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const delay = entry.target.style.getPropertyValue('--d') || '0s';
+      entry.target.style.transitionDelay = delay;
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fu').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
