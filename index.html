@@ -59,11 +59,11 @@
       display: flex; align-items: center; gap: 9px;
       letter-spacing: -0.02em;
     }
-    .nav-logo-icon {
+    .nav-logo-img {
       width: 34px; height: 34px;
-      background: var(--green); border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 17px;
+      border-radius: 9px;
+      object-fit: contain;
+      display: block;
     }
     .nav-links {
       display: flex; align-items: center; gap: 2.25rem;
@@ -515,6 +515,13 @@
       font-family: var(--title);
       font-size: 1.25rem; font-weight: 800; color: #fff;
       display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .footer-logo-img {
+      width: 30px; height: 30px; border-radius: 8px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
     }
     .footer-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.38); margin-top: 6px; }
     .footer-links { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
@@ -594,13 +601,14 @@
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
   <a href="/" class="nav-logo">
-    <div class="nav-logo-icon">⚖️</div>
+    <img src="logo_stateri.png" alt="Stateri" class="nav-logo-img" />
     Stateri
   </a>
   <div class="nav-links">
     <a href="#fonctionnalites">Fonctionnalités</a>
     <a href="#confidentialite">Confidentialité</a>
     <a href="installer.html">Installer</a>
+    <a href="faq.html">FAQ</a>
     <a href="feedback.html">Contact</a>
   </div>
   <div class="nav-right">
@@ -616,6 +624,7 @@
   <a href="#fonctionnalites">Fonctionnalités</a>
   <a href="#confidentialite">Confidentialité</a>
   <a href="installer.html">Installer</a>
+  <a href="faq.html">FAQ</a>
   <a href="feedback.html">Contact</a>
   <a href="https://app.stateri.fr/" class="m-cta" target="_blank" rel="noopener">Essayer gratuitement →</a>
 </div>
@@ -812,7 +821,7 @@
       <div class="phone-wrap fu" style="--d:.2s">
         <div class="phone">
           <div class="phone-screen">
-            <div class="phone-app-icon">⚖️</div>
+            <div class="phone-app-icon" style="padding:8px;"><img src="logo_stateri.png" alt="Stateri" style="width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1);" /></div>
             <div class="phone-app-name">Stateri</div>
             <div class="phone-grid">
               <div class="ph-icon a"></div>
@@ -858,12 +867,17 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <div class="footer-logo">⚖️ Stateri</div>
+        <a href="/" class="footer-logo">
+          <img src="logo_stateri.png" alt="Stateri" class="footer-logo-img" />
+          Stateri
+        </a>
         <div class="footer-tagline">Vos données, votre contrôle.</div>
       </div>
       <div class="footer-links">
-        <a href="#">Mentions légales</a>
+        <a href="faq.html">FAQ</a>
+        <a href="installer.html">Installer</a>
         <a href="feedback.html">Contact</a>
+        <a href="#">Mentions légales</a>
         <a href="https://github.com/kxirox/Statera-web-pages" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
