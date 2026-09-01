@@ -7,7 +7,7 @@
   <meta name="description" content="Signalez un bug, proposez une amélioration ou posez une question à l'équipe Stateri. Nous lisons chaque message." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Sora:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -23,11 +23,123 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-    .nav-logo span { color: var(--accent); }
-    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
-    .nav-back:hover { color: var(--ink); }
+    /* ===== NAVBAR (aligné sur index / faq / privacy) ===== */
+    :root {
+      --nav-bg:     #FAF8F4;
+      --nav-surface:#FFFFFF;
+      --nav-dark:   #1A1A1A;
+      --nav-green:  #2D6A4F;
+      --nav-muted:  #6B7280;
+      --nav-border: #E8E4DC;
+      --nav-title:  'Sora', system-ui, sans-serif;
+      --nav-body:   'Inter', system-ui, sans-serif;
+    }
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .navbar.scrolled {
+      border-color: var(--nav-border);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    }
+    .nav-logo {
+      font-family: var(--nav-title);
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--nav-dark); text-decoration: none;
+      display: flex; align-items: center; gap: 9px;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-img {
+      width: 34px; height: 34px;
+      border-radius: 9px;
+      object-fit: contain;
+      display: block;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2.25rem;
+    }
+    .nav-links a {
+      font-family: var(--nav-body);
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--nav-muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--nav-dark); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--nav-body); font-size: 0.875rem; font-weight: 600;
+      background: var(--nav-green); color: #fff;
+      border-radius: 8px; padding: 0.6rem 1.3rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      min-height: 40px;
+    }
+    .nav-cta:hover {
+      background: #235940;
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(45,106,79,0.28);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px;
+      background: none; border: none; border-radius: 6px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--nav-dark); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 0; right: 0;
+      width: 280px; height: 100vh;
+      background: var(--nav-surface); z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -8px 0 48px rgba(0,0,0,0.12);
+      padding: 5.5rem 2rem 2.5rem;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--nav-body); font-size: 1rem; font-weight: 500;
+      color: var(--nav-dark); text-decoration: none;
+      padding: 1rem 0; border-bottom: 1px solid var(--nav-border);
+      display: block;
+    }
+    .mobile-menu .m-cta {
+      margin-top: 1.5rem;
+      background: var(--nav-green); color: #fff;
+      text-align: center; border-radius: 8px;
+      border-bottom: none; padding: 0.9rem;
+      font-weight: 600;
+    }
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3); z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta   { display: none; }
+      .hamburger { display: flex; }
+      .navbar    { padding: 1rem 1.5rem; }
+    }
 
     /* ── HERO ── */
     .page-hero { padding: 8rem 2rem 3rem; max-width: 680px; margin: 0 auto; text-align: center; animation: fadeUp 0.5s ease both; }
@@ -90,10 +202,36 @@
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">⚖️ <span>Stateri</span></a>
-  <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo_stateri.png" alt="Stateri" class="nav-logo-img" />
+    Stateri
+  </a>
+  <div class="nav-links">
+    <a href="index.html#fonctionnalites">Fonctionnalités</a>
+    <a href="privacy.html">Confidentialité</a>
+    <a href="installer.html">Installer</a>
+    <a href="faq.html">FAQ</a>
+    <a href="feedback.html" class="active">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://app.stateri.fr/" class="nav-cta" target="_blank" rel="noopener">Essayer maintenant →</a>
+    <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#fonctionnalites">Fonctionnalités</a>
+  <a href="privacy.html">Confidentialité</a>
+  <a href="installer.html">Installer</a>
+  <a href="faq.html">FAQ</a>
+  <a href="feedback.html">Contact</a>
+  <a href="https://app.stateri.fr/" class="m-cta" target="_blank" rel="noopener">Essayer maintenant →</a>
+</div>
 
 <div class="page-hero">
   <div class="hero-eyebrow">Nous contacter</div>
@@ -165,5 +303,27 @@
   </div>
 </footer>
 
+
+<script>
+  // Navbar : ombre au scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Menu mobile (hamburger)
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay    = document.getElementById('overlay');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+  overlay.addEventListener('click', () => toggleMenu(false));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+</script>
 </body>
 </html>
