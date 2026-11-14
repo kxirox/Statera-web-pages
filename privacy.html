@@ -409,13 +409,13 @@
   <h1 class="fu" style="--d:.08s">
     Vos données restent<br /><span class="g">chez vous.</span>
   </h1>
-  <p class="hero-date fu" style="--d:.14s">Dernière mise à jour : septembre 2026</p>
+  <p class="hero-date fu" style="--d:.14s">Dernière mise à jour : novembre 2026</p>
 
   <div class="summary-card fu" style="--d:.2s">
     <div class="summary-icon">🔒</div>
     <div>
       <strong>Résumé en une phrase</strong>
-      <p>La seule donnée personnelle collectée par Stateri est votre adresse e-mail, nécessaire à votre compte. Vos données financières, elles, restent sur votre appareil et sur votre Google Drive — jamais sur nos serveurs.</p>
+      <p>La seule donnée personnelle collectée par Stateri est l'adresse e-mail de votre compte Google, lorsque vous vous connectez. Vos données financières, elles, restent sur votre appareil et sur votre Google Drive — jamais sur nos serveurs.</p>
     </div>
   </div>
 </div>
@@ -461,11 +461,11 @@
     </div>
     <div class="highlight-box">
       <strong>Une seule donnée personnelle est collectée : votre adresse e-mail.</strong>
-      <p>Elle sert à créer et sécuriser votre compte. L'éditeur n'a accès à aucune de vos informations financières, ni à aucune de vos transactions.</p>
+      <p>Elle est enregistrée lorsque vous vous connectez avec votre compte Google, afin de gérer le statut de votre compte. L'éditeur n'a accès à aucune de vos informations financières, ni à aucune de vos transactions.</p>
     </div>
     <p>Stateri traite deux catégories de données, strictement séparées :</p>
     <ul>
-      <li><strong>Les données de compte</strong> — votre adresse e-mail et les identifiants techniques créés lors de l'inscription. Elles sont hébergées par le service d'authentification de Google. Détail en <a href="#s3">section 3</a>.</li>
+      <li><strong>Les données de compte</strong> — votre adresse e-mail, vos dates de première et de dernière utilisation et un statut de compte (gratuit, fondateur ou premium). Elles sont hébergées par Google Firebase (Cloud Firestore). Détail en <a href="#s3">section 3</a>.</li>
       <li><strong>Les données financières</strong> — transactions, comptes, catégories, investissements, budgets. Elles ne sont <strong>jamais</strong> transmises à l'éditeur.</li>
     </ul>
     <p>Les données financières que vous saisissez dans Stateri sont stockées exclusivement :</p>
@@ -482,19 +482,19 @@
       <div class="section-num">3</div>
       <h2>Compte et adresse e-mail</h2>
     </div>
-    <p>L'utilisation de Stateri nécessite la création d'un compte avec une adresse e-mail. L'authentification est assurée par <strong>Firebase Authentication</strong>, un service de Google.</p>
+    <p>Stateri ne vous demande ni de créer un compte, ni de choisir un mot de passe. Lorsque vous vous connectez avec votre compte Google, l'adresse e-mail de ce compte est enregistrée dans une base <strong>Google Firebase (Cloud Firestore)</strong>.</p>
     <p><strong>Ce qui est enregistré :</strong></p>
     <ul>
       <li>Votre adresse e-mail.</li>
-      <li>Un identifiant utilisateur unique (UID) généré automatiquement.</li>
-      <li>Les dates de création du compte et de dernière connexion.</li>
-      <li>Les métadonnées techniques que Firebase journalise lors des connexions (adresse IP, type d'appareil), conformément à la politique de Google.</li>
+      <li>La date de première utilisation et la date de dernière utilisation.</li>
+      <li>Un statut de compte : gratuit, fondateur ou premium.</li>
+      <li>Les journaux techniques habituels de Google lors des échanges avec la base (adresse IP, type d'appareil), conformément à la politique de Google.</li>
     </ul>
-    <p><strong>À quoi elle sert :</strong> uniquement à vous identifier, à sécuriser l'accès à votre espace et, le cas échéant, à vous contacter au sujet du service (incident, information importante concernant votre compte). Votre adresse e-mail n'est utilisée à aucune fin publicitaire et n'est transmise à aucun tiers à des fins commerciales.</p>
+    <p><strong>À quoi elle sert :</strong> uniquement à gérer le statut de votre compte, à mesurer l'usage de façon globale et, le cas échéant, à vous contacter au sujet du service (incident, information importante concernant votre compte). Votre adresse e-mail n'est utilisée à aucune fin publicitaire et n'est transmise à aucun tiers à des fins commerciales.</p>
     <p><strong>Base légale (RGPD) :</strong> l'exécution du contrat, c'est-à-dire la fourniture du service que vous avez demandé.</p>
     <div class="highlight-box">
       <strong>Aucune donnée financière n'est rattachée à votre compte côté serveur.</strong>
-      <p>Le service d'authentification ne contient que votre identité de connexion. Vos transactions, elles, restent sur votre appareil et sur votre Google Drive.</p>
+      <p>Cette base ne contient que votre adresse e-mail, vos dates d'utilisation et votre statut. Vos transactions, elles, restent sur votre appareil et sur votre Google Drive.</p>
     </div>
   </div>
 
@@ -505,14 +505,17 @@
       <h2>Google Drive (sauvegarde optionnelle)</h2>
     </div>
     <p>Si vous choisissez d'activer la sauvegarde Google Drive, Stateri vous demandera l'autorisation d'accéder à votre Google Drive via le protocole OAuth 2.0 de Google.</p>
+    <p>Les autorisations demandées sont : <code>drive.file</code> (accès limité aux seuls fichiers créés par Stateri), ainsi que <code>openid</code>, <code>email</code> et <code>profile</code> (identifier le compte Google connecté).</p>
     <p>Dans ce cas :</p>
     <ul>
       <li>Stateri crée et lit uniquement les fichiers de sauvegarde qu'elle a elle-même créés (dossier dédié sur votre Drive).</li>
       <li>Les fichiers de sauvegarde sont nommés <code>stateri-YYYY-MM-DD-HH-MM.json</code>.</li>
       <li>Stateri n'accède à aucun autre fichier de votre Drive.</li>
       <li>Le token d'accès (refresh token) est stocké localement sur votre appareil uniquement.</li>
+      <li>Pour obtenir et renouveler l'autorisation, un petit service hébergé chez Vercel échange le code d'autorisation avec Google ; il ne conserve ni les jetons ni les données.</li>
       <li>L'éditeur n'a à aucun moment accès à votre Google Drive, ni à vos fichiers de sauvegarde.</li>
     </ul>
+    <p>L'utilisation et le transfert par Stateri des informations reçues des API Google respectent la <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">politique relative aux données utilisateur des services API Google</a>, y compris les exigences d'utilisation limitée (« Limited Use »). Ces informations ne sont ni vendues, ni utilisées pour de la publicité, ni pour entraîner des modèles d'intelligence artificielle.</p>
     <p>La politique de confidentialité de Google s'applique à l'utilisation de Google Drive : <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy →</a></p>
   </div>
 
@@ -547,11 +550,11 @@
       <div class="section-num">7</div>
       <h2>Cookies et traceurs</h2>
     </div>
-    <p>Stateri n'utilise pas de cookies de traçage, pas de pixels publicitaires, pas de Google Analytics, ni aucun outil de mesure d'audience tiers.</p>
-    <p>Le seul stockage utilisé par l'application est technique et nécessaire à son fonctionnement : vos données locales (localStorage) et le jeton de session qui vous maintient connecté à votre compte.</p>
+    <p>Stateri n'utilise pas de cookies de traçage, pas de pixels publicitaires et pas de Google Analytics. L'application utilise uniquement <strong>Vercel Analytics</strong>, qui mesure la fréquentation de façon anonymisée, sans donnée financière.</p>
+    <p>Le seul stockage utilisé par l'application est technique et nécessaire à son fonctionnement : vos données locales (localStorage) et, si vous activez la sauvegarde, les jetons d'autorisation Google conservés sur votre appareil.</p>
     <div class="highlight-box">
-      <strong>Zéro tracking</strong>
-      <p>Aucun cookie publicitaire. Aucune analyse comportementale. Aucune revente de données.</p>
+      <strong>Pas de publicité, pas de profilage</strong>
+      <p>Aucun cookie publicitaire. Aucune analyse de votre comportement financier. Aucune revente de données.</p>
     </div>
   </div>
 
@@ -564,11 +567,12 @@
     <p>Aucune donnée personnelle n'est vendue, louée ou cédée à des tiers, pour quelque raison que ce soit, et aucune donnée n'est utilisée à des fins publicitaires ou de profilage.</p>
     <p>Stateri s'appuie sur un petit nombre de prestataires techniques (sous-traitants au sens du RGPD), strictement pour faire fonctionner le service :</p>
     <ul>
-      <li><strong>Google — Firebase Authentication</strong> : hébergement des comptes (adresse e-mail et identifiants de connexion).</li>
+      <li><strong>Google — Firebase (Cloud Firestore)</strong> : hébergement de la fiche de compte (adresse e-mail, dates d'utilisation, statut).</li>
       <li><strong>Google — Drive API</strong> : uniquement si vous activez la sauvegarde ; les fichiers restent sur votre propre Drive.</li>
-      <li><strong>Vercel</strong> : hébergement de l'application.</li>
+      <li><strong>Vercel</strong> : hébergement de l'application, échange sécurisé du code d'autorisation Google et mesure d'audience anonymisée (Vercel Analytics).</li>
       <li><strong>GitHub Pages</strong> : hébergement du site vitrine.</li>
       <li><strong>Formspree</strong> : acheminement des messages du formulaire de contact.</li>
+      <li><strong>Fournisseur d'IA de votre choix</strong> : uniquement si vous activez, de vous-même, la saisie vocale par IA avec votre propre clé d'API (désactivée par défaut). Cette clé reste sur votre appareil et n'est jamais incluse dans la sauvegarde Drive.</li>
     </ul>
     <div class="quote-box">
       <p>"On ne peut pas vendre ce qu'on n'a pas."</p>
@@ -583,7 +587,7 @@
       <h2>Durée de conservation</h2>
     </div>
     <ul>
-      <li><strong>Adresse e-mail et compte</strong> — conservés tant que votre compte existe. La suppression du compte entraîne celle de l'adresse e-mail et des identifiants associés.</li>
+      <li><strong>Adresse e-mail, dates d'utilisation et statut</strong> — conservés tant que votre fiche de compte existe. Sa suppression, sur simple demande, entraîne celle de l'ensemble de ces données.</li>
       <li><strong>Données financières</strong> — sous votre seul contrôle : elles disparaissent lorsque vous videz le stockage local de votre navigateur et supprimez les fichiers de sauvegarde de votre Google Drive.</li>
       <li><strong>Messages du formulaire de contact</strong> — conservés le temps nécessaire au traitement de votre demande.</li>
     </ul>
@@ -595,11 +599,11 @@
       <div class="section-num">10</div>
       <h2>Sécurité</h2>
     </div>
-    <p>L'accès à votre compte est protégé par Firebase Authentication (Google) : l'éditeur ne stocke ni ne consulte vos identifiants de connexion.</p>
+    <p>La connexion est gérée par Google et les échanges passent par HTTPS : l'éditeur ne stocke ni ne consulte de mot de passe.</p>
     <p>La sécurité de vos données financières dépend, elle, de la sécurité de votre appareil et de votre compte Google. Nous vous recommandons :</p>
     <ul>
       <li>D'utiliser un appareil protégé par un code ou un mot de passe.</li>
-      <li>De choisir un mot de passe unique pour votre compte Stateri.</li>
+      <li>De protéger votre compte Google par la validation en deux étapes.</li>
       <li>D'activer la sauvegarde Google Drive pour ne pas perdre vos données en cas de changement d'appareil.</li>
     </ul>
   </div>
@@ -612,7 +616,7 @@
     </div>
     <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation et de portabilité sur les données personnelles vous concernant.</p>
     <ul>
-      <li><strong>Adresse e-mail et compte</strong> — vous pouvez en demander la rectification ou la suppression à tout moment en écrivant à <a href="mailto:contact@stateri.fr">contact@stateri.fr</a>. La suppression du compte est définitive.</li>
+      <li><strong>Adresse e-mail, dates d'utilisation et statut</strong> — vous pouvez y accéder, en demander la rectification ou la suppression à tout moment en écrivant à <a href="mailto:contact@stateri.fr">contact@stateri.fr</a> (réponse sous 30 jours). La suppression est définitive.</li>
       <li><strong>Données financières</strong> — l'éditeur n'y ayant pas accès, ces droits s'exercent directement par vous : vidage du stockage local de votre navigateur et suppression des fichiers de sauvegarde sur votre Google Drive.</li>
     </ul>
     <p>Vous pouvez également retirer à tout moment l'autorisation d'accès à votre Google Drive depuis les <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">paramètres de sécurité de votre compte Google →</a></p>
