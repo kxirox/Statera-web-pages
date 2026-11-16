@@ -475,6 +475,134 @@
       .stat-item:nth-child(3)::before { display: none; }
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Mes données financières sont-elles vraiment privées ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Stateri ne possède aucun serveur qui stocke vos données financières. Toutes vos transactions, soldes, budgets et investissements sont écrits directement dans un fichier sur votre propre Google Drive . Stateri lui-même n'y a pas accès — seul votre compte Google peut lire ce fichier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Stateri peut-il accéder à tous mes fichiers Google Drive ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Stateri demande une permission restreinte : il peut uniquement créer et modifier les fichiers qu'il a lui-même créés ( stateri-AAAA-MM-JJ-HH-MM.json ). Vos autres fichiers Drive, photos, documents et e-mails sont totalement inaccessibles pour l'application."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que se passe-t-il si je veux arrêter d'utiliser Stateri ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Supprimez simplement les fichiers stateri-AAAA-MM-JJ-HH-MM.json de votre Google Drive et révoquez l'accès de l'application depuis les paramètres de votre compte Google. Vos données disparaissent intégralement — il n'y a rien à supprimer côté Stateri puisque rien n'y est stocké."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Y a-t-il de la publicité ou du tracking dans l'application ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aucun. Stateri ne contient aucun outil de tracking, aucune publicité, aucune analyse comportementale. L'application n'a aucun intérêt à monétiser vos habitudes de dépense — votre budget ne quitte jamais votre téléphone et votre Drive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Stateri fonctionne-t-il sans connexion internet ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Stateri est une PWA (Progressive Web App) qui fonctionne entièrement hors ligne une fois installée. Vous pouvez ajouter des dépenses, consulter vos stats et accéder à votre historique sans réseau. La synchronisation avec Google Drive se déclenche automatiquement à la prochaine connexion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je utiliser Stateri sur plusieurs appareils ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Puisque toutes vos données sont sur votre Google Drive, vous pouvez accéder à Stateri depuis votre téléphone, votre tablette et votre ordinateur. Installez l'application sur chaque appareil et connectez le même compte Google — vos données seront synchronisées via votre Drive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il connecter ses identifiants bancaires ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. Stateri ne se connecte jamais à votre banque. Vous saisissez vos dépenses manuellement (ou par dictée vocale), ou vous importez un fichier CSV exporté depuis votre espace bancaire. Vos identifiants de banque restent exclusivement entre vous et votre banque."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment installer Stateri sur mon téléphone ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ouvrez app.stateri.fr dans Chrome (Android) ou Safari (iPhone), puis utilisez le menu du navigateur pour \"Ajouter à l'écran d'accueil\". L'application s'installe comme une app native, sans passer par l'App Store ou le Play Store. Consultez notre guide d'installation détaillé →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on utiliser Stateri avec plusieurs devises ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. Stateri supporte le multi-devises nativement — idéal si vous avez des comptes en euros et en francs suisses, par exemple. Chaque compte a sa propre devise, et Stateri convertit les montants dans votre devise d'affichage principale grâce aux taux de change que vous configurez. En savoir plus sur le multi-devises →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment importer mes transactions bancaires ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Exportez un fichier CSV ou Excel depuis votre espace bancaire en ligne, puis importez-le dans Stateri depuis l'onglet Transactions. Stateri est compatible avec les formats Crédit Mutuel, Revolut, et tout CSV standard. L'auto-catégorisation reconnaît automatiquement les marchands courants. Voir le guide d'import →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le budget prévisionnel est-il difficile à configurer ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pas du tout. Ouvrez l'onglet Prévisionnel, ajoutez vos dépenses et revenus attendus pour le mois, et Stateri calcule instantanément votre solde projeté à fin de mois. Vous pouvez définir un niveau de certitude (Certain, Probable, Incertain) pour chaque ligne. Découvrir le budget prévisionnel →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Stateri peut-il suivre mes investissements (PEA, assurance-vie, crypto) ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui. L'onglet Investissements permet de saisir vos achats par compte (PEA, CTO, assurance-vie, crypto…), de suivre la performance totale en euros et en %, et de calculer votre XIRR (taux de rendement interne réel). Vos investissements s'intègrent dans le calcul de votre patrimoine net total. Découvrir le suivi patrimoine →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je partager un compte avec mon conjoint(e) ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Stateri gère les comptes partagés via un système de taux de contribution : vous définissez le pourcentage des dépenses d'un compte commun qui vous appartient réellement. Un toggle \"Ma part\" dans les statistiques vous donne une vision personnalisée de votre budget, même sur des comptes partagés. Découvrir les comptes partagés →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Toutes les fonctionnalités de Stateri sont-elles accessibles ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, toutes les fonctionnalités disponibles aujourd'hui sont en accès libre. Budget prévisionnel, suivi patrimoine, multi-devises, import CSV — rien n'est caché derrière un paywall. Stateri est un projet en constante évolution : de nouvelles fonctionnalités pourraient voir le jour à l'avenir, possiblement sous forme d'options avancées."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment Stateri se finance-t-il sans abonnement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Stateri est un projet indépendant développé avec passion. Il n'a pas de modèle de monétisation actuel — aucune publicité, aucune revente de données, aucun abonnement. C'est une application conçue pour être utile, pas pour être rentable à tout prix."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 
@@ -576,7 +704,7 @@
       </button>
       <div class="faq-body-wrap">
         <div class="faq-answer">
-          Non. Stateri demande une permission <strong>restreinte</strong> : il peut uniquement créer et modifier le fichier qu'il a lui-même créé (<code>stateri-backup.json</code>). Vos autres fichiers Drive, photos, documents et e-mails sont totalement inaccessibles pour l'application.
+          Non. Stateri demande une permission <strong>restreinte</strong> : il peut uniquement créer et modifier les fichiers qu'il a lui-même créés (<code>stateri-AAAA-MM-JJ-HH-MM.json</code>). Vos autres fichiers Drive, photos, documents et e-mails sont totalement inaccessibles pour l'application.
         </div>
       </div>
     </div>
@@ -588,7 +716,7 @@
       </button>
       <div class="faq-body-wrap">
         <div class="faq-answer">
-          Supprimez simplement le fichier <code>stateri-backup.json</code> de votre Google Drive et révoquez l'accès de l'application depuis les paramètres de votre compte Google. Vos données disparaissent intégralement — il n'y a rien à supprimer côté Stateri puisque rien n'y est stocké.
+          Supprimez simplement les fichiers <code>stateri-AAAA-MM-JJ-HH-MM.json</code> de votre Google Drive et révoquez l'accès de l'application depuis les paramètres de votre compte Google. Vos données disparaissent intégralement — il n'y a rien à supprimer côté Stateri puisque rien n'y est stocké.
         </div>
       </div>
     </div>

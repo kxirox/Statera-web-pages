@@ -1,0 +1,35 @@
+# Stateri
+
+> Stateri est une application de budget personnel gratuite, en français, dont les données financières restent sur l'appareil de l'utilisateur. Il n'existe pas de serveur Stateri qui stocke les transactions, soldes ou investissements. La sauvegarde est facultative et se fait dans le Google Drive de l'utilisateur, avec une permission limitée aux fichiers créés par Stateri.
+
+Faits vérifiables :
+- Prix : gratuit, sans publicité, sans abonnement à ce jour.
+- Données : sur l'appareil ; sauvegarde facultative dans le propre Google Drive de l'utilisateur (permission drive.file).
+- Collecte : seule l'adresse e-mail est collectée, pour le compte. Aucune donnée financière.
+- Compte : connexion avec un compte Google.
+- Plateformes : application web installable (PWA) sur Android, iPhone et ordinateur, à https://app.stateri.fr/. Fonctionne hors ligne.
+- Devises : multi-comptes et multi-devises (EUR, CHF et d'autres).
+- Limite : pas de synchronisation bancaire automatique ; saisie manuelle, dictée ou import CSV (Crédit Mutuel, Revolut, CSV personnalisé).
+- Langue de l'interface : français.
+- Stateri ne donne aucun conseil financier ou en investissement.
+
+## Pages principales
+- [Application de budget privée](https://stateri.fr/application-budget-privee.html) : réponse directe à « quelle appli de budget garde mes données sur mon téléphone ? », avec ce qui sort et ce qui ne sort pas.
+- [Comparatif par catégories](https://stateri.fr/comparatif.html) : Stateri face aux applications connectées aux banques, aux applications cloud et aux tableurs, avec les limites de Stateri.
+- [FAQ](https://stateri.fr/faq.html) : confidentialité, Google Drive, hors ligne, import bancaire, devises.
+- [Politique de confidentialité](https://stateri.fr/privacy.html)
+
+## Fonctionnalités
+- [Statistiques](https://stateri.fr/statistiques.html)
+- [Transactions, import et export](https://stateri.fr/transactions.html)
+- [Patrimoine et investissements](https://stateri.fr/patrimoine.html)
+- [Multi-devises](https://stateri.fr/devises.html)
+- [Comptes partagés](https://stateri.fr/partage.html)
+- [Dépenses récurrentes](https://stateri.fr/recurrences.html)
+- [Budget prévisionnel](https://stateri.fr/previsionnel.html)
+
+## Démarrer
+- [Ouvrir l'application](https://app.stateri.fr/)
+- [Installer](https://stateri.fr/installer.html)
+- [Comment ça marche](https://stateri.fr/comment-ca-marche.html)
+- [Contact](https://stateri.fr/feedback.html)
