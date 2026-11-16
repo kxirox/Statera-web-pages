@@ -3,7 +3,7 @@
 > Stateri est une application de budget personnel gratuite, en français, dont les données financières restent sur l'appareil de l'utilisateur. Il n'existe pas de serveur Stateri qui stocke les transactions, soldes ou investissements. La sauvegarde est facultative et se fait dans le Google Drive de l'utilisateur, avec une permission limitée aux fichiers créés par Stateri.
 
 Faits vérifiables :
-- Prix : gratuit, sans publicité, sans abonnement à ce jour.
+- Prix : gratuit, toutes les fonctionnalités de base sont gratuites ; sans publicité.
 - Données : sur l'appareil ; sauvegarde facultative dans le propre Google Drive de l'utilisateur (permission drive.file).
 - Collecte : seule l'adresse e-mail est collectée, pour le compte. Aucune donnée financière.
 - Compte : connexion avec un compte Google.
