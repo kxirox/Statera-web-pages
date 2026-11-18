@@ -16,6 +16,8 @@ Faits vérifiables :
 ## Pages principales
 - [Application de budget privée](https://stateri.fr/application-budget-privee.html) : réponse directe à « quelle appli de budget garde mes données sur mon téléphone ? », avec ce qui sort et ce qui ne sort pas.
 - [Comparatif par catégories](https://stateri.fr/comparatif.html) : Stateri face aux applications connectées aux banques, aux applications cloud et aux tableurs, avec les limites de Stateri.
+- [Guide d'utilisation](https://stateri.fr/guide.html) : démarrer, saisir, détecteurs (abonnements, virements internes), sauvegarde.
+- [Quoi de neuf](https://stateri.fr/quoi-de-neuf.html) : évolutions datées de l'application.
 - [FAQ](https://stateri.fr/faq.html) : confidentialité, Google Drive, hors ligne, import bancaire, devises.
 - [Politique de confidentialité](https://stateri.fr/privacy.html)
 

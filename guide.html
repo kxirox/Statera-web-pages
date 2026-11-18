@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guide d'utilisation de Stateri : démarrer, saisir, détecteurs, sauvegarde — Stateri</title>
+  <meta name="description" content="Pas à pas : démarrer avec Stateri, saisir vos dépenses (à la main, à la voix, par import), détecteurs d'abonnements et de virements internes, sauvegarde sur votre Google Drive." />
+  <link rel="canonical" href="https://stateri.fr/guide.html" />
+  <meta property="og:title" content="Guide d'utilisation de Stateri : démarrer, saisir, détecteurs, sauvegarde — Stateri" />
+  <meta property="og:description" content="Pas à pas : démarrer avec Stateri, saisir vos dépenses (à la main, à la voix, par import), détecteurs d'abonnements et de virements internes, sauvegarde sur votre Google Drive." />
+  <meta property="og:url" content="https://stateri.fr/guide.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://stateri.fr/screenshot1.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* HERO */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    /* FEATURE PILLS */
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    /* SECTIONS */
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-tag.light { color: var(--accent-mid); }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+
+    /* TWO COL */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.wide-img-left { grid-template-columns: 1.4fr 1fr; }
+
+    /* SCREENSHOTS */
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+    .app-img.large { box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 8px 24px rgba(0,0,0,0.08); }
+
+    /* FULL WIDTH */
+    .full-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 56px rgba(0,0,0,0.11), 0 6px 18px rgba(0,0,0,0.07); margin-top: 2.5rem; }
+    .full-img img { width: 100%; display: block; }
+
+    /* INFO BOX */
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* FEATURE LIST */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+
+    /* TAUX CARD */
+    .taux-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .taux-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
+    .taux-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .taux-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .taux-card p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+    .taux-card.highlight { background: var(--accent-light); border-color: rgba(93,202,165,0.4); }
+    .taux-card.highlight h3 { color: #1a5c30; }
+    .taux-card.highlight p { color: #2a6040; }
+
+    /* USAGE CARDS */
+    .usage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+    .usage-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .usage-card-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .usage-card h3 { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .usage-card p { font-size: 0.82rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+
+    /* ZOOM CALLOUT */
+    .zoom-callout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-top: 2.5rem; }
+    .zoom-callout-img { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .zoom-callout-img img { width: 100%; display: block; }
+    .zoom-callout-text h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .zoom-callout-text p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+    .zoom-callout-text p + p { margin-top: 0.6rem; }
+
+    /* CTA */
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img, .two-col.wide-img-left { grid-template-columns: 1fr; gap: 2rem; }
+      .taux-grid { grid-template-columns: 1fr; }
+      .usage-grid { grid-template-columns: 1fr; }
+      .zoom-callout { grid-template-columns: 1fr; }
+    }
+  </style>  <style>
+    .page-hero { grid-template-columns: 1fr !important; padding-bottom: 2rem; }
+    .lead { font-size: 1.1rem !important; color: var(--ink) !important; font-weight: 400 !important; }
+    table.cmp { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: #fff; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+    table.cmp th, table.cmp td { text-align: left; padding: 0.8rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+    table.cmp th { background: var(--surface-2); font-weight: 500; }
+    table.cmp td:first-child, table.cmp tbody th { font-weight: 500; color: var(--ink); }
+    table.cmp td { color: var(--ink-2); font-weight: 300; }
+    table.cmp .us { background: var(--accent-light); color: #14503a; }
+    .tablewrap { overflow-x: auto; }
+    .qa h3 { font-family: var(--font-display); font-size: 1.25rem; margin: 1.75rem 0 0.4rem; }
+    .qa p { color: var(--ink-2); font-weight: 300; font-size: 0.95rem; max-width: 760px; }
+    .prose p { color: var(--ink-2); font-weight: 300; max-width: 760px; margin-bottom: 1rem; }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://stateri.fr/guide.html",
+      "url": "https://stateri.fr/guide.html",
+      "name": "Guide d'utilisation de Stateri",
+      "inLanguage": "fr",
+      "isPartOf": {
+        "@id": "https://stateri.fr/#website"
+      },
+      "about": {
+        "@id": "https://stateri.fr/#app"
+      },
+      "dateModified": "2026-11-18"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Comment commencer avec Stateri ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ouvrez app.stateri.fr dans votre navigateur, connectez-vous avec votre compte Google, puis ajoutez vos comptes bancaires avec leur solde de départ. Rien n'est à installer pour commencer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qu'est-ce que le scanner d'abonnement ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "C'est un détecteur qui tourne sur votre appareil. Il cherche dans votre historique les prélèvements du même montant exact qui reviennent au même rythme, repère une hausse de prix quand un montant voisin remplace l'ancien, et signale un abonnement qui s'est arrêté. Vous vérifiez les opérations retenues avant d'en faire une charge récurrente."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment Stateri repère-t-il les virements entre mes propres comptes ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Il rapproche une sortie et une entrée de même montant, sur des comptes différents, à trois jours d'écart au plus, qui ne sont pas déjà liées. Il vous propose les paires, vous confirmez : rien n'est lié sans votre accord."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mes données quittent-elles mon téléphone pour ces analyses ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Non. Le scanner d'abonnement et la détection des virements se calculent sur votre appareil, sans modèle de langage ni serveur."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="/" class="nav-back">← Retour à l'accueil</a>
+</nav>
+
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">Guide · Pas à pas</div>
+    <h1>Utiliser Stateri,<br /><em>étape par étape.</em></h1>
+    <p class="lead">Ce guide explique comment démarrer, saisir vos dépenses, laisser les détecteurs repérer abonnements et virements internes, et sauvegarder vos données dans votre propre Google Drive.</p>
+    <div class="feature-pills">
+      <span class="pill">1 · Démarrer</span>
+      <span class="pill">2 · Saisir</span>
+      <span class="pill">3 · Détecteurs</span>
+      <span class="pill">4 · Sauvegarder</span>
+    </div>
+  </div>
+</div>
+
+<div class="content-section prose" id="demarrer">
+  <div class="section-inner">
+    <div class="section-tag">Étape 1</div>
+    <h2 class="section-title">Démarrer</h2>
+    <ul class="feature-list">
+      <li>Ouvrez <strong>app.stateri.fr</strong> dans Chrome (Android) ou Safari (iPhone). Vous pouvez l'ajouter à l'écran d'accueil : voir <a href="installer.html">Installer</a>.</li>
+      <li>Connectez-vous avec votre compte Google. Seule votre adresse e-mail est collectée ; voir la <a href="privacy.html">politique de confidentialité</a>.</li>
+      <li>Ajoutez vos comptes (banque, type de compte, devise) avec leur solde de départ.</li>
+    </ul>
+    <p style="margin-top:1rem">Plus de détails dans <a href="comment-ca-marche.html">Comment ça marche</a>.</p>
+  </div>
+</div>
+
+<div class="content-section alt prose" id="saisir">
+  <div class="section-inner">
+    <div class="section-tag">Étape 2</div>
+    <h2 class="section-title">Saisir vos opérations</h2>
+    <ul class="feature-list">
+      <li><strong>À la main</strong> : montant, compte, catégorie, note. Les dépenses fixes se déclarent sur la dépense elle-même.</li>
+      <li><strong>À la voix</strong> : la dictée est comprise par un moteur local, sur votre appareil. Un connecteur d'intelligence artificielle externe existe, il est éteint par défaut et ne s'active qu'avec votre propre clé.</li>
+      <li><strong>Par import</strong> : fichier CSV (modèle fourni), Crédit Mutuel, Revolut. Voir <a href="transactions.html">Transactions</a>.</li>
+      <li><strong>Récurrences</strong> : loyer, abonnements, salaire, configurés une fois. Voir <a href="recurrences.html">Dépenses récurrentes</a>.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="content-section prose" id="detecteurs">
+  <div class="section-inner">
+    <div class="section-tag">Étape 3</div>
+    <h2 class="section-title">Les détecteurs : ce que Stateri repère pour vous</h2>
+    <p>Deux détecteurs travaillent sur votre historique. <strong>Tous deux tournent sur votre appareil, sans serveur ni modèle de langage.</strong> Ils proposent, vous décidez.</p>
+    <h3 style="font-family:var(--font-display);font-size:1.25rem;margin:1.5rem 0 .4rem">Le scanner d'abonnement</h3>
+    <ul class="feature-list">
+      <li>Il cherche les prélèvements de <strong>même montant exact</strong>, par compte, qui reviennent à un rythme régulier.</li>
+      <li>Il repère une <strong>hausse de prix</strong> quand un montant voisin prend la suite de l'ancien, et un abonnement qui <strong>s'est arrêté</strong>.</li>
+      <li>Il ne retient volontairement que les montants identiques : un essai sur des données réelles a montré qu'élargir la recherche produisait surtout de fausses détections.</li>
+      <li>Les opérations retenues sont montrées une à une, pour que vous les vérifiiez avant d'en faire une charge récurrente.</li>
+    </ul>
+    <h3 style="font-family:var(--font-display);font-size:1.25rem;margin:1.5rem 0 .4rem">La détection des virements internes</h3>
+    <ul class="feature-list">
+      <li>Elle rapproche une sortie et une entrée de <strong>même montant</strong>, sur des <strong>comptes différents</strong>, à <strong>trois jours d'écart au plus</strong>.</li>
+      <li>Elle ignore les opérations déjà liées et classe les paires par vraisemblance.</li>
+      <li>Rien n'est lié sans votre confirmation : un virement interne n'est ainsi plus compté comme une dépense.</li>
+    </ul>
+    <div class="info-box green">
+      <div class="info-box-icon">🔒</div>
+      <div>Pourquoi sur l'appareil ? Savoir ce qui se répète ne demande que des dates et des montants. Il n'y a donc aucune raison que vos données financières quittent votre téléphone.</div>
+    </div>
+  </div>
+</div>
+
+<div class="content-section alt prose" id="analyser">
+  <div class="section-inner">
+    <div class="section-tag">Aller plus loin</div>
+    <h2 class="section-title">Analyser et anticiper</h2>
+    <ul class="feature-list">
+      <li><a href="statistiques.html">Statistiques</a> : dépenses par catégorie, évolution du solde, comparaison aux années précédentes.</li>
+      <li><a href="previsionnel.html">Budget prévisionnel</a> : projection de fin de mois, lignes certaines ou probables.</li>
+      <li><a href="patrimoine.html">Patrimoine</a> : fortune nette, répartition par banque et type de compte, investissements.</li>
+      <li><a href="devises.html">Multi-devises</a> : un compte par devise, conversion dans les graphiques.</li>
+      <li><a href="partage.html">Comptes partagés</a> : taux de contribution et vue « Ma part ».</li>
+    </ul>
+  </div>
+</div>
+
+<div class="content-section prose" id="sauvegarder">
+  <div class="section-inner">
+    <div class="section-tag">Étape 4</div>
+    <h2 class="section-title">Sauvegarder et restaurer</h2>
+    <ul class="feature-list">
+      <li>La sauvegarde est <strong>facultative</strong> et va dans <strong>votre propre Google Drive</strong>, avec la permission limitée « drive.file » : Stateri ne voit que les fichiers qu'il a créés.</li>
+      <li>Les fichiers s'appellent <code>stateri-AAAA-MM-JJ-HH-MM.json</code>. Les plus anciens sont purgés automatiquement.</li>
+      <li>Pour restaurer, choisissez une sauvegarde dans l'application. Pour partir, supprimez ces fichiers et révoquez l'accès depuis votre compte Google : il n'y a rien à supprimer chez Stateri.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="content-section alt qa" id="questions">
+  <div class="section-inner">
+    <div class="section-tag">Questions fréquentes</div>
+    <h2 class="section-title">Sur ce guide</h2>
+    <h3>Comment commencer avec Stateri ?</h3>
+    <p>Ouvrez app.stateri.fr dans votre navigateur, connectez-vous avec votre compte Google, puis ajoutez vos comptes bancaires avec leur solde de départ. Rien n'est à installer pour commencer.</p>
+    <h3>Qu'est-ce que le scanner d'abonnement ?</h3>
+    <p>C'est un détecteur qui tourne sur votre appareil. Il cherche dans votre historique les prélèvements du même montant exact qui reviennent au même rythme, repère une hausse de prix quand un montant voisin remplace l'ancien, et signale un abonnement qui s'est arrêté. Vous vérifiez les opérations retenues avant d'en faire une charge récurrente.</p>
+    <h3>Comment Stateri repère-t-il les virements entre mes propres comptes ?</h3>
+    <p>Il rapproche une sortie et une entrée de même montant, sur des comptes différents, à trois jours d'écart au plus, qui ne sont pas déjà liées. Il vous propose les paires, vous confirmez : rien n'est lié sans votre accord.</p>
+    <h3>Mes données quittent-elles mon téléphone pour ces analyses ?</h3>
+    <p>Non. Le scanner d'abonnement et la détection des virements se calculent sur votre appareil, sans modèle de langage ni serveur.</p>
+    <p style="margin-top:2rem">Plus de réponses dans la <a href="faq.html">FAQ complète</a>. Les dernières évolutions sont dans <a href="quoi-de-neuf.html">Quoi de neuf</a>.</p>
+  </div>
+</div>
+
+<div class="cta-banner" style="border-top: 1px solid var(--border);">
+  <h2>Essayez Stateri, sans carte bancaire</h2>
+  <p>Ouvrez l'application dans votre navigateur : rien à installer pour commencer.</p>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener">🌐 Ouvrir l'application →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-links">
+      <a href="/">Accueil</a>
+      <a href="application-budget-privee.html">Budget privé</a>
+      <a href="comparatif.html">Comparatif</a>
+      <a href="guide.html">Guide</a>
+      <a href="quoi-de-neuf.html">Quoi de neuf</a>
+      <a href="faq.html">FAQ</a>
+      <a href="installer.html">Installer</a>
+      <a href="privacy.html">Confidentialité</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div>© 2026 Stateri — Application de budget personnel</div>
+  </div>
+</footer>
+
+</body>
+</html>
