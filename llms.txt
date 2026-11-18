@@ -35,3 +35,4 @@ Faits vérifiables :
 - [Installer](https://stateri.fr/installer.html)
 - [Comment ça marche](https://stateri.fr/comment-ca-marche.html)
 - [Contact](https://stateri.fr/feedback.html)
+- [Budget en euros et francs suisses](https://stateri.fr/budget-euro-franc-suisse.html) : comptes CHF et EUR, frontaliers, conversion
