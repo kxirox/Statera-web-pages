@@ -57,7 +57,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -649,6 +649,50 @@
       .tab-btn { font-size: 0.8rem; padding: 0.55rem 0.3rem; }
     }
   </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --bg: #f7f2e8; --surface: #fffdf8; --dark: #15261d;
+      --green: #1f4a38; --green-light: #6f8f6b; --green-pale: rgba(111,143,107,0.14);
+      --muted: #55635b; --border: rgba(21,38,29,0.16);
+      --title: 'Cormorant Garamond', Georgia, serif;
+      --body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+      --gold: #b06a2f; --font-display: 'Cormorant Garamond', Georgia, serif;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    body { background: var(--bg); }
+    h1, h2, h3, .s-title, .priv-title, .hero h1 { font-family: var(--title); font-weight: 600; letter-spacing: -0.01em; }
+    .hero h1 { font-size: clamp(2.6rem, 5vw, 4.1rem); line-height: 1.03; }
+    .hero h1 .g, .s-title .g { color: var(--gold); font-style: italic; }
+    .s-title, .priv-title { font-size: clamp(2rem, 3.2vw, 2.9rem); line-height: 1.08; }
+    .navbar { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .navbar.scrolled { box-shadow: none; }
+    .nav-logo { font-family: var(--title); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.25rem; font-weight: 600; }
+    .nav-cta { white-space: nowrap; letter-spacing: 0.06em; padding-left: 1.1rem; padding-right: 1.1rem; }
+    .nav-cta, .btn-primary, .btn-ghost { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    .nav-cta, .btn-primary { background: var(--green); color: #f7f2e8; }
+    .nav-cta:hover, .btn-primary:hover { background: #15261d; transform: none; box-shadow: none; }
+    .hero-badge, .s-tag, .priv-eyebrow { background: none !important; border: 0 !important; padding: 0 !important; border-radius: 0 !important; color: var(--gold) !important; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; display: flex; align-items: center; gap: 0.6rem; width: fit-content; }
+    .section-header .s-tag, .priv-eyebrow { margin-left: auto; margin-right: auto; }
+    .hero-badge::before, .s-tag::before, .priv-eyebrow::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .feature-card, .priv-card, .reassurance, .phone-screen { box-shadow: none; border-radius: 4px; }
+    .feature-card:hover { transform: none; box-shadow: none; border-color: var(--gold); }
+    .fc-icon { width: auto; height: auto; background: none; border-radius: 0; justify-content: flex-start; font-family: var(--title); font-size: 1.7rem; font-weight: 600; color: var(--gold); margin-bottom: 0.6rem; line-height: 1; }
+    .feature-card h3, .priv-card-name { font-family: var(--title); font-size: 1.35rem; font-weight: 600; }
+    .hero-mockup-bg, .hero-mockup-bg img { border-radius: 6px; }
+    .step-num { font-family: var(--title); background: none; color: var(--gold); border: 1px solid var(--gold); }
+    .tab-btn { border-radius: 2px; }
+    .trust-item::before { color: var(--gold); }
+    .reassurance { background: #efe8d8; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    footer { background: #15261d; }
+  </style>
 </head>
 <body>
 
@@ -687,7 +731,7 @@
 <div class="hero-wrap">
   <div class="hero">
     <div class="hero-content">
-      <div class="hero-badge fu">🔒 Zéro serveur Stateri — Données sur votre Drive</div>
+      <div class="hero-badge fu"> Zéro serveur Stateri — Données sur votre Drive</div>
       <h1 class="fu" style="--d:.08s">
         Gérez votre budget.<br />
         Vos données restent <span class="g">chez vous.</span>
@@ -759,37 +803,37 @@
     </div>
     <div class="features-grid">
       <div class="feature-card fu" style="--d:0s">
-        <div class="fc-icon">🏦</div>
+        <div class="fc-icon">01</div>
         <h3>Multi-comptes et multi-banques</h3>
         <p>Gérez tous vos comptes bancaires dans une interface unifiée — courant, épargne, bourse, plusieurs banques.</p>
         <a href="partage.html">Découvrir →</a>
       </div>
       <div class="feature-card fu" style="--d:.1s">
-        <div class="fc-icon">💱</div>
+        <div class="fc-icon">02</div>
         <h3>Multi-devises (EUR/CHF)</h3>
         <p>Conversion automatique entre devises. Gérez des comptes en euros et en francs suisses simultanément.</p>
         <a href="devises.html">Découvrir →</a>
       </div>
       <div class="feature-card fu" style="--d:.2s">
-        <div class="fc-icon">📊</div>
+        <div class="fc-icon">03</div>
         <h3>Statistiques complètes</h3>
         <p>Camemberts par catégorie, histogramme 12 mois, évolution du solde et vue 30 jours glissants.</p>
         <a href="statistiques.html">Découvrir →</a>
       </div>
       <div class="feature-card fu" style="--d:.3s">
-        <div class="fc-icon">🔄</div>
+        <div class="fc-icon">04</div>
         <h3>Import CSV et Crédit Mutuel</h3>
         <p>Importez vos relevés bancaires en un clic. Format CSV personnalisé, Excel Crédit Mutuel et Revolut.</p>
         <a href="transactions.html">Découvrir →</a>
       </div>
       <div class="feature-card fu" style="--d:.4s">
-        <div class="fc-icon">🏠</div>
+        <div class="fc-icon">05</div>
         <h3>Patrimoine et investissements</h3>
         <p>Suivi du patrimoine net, investissements avec snapshots historiques, dettes et immobilier.</p>
         <a href="patrimoine.html">Découvrir →</a>
       </div>
       <div class="feature-card fu" style="--d:.5s">
-        <div class="fc-icon">👫</div>
+        <div class="fc-icon">06</div>
         <h3>Dépenses partagées</h3>
         <p>Répartissez les frais entre plusieurs personnes avec remboursements et coefficients de contribution.</p>
         <a href="partage.html">Découvrir →</a>
@@ -890,7 +934,7 @@
           </div>
         </div>
         <div class="install-note fu" style="--d:.4s">
-          ⚠️ Votre sauvegarde Google Drive est privée. Stateri ne peut pas accéder
+           Votre sauvegarde Google Drive est privée. Stateri ne peut pas accéder
           à votre Drive, ni lire vos données. Vos informations financières restent
           uniquement sur cet appareil et sur votre Google Drive personnel.
         </div>
@@ -901,19 +945,7 @@
             <div class="phone-app-icon" style="padding:8px;"><img src="logo_stateri.png" alt="Stateri" style="width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1);" /></div>
             <div class="phone-app-name">Stateri</div>
             <div class="phone-grid">
-              <div class="ph-icon a"></div>
-              <div class="ph-icon b"></div>
-              <div class="ph-icon c"></div>
-              <div class="ph-icon d"></div>
-              <div class="ph-icon"></div>
-              <div class="ph-icon a"></div>
-              <div class="ph-icon"></div>
-              <div class="ph-icon b"></div>
-              <div class="ph-icon d"></div>
-              <div class="ph-icon c"></div>
-              <div class="ph-icon a"></div>
-              <div class="ph-icon"></div>
-            </div>
+                                                                                                                                                                                    </div>
           </div>
         </div>
       </div>
@@ -963,7 +995,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Stateri — Tous droits réservés</div>
+      <div class="footer-copy"> 2026 Stateri — Tous droits réservés</div>
       <a href="https://app.stateri.fr/" class="footer-app" target="_blank" rel="noopener">app.stateri.fr →</a>
     </div>
   </div>

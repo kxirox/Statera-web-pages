@@ -351,3 +351,15 @@ When creating a new feature/documentation page:
 - **No shared CSS file** — each page is self-contained; duplicate base styles are intentional
 - **All images in root** — do not create subdirectories for assets
 - **French content only** — all visible text must be in French
+
+---
+
+## Identité visuelle (depuis le 18/11/2026)
+
+Le site reprend l'identité de l'application (« Financial Garden » : `docs/identite-visuelle/` du dépôt `budget-pwa`) : **papier crème, vert forêt, cuivre**, titres en **Cormorant Garamond**, texte en **Source Sans 3**, motif de **brin de feuilles** devant les étiquettes de section, cartes numérotées (01, 02…) à la place des pictogrammes. Chaque page porte un bloc `<style id="identite">` en dernier dans le `<head>` : il redéfinit les jetons de couleur et de police.
+
+Règles :
+- **Aucun emoji** dans le site : ils donnent un air de site généré. Les flèches typographiques (← →, ✓) restent permises. Les icônes de cartes sont remplacées par des numéros (compteurs CSS), les étiquettes par le brin de feuilles.
+- Ne pas réintroduire DM Sans, DM Serif Display, Sora ni Inter.
+- Une nouvelle page part d'une page existante récente (par exemple `guide.html`) pour hériter du bloc d'identité ; le logo de l'en-tête est `logo-header-64.png`.
+- Pas de dégradés, pas d'ombres lourdes, coins peu arrondis (4 px).

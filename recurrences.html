@@ -8,7 +8,7 @@
   <link rel="canonical" href="https://stateri.fr/recurrences.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -149,11 +149,67 @@
       .exemples-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --ink: #15261d; --ink-2: #46544c; --ink-3: #85908a;
+      --surface: #f7f2e8; --surface-2: #efe8d8; --surface-3: #e3dac5;
+      --accent: #1f4a38; --accent-light: #e8eddf; --accent-mid: #6f8f6b;
+      --gold: #b06a2f; --gold-light: #f5e6d3;
+      --blue: #1f4a38; --blue-light: #e8eddf;
+      --purple: #6b4a2e; --purple-light: #f1e6d8;
+      --border: rgba(21,38,29,0.16);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    .page-hero h1 { font-size: clamp(2.4rem, 4.4vw, 3.7rem); line-height: 1.04; letter-spacing: -0.01em; }
+    .section-title, .cta-banner h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1.1; }
+    .page-hero h1 em, .section-title em { font-style: italic; }
+    nav { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .nav-logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.2rem; font-weight: 600; gap: 10px; }
+    .nav-logo span { color: var(--ink); }
+    .logo-mark { width: 28px; height: 28px; border-radius: 6px; display: block; }
+    .nav-back { font-size: 0.82rem; letter-spacing: 0.04em; }
+    .hero-eyebrow, .section-tag { display: flex; align-items: center; gap: 0.6rem; background: none; padding: 0; border-radius: 0; color: var(--gold); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; width: fit-content; }
+    .hero-eyebrow::before, .section-tag::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .cta-banner .hero-eyebrow { margin-left: auto; margin-right: auto; }
+    .section-tag.light { color: var(--accent-mid); }
+    .pill { border-radius: 2px; background: transparent; border: 1px solid rgba(176,106,47,0.55); color: var(--ink-2); font-size: 0.78rem; letter-spacing: 0.03em; }
+    .feature-card, .usage-card, .taux-card, .zoom-callout, .jump-link-card, .qa-card { background: #fffdf8; border: 1px solid var(--border); border-radius: 4px; box-shadow: none; }
+    .taux-card.highlight { background: var(--accent-light); border-color: rgba(31,74,56,0.3); }
+    .taux-card.highlight h3 { color: var(--accent); } .taux-card.highlight p { color: var(--ink-2); }
+    .usage-grid, .taux-grid, .features-grid { counter-reset: n; }
+    .usage-card::before, .taux-card::before, .feature-card::before { counter-increment: n; content: counter(n, decimal-leading-zero); display: block; font-family: var(--font-display); font-size: 1.6rem; line-height: 1; font-weight: 600; color: var(--gold); margin-bottom: 0.7rem; }
+    .usage-card h3, .taux-card h3, .feature-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
+    .info-box, .info-box.green, .info-box.gold, .info-box.blue, .info-box.purple { background: var(--surface-2) !important; border: 0 !important; border-left: 3px solid var(--gold) !important; border-radius: 0 !important; color: var(--ink-2) !important; }
+    .info-box strong { color: var(--ink); }
+    .app-img, .hero-img, .full-img, .zoom-callout-img, .screenshot-img { border-radius: 6px; box-shadow: 0 1px 0 var(--border), 0 14px 36px rgba(21,38,29,0.10); }
+    .feature-list li::before { width: 14px; height: 1.5px; border: 0; border-radius: 0; background: var(--gold); margin-top: 0.8em; }
+    .btn-primary { background: var(--accent); color: #f7f2e8; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; padding: 0.95rem 1.7rem; }
+    .btn-primary:hover { opacity: 1; background: #15261d; transform: none; }
+    .btn-secondary { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    table.cmp { border-radius: 0; } table.cmp th { background: var(--surface-2); font-family: var(--font-display); font-size: 1rem; }
+    table.cmp .us { background: var(--accent-light); color: var(--accent); }
+    .qa h3, .prose h3 { font-family: var(--font-display) !important; font-size: 1.4rem !important; font-weight: 600; }
+    footer { background: #15261d; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; }
+    .footer-logo .logo-mark { width: 24px; height: 24px; }
+    .page-hero { animation: none; }
+    @media (max-width: 500px) { nav { padding: 0.8rem 1rem; } .nav-logo { letter-spacing: 0.1em; font-size: 1.05rem; } .nav-back { white-space: nowrap; font-size: 0.76rem; } }
+  </style>
 </head>
 <body>
 
 <nav>
-  <a href="/" class="nav-logo">⚖️ <span>Stateri</span></a>
+  <a href="/" class="nav-logo"><img class="logo-mark" src="logo-header-64.png" alt="" width="28" height="28" /><span>Stateri</span></a>
   <a href="/" class="nav-back">← Retour à l'accueil</a>
 </nav>
 
@@ -164,10 +220,10 @@
     <h1>Vos charges fixes,<br /><em>enregistrées une fois.</em></h1>
     <p>Loyer, Netflix, salaire, remboursement de crédit — saisissez chaque récurrence une seule fois dans Stateri. L'app s'en souvient, mois après mois, sans que vous ayez à y penser.</p>
     <div class="feature-pills">
-      <span class="pill">🔄 Mensuel, trimestriel, annuel</span>
-      <span class="pill">💸 Dépenses & revenus</span>
-      <span class="pill">📅 Jour du mois configurable</span>
-      <span class="pill">🔮 Lié au prévisionnel</span>
+      <span class="pill"> Mensuel, trimestriel, annuel</span>
+      <span class="pill"> Dépenses & revenus</span>
+      <span class="pill"> Jour du mois configurable</span>
+      <span class="pill"> Lié au prévisionnel</span>
     </div>
   </div>
   <div class="hero-img">
@@ -200,8 +256,7 @@
         </ul>
 
         <div class="info-box green">
-          <div class="info-box-icon">⚡</div>
-          <div>Une fois enregistrée, la récurrence apparaît automatiquement dans votre <strong>budget prévisionnel</strong> chaque mois — sans aucune action de votre part.</div>
+                    <div>Une fois enregistrée, la récurrence apparaît automatiquement dans votre <strong>budget prévisionnel</strong> chaque mois — sans aucune action de votre part.</div>
         </div>
       </div>
 
@@ -214,8 +269,7 @@
     <div class="rec-visual" style="margin-top: 3rem;">
       <div class="rec-visual-header">Récurrences enregistrées — exemple</div>
       <div class="rec-row">
-        <div class="rec-icon green">🏠</div>
-        <div class="rec-info">
+                <div class="rec-info">
           <div class="rec-name">Loyer</div>
           <div class="rec-detail">Mensuel · le 1er du mois · Logement</div>
         </div>
@@ -223,8 +277,7 @@
         <span class="rec-amount neg">−850 €</span>
       </div>
       <div class="rec-row">
-        <div class="rec-icon purple">🎵</div>
-        <div class="rec-info">
+                <div class="rec-info">
           <div class="rec-name">Spotify</div>
           <div class="rec-detail">Mensuel · le 12 · Abonnements</div>
         </div>
@@ -232,8 +285,7 @@
         <span class="rec-amount neg">−11 €</span>
       </div>
       <div class="rec-row">
-        <div class="rec-icon blue">🎬</div>
-        <div class="rec-info">
+                <div class="rec-info">
           <div class="rec-name">Netflix</div>
           <div class="rec-detail">Mensuel · le 18 · Abonnements</div>
         </div>
@@ -241,8 +293,7 @@
         <span class="rec-amount neg">−17 €</span>
       </div>
       <div class="rec-row">
-        <div class="rec-icon green">💼</div>
-        <div class="rec-info">
+                <div class="rec-info">
           <div class="rec-name">Salaire net</div>
           <div class="rec-detail">Mensuel · le 28 · Revenus</div>
         </div>
@@ -250,8 +301,7 @@
         <span class="rec-amount pos">+2 400 €</span>
       </div>
       <div class="rec-row">
-        <div class="rec-icon gold">🏋️</div>
-        <div class="rec-info">
+                <div class="rec-info">
           <div class="rec-name">Salle de sport</div>
           <div class="rec-detail">Mensuel · le 5 · Sport & Loisirs</div>
         </div>
@@ -271,8 +321,7 @@
 
     <div class="exemples-grid">
       <div class="exemple-card">
-        <div class="exemple-icon">🏠</div>
-        <h3>Charges de logement</h3>
+                <h3>Charges de logement</h3>
         <ul>
           <li>Loyer mensuel</li>
           <li>Charges de copropriété</li>
@@ -281,8 +330,7 @@
         </ul>
       </div>
       <div class="exemple-card">
-        <div class="exemple-icon">📱</div>
-        <h3>Abonnements & services</h3>
+                <h3>Abonnements & services</h3>
         <ul>
           <li>Streaming (Netflix, Spotify…)</li>
           <li>Téléphonie & forfait mobile</li>
@@ -291,8 +339,7 @@
         </ul>
       </div>
       <div class="exemple-card">
-        <div class="exemple-icon">💼</div>
-        <h3>Revenus fixes</h3>
+                <h3>Revenus fixes</h3>
         <ul>
           <li>Salaire net mensuel</li>
           <li>Revenus locatifs</li>
@@ -301,8 +348,7 @@
         </ul>
       </div>
       <div class="exemple-card">
-        <div class="exemple-icon">🏦</div>
-        <h3>Crédits & remboursements</h3>
+                <h3>Crédits & remboursements</h3>
         <ul>
           <li>Mensualité crédit immobilier</li>
           <li>Remboursement prêt auto</li>
@@ -311,8 +357,7 @@
         </ul>
       </div>
       <div class="exemple-card">
-        <div class="exemple-icon">💳</div>
-        <h3>Prélèvements automatiques</h3>
+                <h3>Prélèvements automatiques</h3>
         <ul>
           <li>Mutuelle santé</li>
           <li>Assurance vie / prévoyance</li>
@@ -321,8 +366,7 @@
         </ul>
       </div>
       <div class="exemple-card">
-        <div class="exemple-icon">💰</div>
-        <h3>Épargne automatique</h3>
+                <h3>Épargne automatique</h3>
         <ul>
           <li>Virement vers livret A</li>
           <li>Alimentation PEA / assurance-vie</li>
@@ -351,8 +395,7 @@
         </ul>
 
         <div class="info-box blue">
-          <div class="info-box-icon">📅</div>
-          <div>Chaque récurrence a une <strong>date de début</strong> — pratique pour les abonnements commencés en milieu d'année ou les crédits avec une date de première échéance précise.</div>
+                    <div>Chaque récurrence a une <strong>date de début</strong> — pratique pour les abonnements commencés en milieu d'année ou les crédits avec une date de première échéance précise.</div>
         </div>
       </div>
 
@@ -395,7 +438,7 @@
       </div>
       <div class="synergy-arrow">
         <span class="arrow-label">Du récurrent au réel</span>
-        <div class="arrow-flow">🔄 → 🔮 → ✅</div>
+        <div class="arrow-flow"> →  → </div>
         <div class="arrow-desc">Récurrences → Prévisionnel → Historique réel<br />Un cycle fluide, sans ressaisie</div>
       </div>
     </div>
@@ -407,12 +450,12 @@
   <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Charges fixes, tête libre</div>
   <h2>Enregistrez une fois,<br /><em style="font-style:italic; color:var(--accent);">profitez chaque mois.</em></h2>
   <p>Installez Stateri, configurez vos récurrences en quelques minutes et laissez l'app gérer l'essentiel. Données 100% privées sur votre Google Drive.</p>
-  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener">🌐 Ouvrir l'application →</a>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener"> Ouvrir l'application →</a>
 </div>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">⚖️ Stateri</div>
+    <div class="footer-logo"><img class="logo-mark" src="logo-header-64.png" alt="" width="28" height="28" />Stateri</div>
     <div class="footer-links">
       <a href="/">Accueil</a>
       <a href="previsionnel.html">Prévisionnel</a>
@@ -421,7 +464,7 @@
       <a href="installer.html">Installer</a>
       <a href="feedback.html">Contact</a>
     </div>
-    <div>© 2026 Stateri — Application de budget personnel</div>
+    <div> 2026 Stateri — Application de budget personnel</div>
   </div>
 </footer>
 
