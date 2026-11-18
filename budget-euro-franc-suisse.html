@@ -173,7 +173,7 @@
           "name": "Existe-t-il une application de budget qui gère l'euro et le franc suisse ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui : dans Stateri, chaque compte bancaire a sa propre devise (EUR, CHF, mais aussi GBP, USD, CAD…). Les montants sont convertis dans la devise de référence, l'euro, pour les statistiques et le patrimoine, et restent affichés dans leur devise d'origine sur le compte."
+            "text": "Oui : dans Stateri, chaque compte bancaire a sa propre devise (EUR, CHF, USD ou GBP). Les montants sont convertis dans la devise principale que vous choisissez (l'euro par défaut, mais aussi le franc suisse, le dollar ou la livre) pour les statistiques et le patrimoine, et restent affichés dans leur devise d'origine sur le compte."
           }
         },
         {
@@ -243,11 +243,11 @@
         <div class="section-tag">Comment ça marche</div>
         <h2 class="section-title">Une devise par compte, un taux qui se mémorise</h2>
         <ul class="feature-list">
-          <li>Dans les paramètres, vous choisissez la devise de chaque compte (EUR par défaut, CHF ou une autre).</li>
-          <li>Sur un compte en CHF, les montants restent affichés en francs suisses, avec l'équivalent en euros.</li>
+          <li>Dans les paramètres, vous choisissez la devise de chaque compte (EUR, CHF, USD ou GBP).</li>
+          <li>Sur un compte en CHF, les montants restent affichés en francs suisses, avec l'équivalent dans votre devise principale.</li>
           <li>Quand vous saisissez un virement entre un compte CHF et un compte EUR, Stateri déduit le taux des deux montants et le mémorise. Exemple : 1 000 CHF virés, 1 087 EUR reçus, donc 1 CHF = 1,087 EUR.</li>
           <li>Vous pouvez aussi saisir ou corriger le taux à la main à tout moment.</li>
-          <li>Les statistiques, le patrimoine et la répartition par banque réunissent tout dans la devise de référence, l'euro.</li>
+          <li>Les statistiques, le patrimoine et la répartition par banque réunissent tout dans la devise principale que vous choisissez : l'euro par défaut, mais aussi le franc suisse, le dollar ou la livre.</li>
         </ul>
         <div class="info-box blue">
           <div class="info-box-icon">ℹ️</div>
@@ -291,7 +291,7 @@
       <div>
         <div class="section-tag">Dans l'historique</div>
         <h2 class="section-title">CHF et euros côte à côte</h2>
-        <p class="section-desc">Filtrez l'historique sur un compte en francs suisses : chaque ligne s'affiche dans la devise du compte, avec son équivalent en euros, et le solde total dans les deux devises.</p>
+        <p class="section-desc">Filtrez l'historique sur un compte en francs suisses : chaque ligne s'affiche dans la devise du compte, avec son équivalent dans votre devise principale (ici l'euro), et le solde total dans les deux devises.</p>
         <ul class="feature-list">
           <li>Le taux appliqué est indiqué à l'écran, pour que le calcul reste vérifiable.</li>
           <li>Les filtres banque, catégorie, type de compte et période se combinent.</li>
@@ -309,7 +309,7 @@
     <div class="section-tag">Questions fréquentes</div>
     <h2 class="section-title">Budget en euros et francs suisses : vos questions</h2>
     <h3>Existe-t-il une application de budget qui gère l'euro et le franc suisse ?</h3>
-    <p>Oui : dans Stateri, chaque compte bancaire a sa propre devise (EUR, CHF, mais aussi GBP, USD, CAD…). Les montants sont convertis dans la devise de référence, l'euro, pour les statistiques et le patrimoine, et restent affichés dans leur devise d'origine sur le compte.</p>
+    <p>Oui : dans Stateri, chaque compte bancaire a sa propre devise (EUR, CHF, USD ou GBP). Les montants sont convertis dans la devise principale que vous choisissez (l'euro par défaut, mais aussi le franc suisse, le dollar ou la livre) pour les statistiques et le patrimoine, et restent affichés dans leur devise d'origine sur le compte.</p>
     <h3>Comment Stateri connaît-il le taux de change CHF / EUR ?</h3>
     <p>Quand vous saisissez un virement entre un compte en CHF et un compte en EUR, Stateri déduit le taux des deux montants et le mémorise. Vous pouvez aussi saisir ou corriger le taux à la main dans les paramètres.</p>
     <h3>Stateri convient-il à un frontalier ?</h3>
@@ -322,7 +322,7 @@
 
 <div class="cta-banner" style="border-top: 1px solid var(--border);">
   <h2>Essayez avec vos comptes CHF et EUR</h2>
-  <p>Ouvrez l'application dans votre navigateur, rien à installer pour commencer. Des données fictives suffisent pour voir comment la conversion se comporte.</p>
+  <p>L'application Android est en test fermé sur Google Play ; elle s'ouvre aussi dans le navigateur. Des données fictives suffisent pour voir comment la conversion se comporte.</p>
   <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener">🌐 Ouvrir l'application →</a>
 </div>
 
