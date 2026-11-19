@@ -1,6 +1,6 @@
 # Stateri
 
-> Stateri est une application de budget personnel gratuite, en français, dont les données financières restent sur l'appareil de l'utilisateur. Il n'existe pas de serveur Stateri qui stocke les transactions, soldes ou investissements. La sauvegarde est facultative et se fait dans le Google Drive de l'utilisateur, avec une permission limitée aux fichiers créés par Stateri.
+> Stateri est une application de budget personnel gratuite, en français et en anglais, dont les données financières restent sur l'appareil de l'utilisateur. Il n'existe pas de serveur Stateri qui stocke les transactions, soldes ou investissements. La sauvegarde est facultative et se fait dans le Google Drive de l'utilisateur, avec une permission limitée aux fichiers créés par Stateri.
 
 Faits vérifiables :
 - Prix : gratuit, toutes les fonctionnalités de base sont gratuites ; sans publicité.
@@ -10,7 +10,7 @@ Faits vérifiables :
 - Plateformes : application web installable (PWA) sur Android, iPhone et ordinateur, à https://app.stateri.fr/. Fonctionne hors ligne.
 - Devises : multi-comptes et multi-devises (EUR, CHF et d'autres).
 - Limite : pas de synchronisation bancaire automatique ; saisie manuelle, dictée ou import CSV (Crédit Mutuel, Revolut, CSV personnalisé).
-- Langue de l'interface : français.
+- Langue de l'interface : français et anglais. Chaque page du site existe aussi en anglais : https://stateri.fr/en/
 - Stateri ne donne aucun conseil financier ou en investissement.
 
 ## Pages principales

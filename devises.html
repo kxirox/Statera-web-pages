@@ -6,6 +6,9 @@
   <title>Multi-devises — CHF, EUR et plus — Stateri</title>
   <meta name="description" content="Gérez vos comptes en CHF, EUR ou toute autre devise. Stateri convertit automatiquement vos montants et unifie tout votre budget dans une seule devise de référence." />
   <link rel="canonical" href="https://stateri.fr/devises.html" />
+  <link rel="alternate" hreflang="fr" href="https://stateri.fr/devises.html" />
+  <link rel="alternate" hreflang="en" href="https://stateri.fr/en/devises.html" />
+  <link rel="alternate" hreflang="x-default" href="https://stateri.fr/devises.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
@@ -128,6 +131,8 @@
       .usage-grid { grid-template-columns: 1fr; }
       .zoom-callout { grid-template-columns: 1fr; }
     }
+      .lang-switch { margin-left: 1rem; padding: 0.2rem 0.55rem; border: 1px solid currentColor; border-radius: 3px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; color: inherit; opacity: 0.75; align-self: center; }
+    .lang-switch:hover { opacity: 1; }
   </style>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -193,6 +198,7 @@
 <nav>
   <a href="/" class="nav-logo"><img class="logo-mark" src="logo-header-64.png" alt="" width="28" height="28" /><span>Stateri</span></a>
   <a href="/" class="nav-back">← Retour à l'accueil</a>
+  <a class="lang-switch" href="/en/devises.html" hreflang="en" lang="en" title="English version">EN</a>
 </nav>
 
 <!-- ══ HERO ══ -->
@@ -202,7 +208,7 @@
     <h1>Vos comptes en CHF,<br /><em>votre budget en euros.</em></h1>
     <p>Vous vivez entre deux pays, travaillez en Suisse ou avez des comptes dans plusieurs devises ? Stateri gère tout automatiquement : chaque compte dans sa devise, chaque montant converti à la volée.</p>
     <div class="feature-pills">
-      <span class="pill"> CHF /  EUR</span>
+      <span class="pill"> CHF / EUR</span>
       <span class="pill"> Taux auto ou manuel</span>
       <span class="pill"> Conversion dans tous les graphiques</span>
       <span class="pill"> Par compte bancaire</span>

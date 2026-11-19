@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{installer.installer-stateri-guide-d-installati}}</title>
+  <meta name="description" content="{{installer.comment-installer-stateri-sur-votre}}" />
+  <link rel="canonical" href="https://stateri.fr/installer.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --android: #3ddc84; --android-light: #e8faf1;
+      --ios: #0071e3; --ios-light: #e5f1fd;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* ===== NAVBAR (aligné sur index / faq / privacy) ===== */
+    :root {
+      --nav-bg:     #FAF8F4;
+      --nav-surface:#FFFFFF;
+      --nav-dark:   #1A1A1A;
+      --nav-green:  #2D6A4F;
+      --nav-muted:  #6B7280;
+      --nav-border: #E8E4DC;
+      --nav-title:  'Sora', system-ui, sans-serif;
+      --nav-body:   'Inter', system-ui, sans-serif;
+    }
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .navbar.scrolled {
+      border-color: var(--nav-border);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    }
+    .nav-logo {
+      font-family: var(--nav-title);
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--nav-dark); text-decoration: none;
+      display: flex; align-items: center; gap: 9px;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-img {
+      width: 34px; height: 34px;
+      border-radius: 9px;
+      object-fit: contain;
+      display: block;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2.25rem;
+    }
+    .nav-links a {
+      font-family: var(--nav-body);
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--nav-muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--nav-dark); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--nav-body); font-size: 0.875rem; font-weight: 600;
+      background: var(--nav-green); color: #fff;
+      border-radius: 8px; padding: 0.6rem 1.3rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      min-height: 40px;
+    }
+    .nav-cta:hover {
+      background: #235940;
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(45,106,79,0.28);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px;
+      background: none; border: none; border-radius: 6px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--nav-dark); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 0; right: 0;
+      width: 280px; height: 100vh;
+      background: var(--nav-surface); z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -8px 0 48px rgba(0,0,0,0.12);
+      padding: 5.5rem 2rem 2.5rem;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--nav-body); font-size: 1rem; font-weight: 500;
+      color: var(--nav-dark); text-decoration: none;
+      padding: 1rem 0; border-bottom: 1px solid var(--nav-border);
+      display: block;
+    }
+    .mobile-menu .m-cta {
+      margin-top: 1.5rem;
+      background: var(--nav-green); color: #fff;
+      text-align: center; border-radius: 8px;
+      border-bottom: none; padding: 0.9rem;
+      font-weight: 600;
+    }
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3); z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta   { display: none; }
+      .hamburger { display: flex; }
+      .navbar    { padding: 1rem 1.5rem; }
+    }
+
+    /* HERO */
+    .install-hero {
+      padding: 8rem 2rem 4rem;
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .install-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin-bottom: 1rem; }
+    .install-hero h1 em { font-style: italic; color: var(--accent); }
+    .install-hero p { font-size: 1.05rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; max-width: 560px; margin: 0 auto 2rem; }
+
+    /* APP URL BANNER */
+    .app-url-banner {
+      max-width: 760px;
+      margin: 0 auto 1rem;
+      padding: 0 2rem;
+    }
+    .url-box {
+      background: var(--ink);
+      border-radius: var(--r);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .url-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .url-value { font-family: monospace; font-size: 1.05rem; color: var(--accent-mid); font-weight: 600; letter-spacing: 0.02em; }
+    .url-copy-btn {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 500;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .url-copy-btn:hover { background: rgba(255,255,255,0.14); }
+
+    /* PLATFORM CARDS */
+    .platforms {
+      max-width: 1100px;
+      margin: 3rem auto 0;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .platform-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .platform-header {
+      padding: 1.5rem 1.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .platform-icon { font-size: 2rem; line-height: 1; }
+    .platform-header h2 { font-family: var(--font-display); font-size: 1.45rem; }
+    .platform-header .platform-sub { font-size: 0.8rem; color: var(--ink-3); font-weight: 300; margin-top: 2px; }
+
+    .ph-android { background: linear-gradient(135deg, #e8faf1 0%, #f7fffe 100%); }
+    .ph-ios { background: linear-gradient(135deg, #e5f1fd 0%, #f5f8ff 100%); }
+    .ph-android h2 { color: #1a7a40; }
+    .ph-ios h2 { color: #0055c4; }
+
+    .platform-body { padding: 1.5rem 1.75rem; }
+
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; gap: 1.25rem; }
+    .step { display: flex; gap: 1rem; align-items: flex-start; }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .sn-android { background: var(--android-light); color: #1a7a40; border: 1.5px solid rgba(61,220,132,0.4); }
+    .sn-ios { background: var(--ios-light); color: #0055c4; border: 1.5px solid rgba(0,113,227,0.3); }
+    .step-content h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 3px; }
+    .step-content p { font-size: 0.83rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .step-content .tip {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 6px;
+      font-size: 0.78rem; font-weight: 500;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .tip-warning { background: #fff8e1; color: #b45309; border: 1px solid #fde68a; }
+    .tip-info { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(93,202,165,0.4); }
+
+    /* SCREENSHOT AREA */
+    .step-screenshot {
+      margin-top: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .step-screenshot img { width: 100%; display: block; }
+    .screenshot-placeholder {
+      background: var(--surface-2);
+      border-radius: 10px;
+      border: 2px dashed var(--surface-3);
+      padding: 2rem 1rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--ink-3);
+      font-weight: 300;
+    }
+    .screenshot-placeholder span { display: block; font-size: 1.5rem; margin-bottom: 6px; }
+
+    /* SUCCESS BOX */
+    .success-box {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .sb-android { background: var(--android-light); border: 1px solid rgba(61,220,132,0.35); }
+    .sb-ios { background: var(--ios-light); border: 1px solid rgba(0,113,227,0.2); }
+    .success-box .sb-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .success-box p { font-size: 0.83rem; line-height: 1.6; font-weight: 300; }
+    .sb-android p { color: #1a5c30; }
+    .sb-ios p { color: #003d8f; }
+
+    /* FAQ / NOTES */
+    .notes-section {
+      max-width: 760px;
+      margin: 4rem auto 0;
+      padding: 0 2rem 5rem;
+    }
+    .notes-section h2 { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 1.5rem; }
+    .faq { display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem 1.5rem; }
+    .faq-item h4 { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .faq-item p { font-size: 0.85rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .install-hero { animation: fadeUp 0.55s ease both; }
+    .platforms { animation: fadeUp 0.55s 0.15s ease both; }
+
+    @media (max-width: 720px) {
+      .platforms { grid-template-columns: 1fr; }
+      .install-hero { padding-top: 7rem; }
+    }
+  </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --ink: #15261d; --ink-2: #46544c; --ink-3: #85908a;
+      --surface: #f7f2e8; --surface-2: #efe8d8; --surface-3: #e3dac5;
+      --accent: #1f4a38; --accent-light: #e8eddf; --accent-mid: #6f8f6b;
+      --gold: #b06a2f; --gold-light: #f5e6d3;
+      --blue: #1f4a38; --blue-light: #e8eddf;
+      --purple: #6b4a2e; --purple-light: #f1e6d8;
+      --border: rgba(21,38,29,0.16);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    .page-hero h1 { font-size: clamp(2.4rem, 4.4vw, 3.7rem); line-height: 1.04; letter-spacing: -0.01em; }
+    .section-title, .cta-banner h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1.1; }
+    .page-hero h1 em, .section-title em { font-style: italic; }
+    nav { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .nav-logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.2rem; font-weight: 600; gap: 10px; }
+    .nav-logo span { color: var(--ink); }
+    .logo-mark { width: 28px; height: 28px; border-radius: 6px; display: block; }
+    .nav-back { font-size: 0.82rem; letter-spacing: 0.04em; }
+    .hero-eyebrow, .section-tag { display: flex; align-items: center; gap: 0.6rem; background: none; padding: 0; border-radius: 0; color: var(--gold); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; width: fit-content; }
+    .hero-eyebrow::before, .section-tag::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .cta-banner .hero-eyebrow { margin-left: auto; margin-right: auto; }
+    .section-tag.light { color: var(--accent-mid); }
+    .pill { border-radius: 2px; background: transparent; border: 1px solid rgba(176,106,47,0.55); color: var(--ink-2); font-size: 0.78rem; letter-spacing: 0.03em; }
+    .feature-card, .usage-card, .taux-card, .zoom-callout, .jump-link-card, .qa-card { background: #fffdf8; border: 1px solid var(--border); border-radius: 4px; box-shadow: none; }
+    .taux-card.highlight { background: var(--accent-light); border-color: rgba(31,74,56,0.3); }
+    .taux-card.highlight h3 { color: var(--accent); } .taux-card.highlight p { color: var(--ink-2); }
+    .usage-grid, .taux-grid, .features-grid { counter-reset: n; }
+    .usage-card::before, .taux-card::before, .feature-card::before { counter-increment: n; content: counter(n, decimal-leading-zero); display: block; font-family: var(--font-display); font-size: 1.6rem; line-height: 1; font-weight: 600; color: var(--gold); margin-bottom: 0.7rem; }
+    .usage-card h3, .taux-card h3, .feature-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
+    .info-box, .info-box.green, .info-box.gold, .info-box.blue, .info-box.purple { background: var(--surface-2) !important; border: 0 !important; border-left: 3px solid var(--gold) !important; border-radius: 0 !important; color: var(--ink-2) !important; }
+    .info-box strong { color: var(--ink); }
+    .app-img, .hero-img, .full-img, .zoom-callout-img, .screenshot-img { border-radius: 6px; box-shadow: 0 1px 0 var(--border), 0 14px 36px rgba(21,38,29,0.10); }
+    .feature-list li::before { width: 14px; height: 1.5px; border: 0; border-radius: 0; background: var(--gold); margin-top: 0.8em; }
+    .btn-primary { background: var(--accent); color: #f7f2e8; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; padding: 0.95rem 1.7rem; }
+    .btn-primary:hover { opacity: 1; background: #15261d; transform: none; }
+    .btn-secondary { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    table.cmp { border-radius: 0; } table.cmp th { background: var(--surface-2); font-family: var(--font-display); font-size: 1rem; }
+    table.cmp .us { background: var(--accent-light); color: var(--accent); }
+    .qa h3, .prose h3 { font-family: var(--font-display) !important; font-size: 1.4rem !important; font-weight: 600; }
+    footer { background: #15261d; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; }
+    .footer-logo .logo-mark { width: 24px; height: 24px; }
+    .page-hero { animation: none; }
+    @media (max-width: 700px) { [style*="repeat(3, 1fr)"], [style*="repeat(2, 1fr)"] { grid-template-columns: 1fr !important; } }
+    @media (max-width: 700px) { body { overflow-x: hidden; } .footer-inner { flex-direction: column; align-items: flex-start; } .footer-links { flex-wrap: wrap; gap: 0.5rem 1.25rem; } .tab-divider-inner { flex-wrap: wrap; } }
+    @media (max-width: 500px) { nav { padding: 0.8rem 1rem; } .nav-logo { letter-spacing: 0.1em; font-size: 1.05rem; } .nav-back { white-space: nowrap; font-size: 0.76rem; } }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="logo_stateri.png" alt="{{commun.stateri}}" class="nav-logo-img" />
+    {{commun.stateri}}
+  </a>
+  <div class="nav-links">
+    <a href="/#fonctionnalites">{{commun.fonctionnalites}}</a>
+    <a href="privacy.html">{{commun.confidentialite}}</a>
+    <a href="installer.html" class="active">{{commun.installer}}</a>
+    <a href="faq.html">{{commun.faq}}</a>
+    <a href="feedback.html">{{commun.contact}}</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://app.stateri.fr/" class="nav-cta" target="_blank" rel="noopener">{{commun.essayer-maintenant}}</a>
+    <button class="hamburger" id="hamburger" aria-label="{{faq.ouvrir-le-menu}}">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/#fonctionnalites">{{commun.fonctionnalites}}</a>
+  <a href="privacy.html">{{commun.confidentialite}}</a>
+  <a href="installer.html">{{commun.installer}}</a>
+  <a href="faq.html">{{commun.faq}}</a>
+  <a href="feedback.html">{{commun.contact}}</a>
+  <a href="https://app.stateri.fr/" class="m-cta" target="_blank" rel="noopener">{{commun.essayer-maintenant}}</a>
+</div>
+
+<!-- HERO -->
+<div class="install-hero">
+  <div class="hero-eyebrow">{{installer.sans-app-store-sans-carte}}</div>
+  <h1>{{installer.installez-stateri-sur-votre-telephon}}</h1>
+  <p>{{installer.stateri-s-installe-directement-depui}}</p>
+</div>
+
+<!-- URL BANNER -->
+<div class="app-url-banner">
+  <div class="url-box">
+    <div>
+      <div class="url-label">{{installer.adresse-de-l-application}}</div>
+      <!-- REMPLACEZ L'URL CI-DESSOUS PAR L'URL RÉELLE DE VOTRE APPLICATION -->
+      <div class="url-value" id="app-url">{{installer.https-app-stateri-fr}}</div>
+    </div>
+    <button class="url-copy-btn" onclick="copyUrl()"> {{installer.copier-le-lien}}</button>
+  </div>
+</div>
+
+<!-- BROWSER ACCESS BANNER -->
+<div style="max-width: 760px; margin: 0 auto 2.5rem; padding: 0 2rem;">
+  <div style="background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); border-radius: var(--r); padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 200px;">
+      <div style="font-size: 0.85rem; font-weight: 500; color: #1a5c30; margin-bottom: 3px;">{{installer.vous-pouvez-aussi-utiliser-stateri}}</div>
+      <div style="font-size: 0.82rem; color: #2a6040; font-weight: 300;">{{installer.aucune-installation-requise-ouvrez-s}}</div>
+    </div>
+    <a href="https://app.stateri.fr/" target="_blank" rel="noopener" style="font-family: var(--font-body); font-size: 0.85rem; font-weight: 500; background: var(--accent); color: #fff; border-radius: 50px; padding: 0.5rem 1.25rem; text-decoration: none; white-space: nowrap; flex-shrink: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">{{installer.ouvrir}}</a>
+  </div>
+</div>
+
+<!-- PLATFORM CARDS -->
+<div class="platforms">
+
+  <!-- ANDROID -->
+  <div class="platform-card">
+    <div class="platform-header ph-android">
+            <div>
+        <h2>{{installer.android}}</h2>
+        <div class="platform-sub">{{installer.avec-google-chrome}}</div>
+      </div>
+    </div>
+    <div class="platform-body">
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num sn-android">1</div>
+          <div class="step-content">
+            <h4>{{installer.ouvrez-chrome}}</h4>
+            <p>{{installer.lancez-l-application-google-chrome}}</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-android">2</div>
+          <div class="step-content">
+            <h4>{{installer.accedez-a-l-application}}</h4>
+            <p>{{installer.dans-la-barre-d-adresse}}</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-android">3</div>
+          <div class="step-content">
+            <h4>{{installer.installez-l-application}}</h4>
+            <p>{{installer.une-banniere-ajouter-a-l}}</p>
+            <p style="margin-top:6px;">{{installer.si-la-banniere-n-apparait}}</p>
+            <!-- SCREENSHOT : capture de la bannière d'installation Android -->
+            <div class="step-screenshot"><img src="install-android-banner.png" alt="{{installer.banniere-d-installation-android}}" /></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-android">4</div>
+          <div class="step-content">
+            <h4>{{installer.confirmez-l-installation}}</h4>
+            <p>{{installer.une-boite-de-dialogue-s}}</p>
+            <div class="step-screenshot"><img src="install-android.png" alt="{{installer.banniere-d-installation-android}}" /></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-android">5</div>
+          <div class="step-content">
+            <h4>{{installer.c-est-pret}}</h4>
+            <p>{{installer.l-icone-stateri-apparait-sur}}</p>
+            <div class="step-screenshot"><img src="ecran-android.png" alt="{{installer.banniere-d-installation-android}}" /></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="success-box sb-android">
+                <p>{{installer.stateri-fonctionne-comme-une-vraie}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- iOS / IPHONE -->
+  <div class="platform-card">
+    <div class="platform-header ph-ios">
+            <div>
+        <h2>{{installer.iphone}}</h2>
+        <div class="platform-sub">{{installer.avec-safari-uniquement}}</div>
+      </div>
+    </div>
+    <div class="platform-body">
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num sn-ios">1</div>
+          <div class="step-content">
+            <h4>{{installer.ouvrez-safari}}</h4>
+            <p>{{installer.sur-iphone-l-ajout-a}}</p>
+            <div class="tip tip-warning"> {{installer.utilisez-safari-pas-chrome}}</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-ios">2</div>
+          <div class="step-content">
+            <h4>{{installer.accedez-a-l-application}}</h4>
+            <p>{{installer.dans-la-barre-d-adresse-2}}</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-ios">3</div>
+          <div class="step-content">
+            <h4>{{installer.appuyez-sur-le-bouton-partager}}</h4>
+            <p>{{installer.en-bas-de-l-ecran}}</p>
+            <!-- SCREENSHOT : bouton partager Safari -->
+            <!-- <div class="step-screenshot"><img src="install-ios-share.png" alt="Bouton partager Safari" /></div> -->
+            <div class="screenshot-placeholder">{{installer.capture-d-ecran-bouton-partager}}</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-ios">4</div>
+          <div class="step-content">
+            <h4>{{installer.choisissez-sur-l-ecran-d}}</h4>
+            <p>{{installer.dans-le-menu-qui-s}}</p>
+            <!-- SCREENSHOT : menu "Sur l'écran d'accueil" -->
+            <!-- <div class="step-screenshot"><img src="install-ios-menu.png" alt="Menu Sur l'écran d'accueil" /></div> -->
+            <div class="screenshot-placeholder">{{installer.capture-d-ecran-menu-ios}}</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-ios">5</div>
+          <div class="step-content">
+            <h4>{{installer.confirmez-et-ajoutez}}</h4>
+            <p>{{installer.verifiez-le-nom-vous-pouvez}}</p>
+            <div class="tip tip-info">{{installer.le-nom-stateri-est-pre}}</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num sn-ios">6</div>
+          <div class="step-content">
+            <h4>{{installer.c-est-pret}}</h4>
+            <p>{{installer.l-icone-stateri-apparait-sur-2}}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="success-box sb-ios">
+                <p>{{installer.stateri-s-ouvre-en-plein}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FAQ -->
+<div class="notes-section">
+  <h2>{{commun.questions-frequentes}}</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h4>{{installer.est-ce-que-mes-donnees}}</h4>
+      <p>{{installer.oui-stateri-ne-stocke-aucune}}</p>
+    </div>
+    <div class="faq-item">
+      <h4>{{installer.faut-il-creer-un-compte}}</h4>
+      <p>{{installer.oui-la-creation-d-un}}</p>
+    </div>
+    <div class="faq-item">
+      <h4>{{installer.l-application-fonctionne-t-elle}}</h4>
+      <p>{{installer.oui-stateri-est-offline-first}}</p>
+    </div>
+    <div class="faq-item">
+      <h4>{{installer.puis-je-l-utiliser-sur}}</h4>
+      <p>{{installer.oui-installez-stateri-sur-autant}}</p>
+    </div>
+    <div class="faq-item">
+      <h4>{{installer.pourquoi-utiliser-safari-sur-iphone}}</h4>
+      <p>{{installer.apple-impose-des-restrictions-sur}}</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img class="logo-mark" src="logo-header-64.png" alt="" width="28" height="28" />{{commun.stateri}}</div>
+    <div class="footer-links">
+      <a href="privacy.html">{{commun.confidentialite}}</a>
+      <a href="#">{{commun.github}}</a>
+      <a href="feedback.html">{{commun.contact}}</a>
+    </div>
+    <div> {{commun.2026-stateri-application-de-budget}}</div>
+  </div>
+</footer>
+
+<script>
+  function copyUrl() {
+    const url = document.getElementById('app-url').textContent.trim();
+    const btn = document.querySelector('.url-copy-btn');
+
+    function onSuccess() {
+      btn.textContent = '{{js:installer.copie}}';
+      setTimeout(() => { btn.textContent = '{{js:installer.copier-le-lien-2}}'; }, 2000);
+    }
+
+    function onError() {
+      // Fallback : sélection + execCommand pour les contextes non-HTTPS ou navigateurs anciens
+      const el = document.getElementById('app-url');
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      try {
+        document.execCommand('copy');
+        onSuccess();
+      } catch (e) {
+        btn.textContent = '{{js:installer.copiez-manuellement}}';
+        setTimeout(() => { btn.textContent = '{{js:installer.copier-le-lien-2}}'; }, 3000);
+      }
+      sel.removeAllRanges();
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(onSuccess).catch(onError);
+    } else {
+      onError();
+    }
+  }
+</script>
+
+
+<script>
+  // Navbar : ombre au scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Menu mobile (hamburger)
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay    = document.getElementById('overlay');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+  overlay.addEventListener('click', () => toggleMenu(false));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+</script>
+</body>
+</html>

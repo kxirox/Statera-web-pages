@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{previsionnel.budget-previsionnel-stateri}}</title>
+  <meta name="description" content="{{previsionnel.anticipez-vos-fins-de-mois}}" />
+  <link rel="canonical" href="https://stateri.fr/previsionnel.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --purple: #6b3fa0; --purple-light: #f0eafa;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    /* ── JUMP LINKS ── */
+    .jump-links { display: flex; flex-wrap: wrap; gap: 0.5rem; max-width: 1100px; margin: 0 auto; padding: 0 2rem 1.5rem; }
+    .jump-link { font-size: 0.82rem; font-weight: 500; color: var(--accent); background: var(--accent-light); border: none; border-radius: 50px; padding: 5px 14px; text-decoration: none; transition: opacity 0.2s; }
+    .jump-link:hover { opacity: 0.78; }
+
+    /* ── SECTIONS ── */
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+
+    /* ── LAYOUTS ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+
+    /* ── INFO BOX ── */
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box.purple { background: var(--purple-light); border: 1px solid rgba(107,63,160,0.2); color: #4a1e80; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── FEATURE LIST ── */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── CERTITUDE CARDS ── */
+    .certitude-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .certitude-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .certitude-card .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 500; padding: 3px 10px; border-radius: 50px; margin-bottom: 0.75rem; }
+    .badge-certain { background: var(--accent-light); color: var(--accent); }
+    .badge-probable { background: var(--gold-light); color: var(--gold); }
+    .badge-incertain { background: var(--surface-2); color: var(--ink-3); border: 1px solid var(--border); }
+    .certitude-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .certitude-card p { font-size: 0.85rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+
+    /* ── KPI ROW ── */
+    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .kpi-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; text-align: center; }
+    .kpi-card .kpi-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .kpi-card h3 { font-size: 0.85rem; font-weight: 500; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+    .kpi-card p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+
+    /* ── CONVERT BLOCK ── */
+    .convert-block { background: var(--ink); color: #fff; border-radius: 16px; padding: 2.5rem; margin-top: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .convert-block h3 { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; margin-bottom: 0.75rem; }
+    .convert-block p { font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 300; line-height: 1.75; }
+    .convert-block ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.25rem; }
+    .convert-block li { font-size: 0.875rem; color: rgba(255,255,255,0.75); font-weight: 300; display: flex; align-items: flex-start; gap: 8px; }
+    .convert-block li::before { content: '→'; color: var(--accent-mid); flex-shrink: 0; }
+    .convert-visual { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; }
+    .convert-visual-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.85rem; }
+    .convert-visual-row:last-child { border-bottom: none; }
+    .convert-visual-row .label { color: rgba(255,255,255,0.5); font-weight: 300; }
+    .convert-visual-row .value { color: #fff; font-weight: 500; }
+    .convert-visual-row .value.green { color: var(--accent-mid); }
+    .convert-visual-row .value.gold { color: #f0c060; }
+    .convert-visual-row .value.dim { color: rgba(255,255,255,0.35); }
+    .convert-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 500; padding: 2px 8px; border-radius: 50px; }
+    .convert-badge.certain { background: rgba(93,202,165,0.2); color: var(--accent-mid); }
+    .convert-badge.probable { background: rgba(191,138,46,0.2); color: #f0c060; }
+    .convert-badge.incertain { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img { grid-template-columns: 1fr; gap: 2rem; }
+      .two-col.reverse { direction: ltr; }
+      .certitude-grid { grid-template-columns: 1fr; }
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .convert-block { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    @media (max-width: 500px) {
+      .kpi-row { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --ink: #15261d; --ink-2: #46544c; --ink-3: #85908a;
+      --surface: #f7f2e8; --surface-2: #efe8d8; --surface-3: #e3dac5;
+      --accent: #1f4a38; --accent-light: #e8eddf; --accent-mid: #6f8f6b;
+      --gold: #b06a2f; --gold-light: #f5e6d3;
+      --blue: #1f4a38; --blue-light: #e8eddf;
+      --purple: #6b4a2e; --purple-light: #f1e6d8;
+      --border: rgba(21,38,29,0.16);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    .page-hero h1 { font-size: clamp(2.4rem, 4.4vw, 3.7rem); line-height: 1.04; letter-spacing: -0.01em; }
+    .section-title, .cta-banner h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1.1; }
+    .page-hero h1 em, .section-title em { font-style: italic; }
+    nav { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .nav-logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.2rem; font-weight: 600; gap: 10px; }
+    .nav-logo span { color: var(--ink); }
+    .logo-mark { width: 28px; height: 28px; border-radius: 6px; display: block; }
+    .nav-back { font-size: 0.82rem; letter-spacing: 0.04em; }
+    .hero-eyebrow, .section-tag { display: flex; align-items: center; gap: 0.6rem; background: none; padding: 0; border-radius: 0; color: var(--gold); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; width: fit-content; }
+    .hero-eyebrow::before, .section-tag::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .cta-banner .hero-eyebrow { margin-left: auto; margin-right: auto; }
+    .section-tag.light { color: var(--accent-mid); }
+    .pill { border-radius: 2px; background: transparent; border: 1px solid rgba(176,106,47,0.55); color: var(--ink-2); font-size: 0.78rem; letter-spacing: 0.03em; }
+    .feature-card, .usage-card, .taux-card, .zoom-callout, .jump-link-card, .qa-card { background: #fffdf8; border: 1px solid var(--border); border-radius: 4px; box-shadow: none; }
+    .taux-card.highlight { background: var(--accent-light); border-color: rgba(31,74,56,0.3); }
+    .taux-card.highlight h3 { color: var(--accent); } .taux-card.highlight p { color: var(--ink-2); }
+    .usage-grid, .taux-grid, .features-grid { counter-reset: n; }
+    .usage-card::before, .taux-card::before, .feature-card::before { counter-increment: n; content: counter(n, decimal-leading-zero); display: block; font-family: var(--font-display); font-size: 1.6rem; line-height: 1; font-weight: 600; color: var(--gold); margin-bottom: 0.7rem; }
+    .usage-card h3, .taux-card h3, .feature-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
+    .info-box, .info-box.green, .info-box.gold, .info-box.blue, .info-box.purple { background: var(--surface-2) !important; border: 0 !important; border-left: 3px solid var(--gold) !important; border-radius: 0 !important; color: var(--ink-2) !important; }
+    .info-box strong { color: var(--ink); }
+    .app-img, .hero-img, .full-img, .zoom-callout-img, .screenshot-img { border-radius: 6px; box-shadow: 0 1px 0 var(--border), 0 14px 36px rgba(21,38,29,0.10); }
+    .feature-list li::before { width: 14px; height: 1.5px; border: 0; border-radius: 0; background: var(--gold); margin-top: 0.8em; }
+    .btn-primary { background: var(--accent); color: #f7f2e8; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; padding: 0.95rem 1.7rem; }
+    .btn-primary:hover { opacity: 1; background: #15261d; transform: none; }
+    .btn-secondary { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    table.cmp { border-radius: 0; } table.cmp th { background: var(--surface-2); font-family: var(--font-display); font-size: 1rem; }
+    table.cmp .us { background: var(--accent-light); color: var(--accent); }
+    .qa h3, .prose h3 { font-family: var(--font-display) !important; font-size: 1.4rem !important; font-weight: 600; }
+    footer { background: #15261d; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; }
+    .footer-logo .logo-mark { width: 24px; height: 24px; }
+    .page-hero { animation: none; }
+    @media (max-width: 700px) { [style*="repeat(3, 1fr)"], [style*="repeat(2, 1fr)"] { grid-template-columns: 1fr !important; } }
+    @media (max-width: 700px) { body { overflow-x: hidden; } .footer-inner { flex-direction: column; align-items: flex-start; } .footer-links { flex-wrap: wrap; gap: 0.5rem 1.25rem; } .tab-divider-inner { flex-wrap: wrap; } }
+    @media (max-width: 500px) { nav { padding: 0.8rem 1rem; } .nav-logo { letter-spacing: 0.1em; font-size: 1.05rem; } .nav-back { white-space: nowrap; font-size: 0.76rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img class="logo-mark" src="logo-header-64.png" alt="" width="28" height="28" /><span>{{commun.stateri}}</span></a>
+  <a href="/" class="nav-back">{{commun.retour-a-l-accueil}}</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">{{previsionnel.budget-prevision-projection}}</div>
+    <h1>{{previsionnel.anticipez-vos-fins-de-mois-2}}</h1>
+    <p>{{previsionnel.le-budget-previsionnel-de-stateri}}</p>
+    <div class="feature-pills">
+      <span class="pill"> {{previsionnel.projection-fin-de-mois}}</span>
+      <span class="pill"> {{previsionnel.alerte-seuil}}</span>
+      <span class="pill"> {{previsionnel.certitude-probable}}</span>
+      <span class="pill"> {{previsionnel.conversion-en-depense-reelle}}</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="previsionnel-overview.png" alt="{{previsionnel.stateri-budget-previsionnel-avec-pro}}" />
+  </div>
+</div>
+
+<!-- ══ JUMP LINKS ══ -->
+<div class="jump-links">
+  <a class="jump-link" href="#projection">{{previsionnel.projection-en-temps-reel}}</a>
+  <a class="jump-link" href="#certitude">{{previsionnel.niveaux-de-certitude}}</a>
+  <a class="jump-link" href="#alerte">{{previsionnel.alerte-seuil}}</a>
+  <a class="jump-link" href="#conversion">{{previsionnel.conversion-en-depense}}</a>
+</div>
+
+<!-- ══ PROJECTION ══ -->
+<div class="content-section" id="projection">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">{{previsionnel.projection}}</div>
+        <h2 class="section-title">{{previsionnel.votre-solde-fin-de-mois}}</h2>
+        <p class="section-desc">{{previsionnel.renseignez-vos-depenses-et-revenus}}</p>
+
+        <ul class="feature-list">
+          <li>{{previsionnel.solde-actuel-mis-a-jour}}</li>
+          <li>{{previsionnel.projection-fin-de-mois-basee}}</li>
+          <li>{{previsionnel.ecart-affiche-clairement-entre-maint}}</li>
+          <li>{{previsionnel.filtrable-par-compte-ou-par}}</li>
+        </ul>
+
+        <div class="info-box green">
+                    <div>{{previsionnel.les-lignes-previsionnelles-n-impacte}}</div>
+        </div>
+      </div>
+
+      <div class="app-img">
+        <img src="previsionnel-projection.png" alt="{{previsionnel.stateri-solde-actuel-et-projection}}" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CERTITUDE ══ -->
+<div class="content-section alt" id="certitude">
+  <div class="section-inner">
+    <div class="section-tag">{{previsionnel.niveaux-de-certitude}}</div>
+    <h2 class="section-title">{{previsionnel.planifiez-selon-ce-que-vous}}</h2>
+    <p class="section-desc" style="max-width: 680px;">{{previsionnel.chaque-ligne-previsionnelle-a-un}}</p>
+
+    <div class="certitude-grid">
+      <div class="certitude-card">
+        <div class="badge badge-certain"> {{previsionnel.certain}}</div>
+        <h3>{{previsionnel.depense-garantie}}</h3>
+        <p>{{previsionnel.un-loyer-un-prelevement-automatique}}</p>
+      </div>
+      <div class="certitude-card">
+        <div class="badge badge-probable"> {{previsionnel.probable}}</div>
+        <h3>{{previsionnel.depense-probable}}</h3>
+        <p>{{previsionnel.une-sortie-au-restaurant-prevue}}</p>
+      </div>
+      <div class="certitude-card">
+        <div class="badge badge-incertain"> {{previsionnel.incertain}}</div>
+        <h3>{{previsionnel.scenario-hypothetique}}</h3>
+        <p>{{previsionnel.un-achat-en-reflexion-une}}</p>
+      </div>
+    </div>
+
+    <div class="info-box blue" style="margin-top: 2rem;">
+            <div>{{previsionnel.stateri-peut-filtrer-la-projection}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ALERTE SEUIL ══ -->
+<div class="content-section" id="alerte">
+  <div class="section-inner">
+    <div class="two-col reverse">
+      <div>
+        <div class="section-tag">{{previsionnel.alerte-seuil}}</div>
+        <h2 class="section-title">{{previsionnel.definissez-le-solde-minimum-a}}</h2>
+        <p class="section-desc">{{previsionnel.fixez-un-seuil-d-alerte}}</p>
+
+        <ul class="feature-list">
+          <li>{{previsionnel.seuil-configurable-en-euros-par}}</li>
+          <li>{{previsionnel.alerte-visuelle-si-la-projection}}</li>
+          <li>{{previsionnel.ideal-pour-maintenir-un-matelas}}</li>
+          <li>{{previsionnel.peut-etre-couple-avec-votre}}</li>
+        </ul>
+
+        <div class="info-box gold">
+                    <div>{{previsionnel.combinez-l-alerte-seuil-avec}}</div>
+        </div>
+      </div>
+
+      <div class="app-img">
+        <img src="previsionnel-alerte.png" alt="{{previsionnel.stateri-alerte-seuil-dans-le}}" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CONVERSION ══ -->
+<div class="content-section alt" id="conversion">
+  <div class="section-inner">
+    <div class="section-tag">{{previsionnel.conversion}}</div>
+    <h2 class="section-title">{{previsionnel.transformez-une-prevision-en-depense}}</h2>
+    <p class="section-desc">{{previsionnel.quand-une-depense-prevue-se}}</p>
+
+    <div class="convert-block">
+      <div>
+        <h3>{{previsionnel.du-plan-a-la-realite}}</h3>
+        <p>{{previsionnel.vos-lignes-previsionnelles-servent-d}}</p>
+        <ul>
+          <li>{{previsionnel.convertir-une-ligne-selectionnee}}</li>
+          <li>{{previsionnel.convertir-toutes-les-lignes-filtrees}}</li>
+          <li>{{previsionnel.choix-du-compte-cible-au}}</li>
+          <li>{{previsionnel.la-ligne-disparait-du-previsionnel}}</li>
+        </ul>
+      </div>
+      <div class="convert-visual">
+        <div class="convert-visual-row">
+          <span class="label">{{commun.loyer}}</span>
+          <span class="value">{{previsionnel.850-certain}}</span>
+        </div>
+        <div class="convert-visual-row">
+          <span class="label">{{previsionnel.courses-semaine}}</span>
+          <span class="value">{{previsionnel.120-probable}}</span>
+        </div>
+        <div class="convert-visual-row">
+          <span class="label">{{previsionnel.sortie-restaurant}}</span>
+          <span class="value">{{previsionnel.60-incertain}}</span>
+        </div>
+        <div class="convert-visual-row">
+          <span class="label">{{previsionnel.salaire}}</span>
+          <span class="value green">{{previsionnel.2-400-certain}}</span>
+        </div>
+        <div class="convert-visual-row" style="margin-top: 0.5rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.15); border-bottom: none;">
+          <span class="label">{{previsionnel.projection-fin-de-mois}}</span>
+          <span class="value green">+1 370 €</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ KPIs ══ -->
+<div class="content-section">
+  <div class="section-inner">
+    <div class="section-tag">{{previsionnel.en-resume}}</div>
+    <h2 class="section-title">{{previsionnel.un-budget-previsionnel-pense-pour}}</h2>
+    <p class="section-desc">{{previsionnel.pas-de-configuration-complexe-vous}}</p>
+
+    <div class="kpi-row">
+      <div class="kpi-card">
+                <h3>{{previsionnel.instantane}}</h3>
+        <p>{{previsionnel.la-projection-se-recalcule-a}}</p>
+      </div>
+      <div class="kpi-card">
+                <h3>{{previsionnel.100-prive}}</h3>
+        <p>{{previsionnel.vos-previsions-sont-stockees-sur}}</p>
+      </div>
+      <div class="kpi-card">
+                <h3>{{previsionnel.sur-mobile}}</h3>
+        <p>{{previsionnel.accessible-depuis-l-onglet-prevision}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner" style="border-top: 1px solid var(--border);">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">{{previsionnel.finis-les-fins-de-mois}}</div>
+  <h2>{{previsionnel.anticipez-planifiez-maitrisez}}</h2>
+  <p>{{previsionnel.installez-stateri-ouvrez-l-onglet}}</p>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener"> {{commun.ouvrir-l-application}}</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img class="logo-mark" src="logo-header-64.png" alt="" width="28" height="28" />{{commun.stateri}}</div>
+    <div class="footer-links">
+      <a href="/">{{commun.accueil}}</a>
+      <a href="statistiques.html">{{commun.statistiques}}</a>
+      <a href="patrimoine.html">{{commun.patrimoine}}</a>
+      <a href="installer.html">{{commun.installer}}</a>
+      <a href="feedback.html">{{commun.contact}}</a>
+    </div>
+    <div> {{commun.2026-stateri-application-de-budget}}</div>
+  </div>
+</footer>
+
+</body>
+</html>

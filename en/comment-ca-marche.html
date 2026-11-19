@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How it works — Stateri</title>
+  <meta name="description" content="Get started with Stateri in 3 steps: install the app, connect your Google Drive, add your accounts. Core features free, no third-party servers, 100% private." />
+  <link rel="canonical" href="https://stateri.fr/en/comment-ca-marche.html" />
+  <link rel="alternate" hreflang="fr" href="https://stateri.fr/comment-ca-marche.html" />
+  <link rel="alternate" hreflang="en" href="https://stateri.fr/en/comment-ca-marche.html" />
+  <link rel="alternate" hreflang="x-default" href="https://stateri.fr/comment-ca-marche.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --purple: #6b3fa0; --purple-light: #f0eafa;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 8rem 2rem 4rem; max-width: 720px; margin: 0 auto; text-align: center; animation: fadeUp 0.5s ease both; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1.05rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; }
+
+    /* ── STEPS ── */
+    .steps-wrap { max-width: 1100px; margin: 0 auto; padding: 0 2rem 5rem; }
+
+    .step { display: grid; grid-template-columns: 80px 1fr 1.3fr; gap: 3rem; align-items: center; padding: 4rem 0; border-bottom: 1px solid var(--border); }
+    .step:last-child { border-bottom: none; }
+    .step.reverse { grid-template-columns: 80px 1.3fr 1fr; }
+    .step.reverse .step-img { order: -1; }
+
+    .step-num { font-family: var(--font-display); font-size: 4rem; color: var(--accent-light); line-height: 1; user-select: none; }
+
+    .step-content {}
+    .step-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+    .step-title { font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .step-title em { font-style: italic; color: var(--accent); }
+    .step-desc { font-size: 0.95rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.25rem; }
+
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .step-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .step-list li::before { content: ''; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 3px; }
+
+    .step-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 56px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06); }
+    .step-img img { width: 100%; display: block; }
+
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.25rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── AFTER START ── */
+    .after-wrap { background: var(--surface-2); border-top: 1px solid var(--border); padding: 5rem 2rem; }
+    .after-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .features-after { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .feature-after { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .feature-after .icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .feature-after h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .feature-after p { font-size: 0.85rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-after a { display: inline-block; margin-top: 0.75rem; font-size: 0.82rem; color: var(--accent); font-weight: 500; text-decoration: none; }
+    .feature-after a:hover { text-decoration: underline; }
+
+    /* ── CTA ── */
+    .cta-banner { text-align: center; padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+    .btn-secondary { font-family: var(--font-body); font-size: 0.95rem; color: var(--ink); background: transparent; border: 1px solid var(--border); border-radius: 50px; padding: 0.8rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; margin-left: 0.75rem; }
+    .btn-secondary:hover { background: var(--surface-2); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      .step, .step.reverse { grid-template-columns: 60px 1fr; gap: 1.5rem; }
+      .step-img, .step.reverse .step-img { order: 0; grid-column: 1 / -1; }
+      .features-after { grid-template-columns: 1fr 1fr; }
+      .page-hero { padding-top: 7rem; }
+    }
+    @media (max-width: 500px) {
+      .step { grid-template-columns: 48px 1fr; }
+      .features-after { grid-template-columns: 1fr; }
+    }
+      .lang-switch { margin-left: 1rem; padding: 0.2rem 0.55rem; border: 1px solid currentColor; border-radius: 3px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; color: inherit; opacity: 0.75; align-self: center; }
+    .lang-switch:hover { opacity: 1; }
+  </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --ink: #15261d; --ink-2: #46544c; --ink-3: #85908a;
+      --surface: #f7f2e8; --surface-2: #efe8d8; --surface-3: #e3dac5;
+      --accent: #1f4a38; --accent-light: #e8eddf; --accent-mid: #6f8f6b;
+      --gold: #b06a2f; --gold-light: #f5e6d3;
+      --blue: #1f4a38; --blue-light: #e8eddf;
+      --purple: #6b4a2e; --purple-light: #f1e6d8;
+      --border: rgba(21,38,29,0.16);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    .page-hero h1 { font-size: clamp(2.4rem, 4.4vw, 3.7rem); line-height: 1.04; letter-spacing: -0.01em; }
+    .section-title, .cta-banner h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1.1; }
+    .page-hero h1 em, .section-title em { font-style: italic; }
+    nav { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .nav-logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.2rem; font-weight: 600; gap: 10px; }
+    .nav-logo span { color: var(--ink); }
+    .logo-mark { width: 28px; height: 28px; border-radius: 6px; display: block; }
+    .nav-back { font-size: 0.82rem; letter-spacing: 0.04em; }
+    .hero-eyebrow, .section-tag { display: flex; align-items: center; gap: 0.6rem; background: none; padding: 0; border-radius: 0; color: var(--gold); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; width: fit-content; }
+    .hero-eyebrow::before, .section-tag::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .cta-banner .hero-eyebrow { margin-left: auto; margin-right: auto; }
+    .section-tag.light { color: var(--accent-mid); }
+    .pill { border-radius: 2px; background: transparent; border: 1px solid rgba(176,106,47,0.55); color: var(--ink-2); font-size: 0.78rem; letter-spacing: 0.03em; }
+    .feature-card, .usage-card, .taux-card, .zoom-callout, .jump-link-card, .qa-card { background: #fffdf8; border: 1px solid var(--border); border-radius: 4px; box-shadow: none; }
+    .taux-card.highlight { background: var(--accent-light); border-color: rgba(31,74,56,0.3); }
+    .taux-card.highlight h3 { color: var(--accent); } .taux-card.highlight p { color: var(--ink-2); }
+    .usage-grid, .taux-grid, .features-grid { counter-reset: n; }
+    .usage-card::before, .taux-card::before, .feature-card::before { counter-increment: n; content: counter(n, decimal-leading-zero); display: block; font-family: var(--font-display); font-size: 1.6rem; line-height: 1; font-weight: 600; color: var(--gold); margin-bottom: 0.7rem; }
+    .usage-card h3, .taux-card h3, .feature-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
+    .info-box, .info-box.green, .info-box.gold, .info-box.blue, .info-box.purple { background: var(--surface-2) !important; border: 0 !important; border-left: 3px solid var(--gold) !important; border-radius: 0 !important; color: var(--ink-2) !important; }
+    .info-box strong { color: var(--ink); }
+    .app-img, .hero-img, .full-img, .zoom-callout-img, .screenshot-img { border-radius: 6px; box-shadow: 0 1px 0 var(--border), 0 14px 36px rgba(21,38,29,0.10); }
+    .feature-list li::before { width: 14px; height: 1.5px; border: 0; border-radius: 0; background: var(--gold); margin-top: 0.8em; }
+    .btn-primary { background: var(--accent); color: #f7f2e8; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; padding: 0.95rem 1.7rem; }
+    .btn-primary:hover { opacity: 1; background: #15261d; transform: none; }
+    .btn-secondary { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    table.cmp { border-radius: 0; } table.cmp th { background: var(--surface-2); font-family: var(--font-display); font-size: 1rem; }
+    table.cmp .us { background: var(--accent-light); color: var(--accent); }
+    .qa h3, .prose h3 { font-family: var(--font-display) !important; font-size: 1.4rem !important; font-weight: 600; }
+    footer { background: #15261d; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; }
+    .footer-logo .logo-mark { width: 24px; height: 24px; }
+    .page-hero { animation: none; }
+    @media (max-width: 700px) { [style*="repeat(3, 1fr)"], [style*="repeat(2, 1fr)"] { grid-template-columns: 1fr !important; } }
+    @media (max-width: 700px) { body { overflow-x: hidden; } .footer-inner { flex-direction: column; align-items: flex-start; } .footer-links { flex-wrap: wrap; gap: 0.5rem 1.25rem; } .tab-divider-inner { flex-wrap: wrap; } }
+    @media (max-width: 500px) { nav { padding: 0.8rem 1rem; } .nav-logo { letter-spacing: 0.1em; font-size: 1.05rem; } .nav-back { white-space: nowrap; font-size: 0.76rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/en/" class="nav-logo"><img class="logo-mark" src="/logo-header-64.png" alt="" width="28" height="28" /><span>Stateri</span></a>
+  <a href="/en/" class="nav-back">← Back to home</a>
+  <a class="lang-switch" href="/comment-ca-marche.html" hreflang="fr" lang="fr" title="Version française">FR</a>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-eyebrow">Getting started · Installation · First steps</div>
+  <h1>Ready in <em>3 minutes</em>,<br />private forever.</h1>
+  <p>Just an e-mail address to create your account, no credit card. Your financial data lives on your Google Drive — and nowhere else.</p>
+</div>
+
+<div class="steps-wrap">
+
+  <!-- ÉTAPE 1 -->
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-tag">Installation</div>
+      <h2 class="step-title">Install Stateri<br />on your <em>phone</em></h2>
+      <p class="step-desc">Stateri is a PWA (Progressive Web App) — it installs straight from your browser, without going through the App Store or Play Store. Lightweight, always up to date.</p>
+      <ul class="step-list">
+        <li>Open <strong>app.stateri.fr</strong> in Chrome (Android) or Safari (iPhone)</li>
+        <li>Tap <strong>"Add to Home Screen"</strong> in the browser menu</li>
+        <li>The Stateri icon appears on your phone like a native app</li>
+        <li>Also works on a computer through the browser</li>
+      </ul>
+      <div class="info-box green">
+                <div>No App Store, no manual updates. The app updates itself every time you open it. <a href="installer.html" style="color: var(--accent); font-weight: 500;">Detailed installation guide →</a></div>
+      </div>
+    </div>
+    <div class="step-img">
+      <img src="/install-android.png" alt="Stateri — Installing on Android from Chrome" />
+    </div>
+  </div>
+
+  <!-- ÉTAPE 2 -->
+  <div class="step reverse">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-tag">Google Drive connection</div>
+      <h2 class="step-title">Connect your<br /><em>Google Drive</em></h2>
+      <p class="step-desc">On first launch, Stateri asks for permission to access your Google Drive. That is where all your data will be stored — only with you, not on our servers.</p>
+      <ul class="step-list">
+        <li>Tap <strong>"Sign in with Google"</strong></li>
+        <li>Allow Stateri to create a file on your Drive</li>
+        <li>A <strong>stateri.json</strong> file is created in your personal Drive</li>
+        <li>You can view, copy or delete it at any time</li>
+      </ul>
+      <div class="info-box blue">
+                <div>Stateri accesses <strong>only the file it creates</strong> — not your other Drive files. Access is limited and can be revoked from your Google account at any time.</div>
+      </div>
+    </div>
+    <div class="step-img">
+      <img src="/screenshot-settings.png" alt="Stateri — Google Drive sign-in and sync" />
+    </div>
+  </div>
+
+  <!-- ÉTAPE 3 -->
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-tag">Setup</div>
+      <h2 class="step-title">Add your accounts<br />and <em>you're off</em></h2>
+      <p class="step-desc">Enter your bank accounts (bank name, type, current balance) and choose your main currency. Stateri creates an opening-balance transaction for each one — you're ready to start entering.</p>
+      <ul class="step-list">
+        <li>Add as many accounts as you like: checking, savings, passbook, equity plan…</li>
+        <li>Multi-currency: EUR, CHF, and many more</li>
+        <li>Import your past transactions via CSV if you want history</li>
+        <li>Your first expense can be entered in under 10 seconds</li>
+      </ul>
+      <div class="info-box gold">
+                <div>No need to fill everything in from the start. Begin with a single account and add the others over time — Stateri adapts to your pace.</div>
+      </div>
+    </div>
+    <div class="step-img">
+      <img src="/screenshot1.png" alt="Stateri — Adding a bank account and entering the first expense" />
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ APRÈS LE DÉMARRAGE ══ -->
+<div class="after-wrap">
+  <div class="after-inner">
+    <div class="section-tag">Next</div>
+    <h2 class="section-title">What you can do from day one</h2>
+    <div class="features-after">
+      <div class="feature-after">
+                <h3>Dictate an expense</h3>
+        <p>Say "Carrefour 43 euros groceries" and Stateri fills in the form automatically.</p>
+      </div>
+      <div class="feature-after">
+                <h3>See your statistics</h3>
+        <p>Pie charts by category, 12-month histogram, rolling balance — everything updates in real time.</p>
+        <a href="statistiques.html">Learn more →</a>
+      </div>
+      <div class="feature-after">
+                <h3>Plan the month</h3>
+        <p>Open the forecast budget and anticipate your end-of-month balance before it's too late.</p>
+        <a href="previsionnel.html">Learn more →</a>
+      </div>
+      <div class="feature-after">
+                <h3>Record your recurring items</h3>
+        <p>Rent, subscriptions, salary — set them up once and never retype them.</p>
+        <a href="recurrences.html">Learn more →</a>
+      </div>
+      <div class="feature-after">
+                <h3>Track your net worth</h3>
+        <p>Add your investments and real estate and calculate your total net worth.</p>
+        <a href="patrimoine.html">Learn more →</a>
+      </div>
+      <div class="feature-after">
+                <h3>Import your statements</h3>
+        <p>Import a CSV file from Crédit Mutuel, Revolut or any bank.</p>
+        <a href="transactions.html">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Ready to start?</div>
+  <h2>3 minutes to <em style="font-style:italic; color:var(--accent);">set everything up.</em></h2>
+  <p>Open the app, connect your Drive and add your first account. No credit card needed to get started.</p>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener"> Open Stateri</a>
+  <a href="installer.html" class="btn-secondary"> Installation guide</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img class="logo-mark" src="/logo-header-64.png" alt="" width="28" height="28" />Stateri</div>
+    <div class="footer-links">
+      <a href="/en/">Home</a>
+      <a href="previsionnel.html">Forecast</a>
+      <a href="statistiques.html">Statistics</a>
+      <a href="patrimoine.html">Net worth</a>
+      <a href="installer.html">Install</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div> 2026 Stateri — Personal budget app</div>
+  </div>
+</footer>
+
+</body>
+</html>

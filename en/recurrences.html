@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recurring expenses & subscriptions — Stateri</title>
+  <meta name="description" content="Rent, subscriptions, salary — record your recurring items once in Stateri and never retype them. Direct debits and monthly income handled in seconds." />
+  <link rel="canonical" href="https://stateri.fr/en/recurrences.html" />
+  <link rel="alternate" hreflang="fr" href="https://stateri.fr/recurrences.html" />
+  <link rel="alternate" hreflang="en" href="https://stateri.fr/en/recurrences.html" />
+  <link rel="alternate" hreflang="x-default" href="https://stateri.fr/recurrences.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --purple: #6b3fa0; --purple-light: #f0eafa;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    /* ── JUMP LINKS ── */
+    .jump-links { display: flex; flex-wrap: wrap; gap: 0.5rem; max-width: 1100px; margin: 0 auto; padding: 0 2rem 1.5rem; }
+    .jump-link { font-size: 0.82rem; font-weight: 500; color: var(--accent); background: var(--accent-light); border: none; border-radius: 50px; padding: 5px 14px; text-decoration: none; transition: opacity 0.2s; }
+    .jump-link:hover { opacity: 0.78; }
+
+    /* ── SECTIONS ── */
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+
+    /* ── LAYOUTS ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+
+    /* ── INFO BOX ── */
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box.purple { background: var(--purple-light); border: 1px solid rgba(107,63,160,0.2); color: #4a1e80; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── FEATURE LIST ── */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── EXEMPLES GRID ── */
+    .exemples-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .exemple-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+    .exemple-card .exemple-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .exemple-card h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+    .exemple-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
+    .exemple-card li { font-size: 0.82rem; color: var(--ink-2); font-weight: 300; display: flex; align-items: center; gap: 6px; }
+    .exemple-card li::before { content: '·'; color: var(--accent); font-size: 1.2rem; line-height: 1; }
+
+    /* ── RECURRENCE VISUEL ── */
+    .rec-visual { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; margin-top: 2rem; }
+    .rec-visual-header { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1rem; }
+    .rec-row { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(15,17,23,0.06); }
+    .rec-row:last-child { border-bottom: none; }
+    .rec-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .rec-icon.green { background: var(--accent-light); }
+    .rec-icon.gold { background: var(--gold-light); }
+    .rec-icon.blue { background: var(--blue-light); }
+    .rec-icon.purple { background: var(--purple-light); }
+    .rec-info { flex: 1; }
+    .rec-info .rec-name { font-size: 0.9rem; font-weight: 500; color: var(--ink); }
+    .rec-info .rec-detail { font-size: 0.78rem; color: var(--ink-3); font-weight: 300; }
+    .rec-amount { font-size: 0.95rem; font-weight: 500; }
+    .rec-amount.neg { color: #c0392b; }
+    .rec-amount.pos { color: var(--accent); }
+    .rec-badge { font-size: 0.72rem; font-weight: 400; background: var(--surface-2); border: 1px solid var(--border); border-radius: 50px; padding: 2px 8px; color: var(--ink-3); white-space: nowrap; }
+
+    /* ── SYNERGY BLOCK ── */
+    .synergy-block { background: var(--ink); border-radius: 16px; padding: 2.5rem; margin-top: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .synergy-block h3 { font-family: var(--font-display); font-size: 1.5rem; color: #fff; margin-bottom: 0.75rem; }
+    .synergy-block p { font-size: 0.9rem; color: rgba(255,255,255,0.55); font-weight: 300; line-height: 1.75; }
+    .synergy-steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .synergy-step { display: flex; align-items: flex-start; gap: 12px; }
+    .synergy-step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .synergy-step-text { font-size: 0.875rem; color: rgba(255,255,255,0.75); font-weight: 300; line-height: 1.6; }
+    .synergy-step-text strong { color: #fff; font-weight: 500; }
+    .synergy-arrow { text-align: center; padding: 2rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; }
+    .synergy-arrow .arrow-label { font-size: 0.78rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; display: block; }
+    .synergy-arrow .arrow-flow { font-size: 2rem; color: var(--accent-mid); }
+    .synergy-arrow .arrow-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); font-weight: 300; margin-top: 0.75rem; line-height: 1.55; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img { grid-template-columns: 1fr; gap: 2rem; }
+      .two-col.reverse { direction: ltr; }
+      .exemples-grid { grid-template-columns: 1fr 1fr; }
+      .synergy-block { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    @media (max-width: 500px) {
+      .exemples-grid { grid-template-columns: 1fr; }
+    }
+      .lang-switch { margin-left: 1rem; padding: 0.2rem 0.55rem; border: 1px solid currentColor; border-radius: 3px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; color: inherit; opacity: 0.75; align-self: center; }
+    .lang-switch:hover { opacity: 1; }
+  </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --ink: #15261d; --ink-2: #46544c; --ink-3: #85908a;
+      --surface: #f7f2e8; --surface-2: #efe8d8; --surface-3: #e3dac5;
+      --accent: #1f4a38; --accent-light: #e8eddf; --accent-mid: #6f8f6b;
+      --gold: #b06a2f; --gold-light: #f5e6d3;
+      --blue: #1f4a38; --blue-light: #e8eddf;
+      --purple: #6b4a2e; --purple-light: #f1e6d8;
+      --border: rgba(21,38,29,0.16);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    .page-hero h1 { font-size: clamp(2.4rem, 4.4vw, 3.7rem); line-height: 1.04; letter-spacing: -0.01em; }
+    .section-title, .cta-banner h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1.1; }
+    .page-hero h1 em, .section-title em { font-style: italic; }
+    nav { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .nav-logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.2rem; font-weight: 600; gap: 10px; }
+    .nav-logo span { color: var(--ink); }
+    .logo-mark { width: 28px; height: 28px; border-radius: 6px; display: block; }
+    .nav-back { font-size: 0.82rem; letter-spacing: 0.04em; }
+    .hero-eyebrow, .section-tag { display: flex; align-items: center; gap: 0.6rem; background: none; padding: 0; border-radius: 0; color: var(--gold); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; width: fit-content; }
+    .hero-eyebrow::before, .section-tag::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .cta-banner .hero-eyebrow { margin-left: auto; margin-right: auto; }
+    .section-tag.light { color: var(--accent-mid); }
+    .pill { border-radius: 2px; background: transparent; border: 1px solid rgba(176,106,47,0.55); color: var(--ink-2); font-size: 0.78rem; letter-spacing: 0.03em; }
+    .feature-card, .usage-card, .taux-card, .zoom-callout, .jump-link-card, .qa-card { background: #fffdf8; border: 1px solid var(--border); border-radius: 4px; box-shadow: none; }
+    .taux-card.highlight { background: var(--accent-light); border-color: rgba(31,74,56,0.3); }
+    .taux-card.highlight h3 { color: var(--accent); } .taux-card.highlight p { color: var(--ink-2); }
+    .usage-grid, .taux-grid, .features-grid { counter-reset: n; }
+    .usage-card::before, .taux-card::before, .feature-card::before { counter-increment: n; content: counter(n, decimal-leading-zero); display: block; font-family: var(--font-display); font-size: 1.6rem; line-height: 1; font-weight: 600; color: var(--gold); margin-bottom: 0.7rem; }
+    .usage-card h3, .taux-card h3, .feature-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
+    .info-box, .info-box.green, .info-box.gold, .info-box.blue, .info-box.purple { background: var(--surface-2) !important; border: 0 !important; border-left: 3px solid var(--gold) !important; border-radius: 0 !important; color: var(--ink-2) !important; }
+    .info-box strong { color: var(--ink); }
+    .app-img, .hero-img, .full-img, .zoom-callout-img, .screenshot-img { border-radius: 6px; box-shadow: 0 1px 0 var(--border), 0 14px 36px rgba(21,38,29,0.10); }
+    .feature-list li::before { width: 14px; height: 1.5px; border: 0; border-radius: 0; background: var(--gold); margin-top: 0.8em; }
+    .btn-primary { background: var(--accent); color: #f7f2e8; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; padding: 0.95rem 1.7rem; }
+    .btn-primary:hover { opacity: 1; background: #15261d; transform: none; }
+    .btn-secondary { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    table.cmp { border-radius: 0; } table.cmp th { background: var(--surface-2); font-family: var(--font-display); font-size: 1rem; }
+    table.cmp .us { background: var(--accent-light); color: var(--accent); }
+    .qa h3, .prose h3 { font-family: var(--font-display) !important; font-size: 1.4rem !important; font-weight: 600; }
+    footer { background: #15261d; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; }
+    .footer-logo .logo-mark { width: 24px; height: 24px; }
+    .page-hero { animation: none; }
+    @media (max-width: 700px) { [style*="repeat(3, 1fr)"], [style*="repeat(2, 1fr)"] { grid-template-columns: 1fr !important; } }
+    @media (max-width: 700px) { body { overflow-x: hidden; } .footer-inner { flex-direction: column; align-items: flex-start; } .footer-links { flex-wrap: wrap; gap: 0.5rem 1.25rem; } .tab-divider-inner { flex-wrap: wrap; } }
+    @media (max-width: 500px) { nav { padding: 0.8rem 1rem; } .nav-logo { letter-spacing: 0.1em; font-size: 1.05rem; } .nav-back { white-space: nowrap; font-size: 0.76rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/en/" class="nav-logo"><img class="logo-mark" src="/logo-header-64.png" alt="" width="28" height="28" /><span>Stateri</span></a>
+  <a href="/en/" class="nav-back">← Back to home</a>
+  <a class="lang-switch" href="/recurrences.html" hreflang="fr" lang="fr" title="Version française">FR</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">Rent · Subscriptions · Fixed income</div>
+    <h1>Your fixed costs,<br /><em>recorded once.</em></h1>
+    <p>Rent, Netflix, salary, loan repayment — enter each recurring item just once in Stateri. The app remembers it, month after month, without you having to think about it.</p>
+    <div class="feature-pills">
+      <span class="pill"> Monthly, quarterly, yearly</span>
+      <span class="pill"> Expenses & income</span>
+      <span class="pill"> Configurable day of the month</span>
+      <span class="pill"> Linked to the forecast</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="/recurrences-overview.png" alt="Stateri — List of recorded recurring expenses" />
+  </div>
+</div>
+
+<!-- ══ JUMP LINKS ══ -->
+<div class="jump-links">
+  <a class="jump-link" href="#saisie">Entry in a few seconds</a>
+  <a class="jump-link" href="#types">All types of recurring items</a>
+  <a class="jump-link" href="#previsionnel">Link with the forecast</a>
+</div>
+
+<!-- ══ SAISIE ══ -->
+<div class="content-section" id="saisie">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Add</div>
+        <h2 class="section-title">Set up in 30 seconds, forget forever</h2>
+        <p class="section-desc">Give your recurring item a name, choose the amount, the category and the day of the month. Stateri takes care of the rest — every month, on the right date.</p>
+
+        <ul class="feature-list">
+          <li>Free title: "Rent", "Spotify", "Net salary"…</li>
+          <li>Type: expense, income or internal transfer</li>
+          <li>Associated category and bank account</li>
+          <li>Configurable day of the month it triggers</li>
+          <li>Optional note: "auto debit", "employer transfer"…</li>
+        </ul>
+
+        <div class="info-box green">
+                    <div>Once recorded, the recurring item appears automatically in your <strong>forecast budget</strong> every month — with no action on your part.</div>
+        </div>
+      </div>
+
+      <div class="app-img">
+        <img src="/recurrences-form.png" alt="Stateri — Form for adding a recurring expense" />
+      </div>
+    </div>
+
+    <!-- Visuel liste récurrences -->
+    <div class="rec-visual" style="margin-top: 3rem;">
+      <div class="rec-visual-header">Recorded recurring items — example</div>
+      <div class="rec-row">
+                <div class="rec-info">
+          <div class="rec-name">Rent</div>
+          <div class="rec-detail">Monthly · on the 1st · Housing</div>
+        </div>
+        <span class="rec-badge">Every month</span>
+        <span class="rec-amount neg">−850 €</span>
+      </div>
+      <div class="rec-row">
+                <div class="rec-info">
+          <div class="rec-name">Spotify</div>
+          <div class="rec-detail">Monthly · on the 12th · Subscriptions</div>
+        </div>
+        <span class="rec-badge">Every month</span>
+        <span class="rec-amount neg">−11 €</span>
+      </div>
+      <div class="rec-row">
+                <div class="rec-info">
+          <div class="rec-name">Netflix</div>
+          <div class="rec-detail">Monthly · on the 18th · Subscriptions</div>
+        </div>
+        <span class="rec-badge">Every month</span>
+        <span class="rec-amount neg">−17 €</span>
+      </div>
+      <div class="rec-row">
+                <div class="rec-info">
+          <div class="rec-name">Net salary</div>
+          <div class="rec-detail">Monthly · on the 28th · Income</div>
+        </div>
+        <span class="rec-badge">Every month</span>
+        <span class="rec-amount pos">+2 400 €</span>
+      </div>
+      <div class="rec-row">
+                <div class="rec-info">
+          <div class="rec-name">Gym</div>
+          <div class="rec-detail">Monthly · on the 5th · Sports & Leisure</div>
+        </div>
+        <span class="rec-badge">Every month</span>
+        <span class="rec-amount neg">−35 €</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TYPES ══ -->
+<div class="content-section alt" id="types">
+  <div class="section-inner">
+    <div class="section-tag">Types of recurring items</div>
+    <h2 class="section-title">Everything that comes back regularly in your budget</h2>
+    <p class="section-desc" style="max-width: 680px;">Stateri's recurring items cover every situation: fixed expenses, regular income, and even transfers between your own accounts.</p>
+
+    <div class="exemples-grid">
+      <div class="exemple-card">
+                <h3>Housing costs</h3>
+        <ul>
+          <li>Monthly rent</li>
+          <li>Building maintenance charges</li>
+          <li>Home insurance</li>
+          <li>Electricity / gas / internet</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+                <h3>Subscriptions & services</h3>
+        <ul>
+          <li>Streaming (Netflix, Spotify…)</li>
+          <li>Phone & mobile plan</li>
+          <li>Software, cloud, storage</li>
+          <li>Online press, newsletters</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+                <h3>Fixed income</h3>
+        <ul>
+          <li>Monthly net salary</li>
+          <li>Rental income</li>
+          <li>Allowances, benefits</li>
+          <li>Pension or retirement</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+                <h3>Loans & repayments</h3>
+        <ul>
+          <li>Mortgage payment</li>
+          <li>Car loan repayment</li>
+          <li>Consumer credit</li>
+          <li>Repayment between friends and family</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+                <h3>Direct debits</h3>
+        <ul>
+          <li>Health insurance</li>
+          <li>Life / protection insurance</li>
+          <li>Professional contributions</li>
+          <li>Monthly tax payments</li>
+        </ul>
+      </div>
+      <div class="exemple-card">
+                <h3>Automatic saving</h3>
+        <ul>
+          <li>Transfer to a savings account</li>
+          <li>Feeding an equity plan / life insurance</li>
+          <li>Emergency savings</li>
+          <li>Regular monthly investment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INTERVALLE ══ -->
+<div class="content-section" id="intervalle">
+  <div class="section-inner">
+    <div class="two-col reverse">
+      <div>
+        <div class="section-tag">Frequency</div>
+        <h2 class="section-title">Monthly, every two months, quarterly — you decide</h2>
+        <p class="section-desc">Not all your debits have the same frequency. Set the number of months between each occurrence and the day of the month it triggers.</p>
+
+        <ul class="feature-list">
+          <li><strong>Every month</strong> — for rent, subscriptions, salary</li>
+          <li><strong>Every 2 or 3 months</strong> — for quarterly subscriptions</li>
+          <li><strong>Every 6 or 12 months</strong> — for annual insurance, taxes</li>
+          <li>Configurable start date to match reality</li>
+        </ul>
+
+        <div class="info-box blue">
+                    <div>Each recurring item has a <strong>start date</strong> — handy for subscriptions started mid-year or loans with a precise first due date.</div>
+        </div>
+      </div>
+
+      <div class="app-img">
+        <img src="/recurrences-frequence.png" alt="Stateri — Setting the frequency of a recurring expense" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LIEN PREVISIONNEL ══ -->
+<div class="content-section alt" id="previsionnel">
+  <div class="section-inner">
+    <div class="section-tag">Synergy</div>
+    <h2 class="section-title">Your recurring items automatically feed the forecast</h2>
+    <p class="section-desc" style="max-width: 680px;">Recurring expenses and Stateri's forecast budget work together. A recorded recurring item appears automatically in the month's forecast — you see its impact on your future balance right away.</p>
+
+    <div class="synergy-block">
+      <div>
+        <h3>Zero double entry.</h3>
+        <p>You set up your recurring items once. Every month, they slip automatically into the forecast budget as "Certain" lines. Your projection is ready before you have even opened the app.</p>
+        <div class="synergy-steps">
+          <div class="synergy-step">
+            <div class="synergy-step-num">1</div>
+            <div class="synergy-step-text">Record your rent: <strong>−€850 on the 1st of the month</strong></div>
+          </div>
+          <div class="synergy-step">
+            <div class="synergy-step-num">2</div>
+            <div class="synergy-step-text">On January 1st, Stateri includes it in the <strong>January forecast</strong> at the "Certain" level</div>
+          </div>
+          <div class="synergy-step">
+            <div class="synergy-step-num">3</div>
+            <div class="synergy-step-text">Your <strong>end-of-month projection</strong> takes the rent into account from day one</div>
+          </div>
+          <div class="synergy-step">
+            <div class="synergy-step-num">4</div>
+            <div class="synergy-step-text">When the debit arrives, <strong>convert it into a real expense</strong> in one tap</div>
+          </div>
+        </div>
+      </div>
+      <div class="synergy-arrow">
+        <span class="arrow-label">From recurring to real</span>
+        <div class="arrow-flow"> →  → </div>
+        <div class="arrow-desc">Recurring → Forecast → Real history<br />A smooth cycle, with no re-entry</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner" style="border-top: 1px solid var(--border);">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Fixed costs, free mind</div>
+  <h2>Record once,<br /><em style="font-style:italic; color:var(--accent);">enjoy every month.</em></h2>
+  <p>Install Stateri, set up your recurring items in a few minutes and let the app handle the essentials. 100% private data on your Google Drive.</p>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener"> Open the app →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img class="logo-mark" src="/logo-header-64.png" alt="" width="28" height="28" />Stateri</div>
+    <div class="footer-links">
+      <a href="/en/">Home</a>
+      <a href="previsionnel.html">Forecast</a>
+      <a href="statistiques.html">Statistics</a>
+      <a href="patrimoine.html">Net worth</a>
+      <a href="installer.html">Install</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div> 2026 Stateri — Personal budget app</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Refuse le commit si une langue est oubliée ou si une page générée n est pas à jour.
+node scripts/site.mjs check || { echo "Corrigez src/ puis : node scripts/site.mjs build"; exit 1; }

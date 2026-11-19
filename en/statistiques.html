@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistics — Analyze your spending — Stateri</title>
+  <meta name="description" content="Visualize your spending by category, follow the evolution of your balance and analyze your budget habits with Stateri's statistics. 100% private data on your Drive." />
+  <link rel="canonical" href="https://stateri.fr/en/statistiques.html" />
+  <link rel="alternate" hreflang="fr" href="https://stateri.fr/statistiques.html" />
+  <link rel="alternate" hreflang="en" href="https://stateri.fr/en/statistiques.html" />
+  <link rel="alternate" hreflang="x-default" href="https://stateri.fr/statistiques.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --r: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    /* HERO */
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    /* FEATURE PILLS */
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    /* SECTIONS */
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .content-section.dark { background: var(--ink); color: #fff; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-tag.light { color: var(--accent-mid); }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+    .section-desc.light { color: rgba(255,255,255,0.55); }
+
+    /* TWO COL */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.wide-img-left { grid-template-columns: 1.4fr 1fr; }
+    .two-col.reverse { direction: rtl; }
+    .two-col.reverse > * { direction: ltr; }
+
+    /* SCREENSHOTS */
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+    .app-img.large { box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 8px 24px rgba(0,0,0,0.08); }
+    .app-img.dark-shadow { border-color: rgba(255,255,255,0.12); box-shadow: 0 24px 64px rgba(0,0,0,0.40), 0 8px 24px rgba(0,0,0,0.25); }
+
+    /* HIGHLIGHT BADGE */
+    .highlight-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; font-size: 0.82rem; font-weight: 500; padding: 6px 14px; border-radius: 50px; margin-bottom: 1.5rem; }
+    .highlight-badge.green { background: var(--accent); }
+
+    /* FEATURE LIST */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+    .feature-list.light li { color: rgba(255,255,255,0.6); }
+    .feature-list.light li::before { background: rgba(93,202,165,0.15); border-color: rgba(93,202,165,0.4); }
+
+    /* INFO BOX */
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.dark-green { background: rgba(93,202,165,0.08); border: 1px solid rgba(93,202,165,0.2); color: rgba(255,255,255,0.6); }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ZOOM CALLOUT */
+    .zoom-callout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-top: 2.5rem; }
+    .zoom-callout-img { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .zoom-callout-img img { width: 100%; display: block; }
+    .zoom-callout-text h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .zoom-callout-text p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+
+    /* FULL WIDTH SCREENSHOT */
+    .full-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 56px rgba(0,0,0,0.11), 0 6px 18px rgba(0,0,0,0.07); margin-top: 2.5rem; }
+    .full-img img { width: 100%; display: block; }
+
+    /* CTA BANNER */
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    /* HISTORIQUE FILTRE */
+    .historique-filtre-grid { display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; margin-top: 2.5rem; }
+    .historique-filtre-img { width: 220px; flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img, .two-col.wide-img-left { grid-template-columns: 1fr; gap: 2rem; }
+      .two-col.reverse { direction: ltr; }
+      .zoom-callout { grid-template-columns: 1fr; }
+      .historique-filtre-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .historique-filtre-img { width: 100%; max-width: 320px; margin: 0 auto; }
+    }
+      .lang-switch { margin-left: 1rem; padding: 0.2rem 0.55rem; border: 1px solid currentColor; border-radius: 3px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; color: inherit; opacity: 0.75; align-self: center; }
+    .lang-switch:hover { opacity: 1; }
+  </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --ink: #15261d; --ink-2: #46544c; --ink-3: #85908a;
+      --surface: #f7f2e8; --surface-2: #efe8d8; --surface-3: #e3dac5;
+      --accent: #1f4a38; --accent-light: #e8eddf; --accent-mid: #6f8f6b;
+      --gold: #b06a2f; --gold-light: #f5e6d3;
+      --blue: #1f4a38; --blue-light: #e8eddf;
+      --purple: #6b4a2e; --purple-light: #f1e6d8;
+      --border: rgba(21,38,29,0.16);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    .page-hero h1 { font-size: clamp(2.4rem, 4.4vw, 3.7rem); line-height: 1.04; letter-spacing: -0.01em; }
+    .section-title, .cta-banner h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1.1; }
+    .page-hero h1 em, .section-title em { font-style: italic; }
+    nav { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .nav-logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.2rem; font-weight: 600; gap: 10px; }
+    .nav-logo span { color: var(--ink); }
+    .logo-mark { width: 28px; height: 28px; border-radius: 6px; display: block; }
+    .nav-back { font-size: 0.82rem; letter-spacing: 0.04em; }
+    .hero-eyebrow, .section-tag { display: flex; align-items: center; gap: 0.6rem; background: none; padding: 0; border-radius: 0; color: var(--gold); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; width: fit-content; }
+    .hero-eyebrow::before, .section-tag::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .cta-banner .hero-eyebrow { margin-left: auto; margin-right: auto; }
+    .section-tag.light { color: var(--accent-mid); }
+    .pill { border-radius: 2px; background: transparent; border: 1px solid rgba(176,106,47,0.55); color: var(--ink-2); font-size: 0.78rem; letter-spacing: 0.03em; }
+    .feature-card, .usage-card, .taux-card, .zoom-callout, .jump-link-card, .qa-card { background: #fffdf8; border: 1px solid var(--border); border-radius: 4px; box-shadow: none; }
+    .taux-card.highlight { background: var(--accent-light); border-color: rgba(31,74,56,0.3); }
+    .taux-card.highlight h3 { color: var(--accent); } .taux-card.highlight p { color: var(--ink-2); }
+    .usage-grid, .taux-grid, .features-grid { counter-reset: n; }
+    .usage-card::before, .taux-card::before, .feature-card::before { counter-increment: n; content: counter(n, decimal-leading-zero); display: block; font-family: var(--font-display); font-size: 1.6rem; line-height: 1; font-weight: 600; color: var(--gold); margin-bottom: 0.7rem; }
+    .usage-card h3, .taux-card h3, .feature-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
+    .info-box, .info-box.green, .info-box.gold, .info-box.blue, .info-box.purple { background: var(--surface-2) !important; border: 0 !important; border-left: 3px solid var(--gold) !important; border-radius: 0 !important; color: var(--ink-2) !important; }
+    .info-box strong { color: var(--ink); }
+    .app-img, .hero-img, .full-img, .zoom-callout-img, .screenshot-img { border-radius: 6px; box-shadow: 0 1px 0 var(--border), 0 14px 36px rgba(21,38,29,0.10); }
+    .feature-list li::before { width: 14px; height: 1.5px; border: 0; border-radius: 0; background: var(--gold); margin-top: 0.8em; }
+    .btn-primary { background: var(--accent); color: #f7f2e8; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; padding: 0.95rem 1.7rem; }
+    .btn-primary:hover { opacity: 1; background: #15261d; transform: none; }
+    .btn-secondary { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    table.cmp { border-radius: 0; } table.cmp th { background: var(--surface-2); font-family: var(--font-display); font-size: 1rem; }
+    table.cmp .us { background: var(--accent-light); color: var(--accent); }
+    .qa h3, .prose h3 { font-family: var(--font-display) !important; font-size: 1.4rem !important; font-weight: 600; }
+    footer { background: #15261d; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; }
+    .footer-logo .logo-mark { width: 24px; height: 24px; }
+    .page-hero { animation: none; }
+    @media (max-width: 700px) { [style*="repeat(3, 1fr)"], [style*="repeat(2, 1fr)"] { grid-template-columns: 1fr !important; } }
+    @media (max-width: 700px) { body { overflow-x: hidden; } .footer-inner { flex-direction: column; align-items: flex-start; } .footer-links { flex-wrap: wrap; gap: 0.5rem 1.25rem; } .tab-divider-inner { flex-wrap: wrap; } }
+    @media (max-width: 500px) { nav { padding: 0.8rem 1rem; } .nav-logo { letter-spacing: 0.1em; font-size: 1.05rem; } .nav-back { white-space: nowrap; font-size: 0.76rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/en/" class="nav-logo"><img class="logo-mark" src="/logo-header-64.png" alt="" width="28" height="28" /><span>Stateri</span></a>
+  <a href="/en/" class="nav-back">← Back to home</a>
+  <a class="lang-switch" href="/statistiques.html" hreflang="fr" lang="fr" title="Version française">FR</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">Statistics · Analysis · Charts</div>
+    <h1>Understand your budget,<br /><em>at a glance.</em></h1>
+    <p>Stateri's Statistics tab gives you a clear, detailed view of your spending — by period, by category, by account. Everything you need to steer your budget. 100% private data.</p>
+    <div class="feature-pills">
+      <span class="pill"> 7 days / 1 month / 1 year / All</span>
+      <span class="pill"> Rolling 30 days</span>
+      <span class="pill"> Interactive charts</span>
+      <span class="pill"> Bank & account filters</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="/stats-overview.png" alt="Stateri — Overview of the Statistics tab" />
+  </div>
+</div>
+
+<!-- ══ VUE D'ENSEMBLE & 30 JOURS GLISSANTS ══ -->
+<div class="content-section" id="vue-ensemble">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Overview</div>
+        <h2 class="section-title">Analyze your spending over the period of your choice</h2>
+        <p class="section-desc">Choose from 4 preset periods — <strong>7 days, 1 month, 1 year, or the whole history</strong>. The change in your balance is displayed instantly with the amount and the percentage change.</p>
+
+        <ul class="feature-list">
+          <li>Balance change in euros and in percent, over the chosen period</li>
+          <li>Opening and closing balance of the period always visible</li>
+          <li>Filters by bank, account type and month</li>
+          <li>"My actual expenses" view to isolate your share of shared expenses</li>
+        </ul>
+
+        <div class="info-box gold" style="margin-top: 1.75rem;">
+                    <div><strong>The "Rolling 30 days" button</strong> is a flagship feature of Stateri: instead of analyzing the current calendar month (1st to 31st), it calculates your spending over the <strong>exact last 30 days</strong> from today. Ideal for an always up-to-date view of your spending habits.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="app-img large">
+          <img src="/stats-overview.png" alt="Stateri — Statistics overview with balance and filters" />
+        </div>
+
+        <!-- ZOOM 30 JOURS -->
+        <div class="zoom-callout" style="margin-top: 1.5rem;">
+          <div class="zoom-callout-img">
+            <img src="/stats-30jours.png" alt="Rolling 30 days button in Stateri" />
+          </div>
+          <div class="zoom-callout-text">
+            <h3> Rolling 30 days</h3>
+            <p>A single button to instantly see how your spending has evolved over the last 30 days — regardless of the calendar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DÉPENSES PAR CATÉGORIE ══ -->
+<div class="content-section alt" id="categories">
+  <div class="section-inner">
+    <div class="section-tag">Charts</div>
+    <h2 class="section-title">Your spending by category, visualized</h2>
+    <p class="section-desc">Scrolling down in the Statistics tab, you reach two complementary charts: the histogram of the last 12 months and the pie chart of spending breakdown over the period.</p>
+
+    <div class="full-img">
+      <img src="/stats-categories.png" alt="Stateri — 12-month histogram and pie chart of spending by category" />
+    </div>
+
+    <div class="two-col" style="margin-top: 3rem;">
+      <div>
+        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.75rem;"> Histogram — rolling 12 months</h3>
+        <p style="font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.75;">Each bar represents a month, stacked by spending category. At a glance, you identify your busiest months and the categories that weigh most in your budget.</p>
+        <ul class="feature-list" style="margin-top: 1rem;">
+          <li>12 months of history always displayed</li>
+          <li>Each colour corresponds to a category</li>
+          <li>Interactive legend below the chart</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.75rem;"> Pie chart — Spending breakdown</h3>
+        <p style="font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.75;">The pie chart shows the breakdown of your spending over the selected period. Each slice corresponds to a category, with the amount displayed directly on the chart.</p>
+        <ul class="feature-list" style="margin-top: 1rem;">
+          <li>Amounts displayed in euros on each slice</li>
+          <li>Monthly total calculated automatically</li>
+          <li><strong>Tap a category</strong> to go straight to the detail in the history</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-box green" style="margin-top: 2rem;">
+            <div><strong>Tip:</strong> clicking a slice of the pie chart or a bar of the histogram takes you straight to the <strong>History</strong> tab, filtered on that category and that period — you can then view and edit each expense individually.</div>
+    </div>
+
+    <div class="historique-filtre-grid">
+      <div class="app-img historique-filtre-img" style="box-shadow: 0 20px 56px rgba(0,0,0,0.14), 0 6px 18px rgba(0,0,0,0.08);">
+        <img src="/stats-historique-filtre.png" alt="Stateri — History tab filtered by category" />
+      </div>
+      <div>
+        <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: 0.6rem;">The history opens filtered on your category</h3>
+        <p style="font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.7;">Here, a click on the <strong>Going out, bars, restaurants</strong> category in the chart directly opens the list of all the matching expenses — with the detail of each transaction: date, bank, account, note. Each line can be edited or deleted in one tap. A <strong>"← Back to Stats"</strong> button takes you instantly back to the charts.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SOUS-CATÉGORIES ══ -->
+<div class="content-section" id="sous-categories">
+  <div class="section-inner">
+    <div class="two-col wide-img-left reverse">
+      <div>
+        <div class="section-tag">Granularity</div>
+        <h2 class="section-title">Spending by subcategory</h2>
+        <p class="section-desc">If you have created subcategories for your expenses, Stateri lets you dive even deeper into the detail. Select a category and see the breakdown of its subcategories.</p>
+
+        <ul class="feature-list">
+          <li>Select any category from the drop-down menu</li>
+          <li>The pie chart updates instantly with its subcategories</li>
+          <li>Expenses without a subcategory are grouped under "(No subcategory)"</li>
+          <li>Exact amounts displayed for each subcategory</li>
+        </ul>
+
+        <div class="info-box green">
+                    <div>Subcategories are created directly when you enter an expense. For example, the <strong>Shopping</strong> category can contain <strong>Home</strong>, <strong>Tech</strong>, <strong>Clothing</strong>, etc.</div>
+        </div>
+      </div>
+
+      <div class="app-img large">
+        <img src="/stats-sous-categories.png" alt="Stateri — Spending by subcategory (Shopping pie chart)" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ÉVOLUTION DU SOLDE ══ -->
+<div class="content-section dark" id="solde">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag light">Evolution</div>
+        <h2 class="section-title" style="color: #fff;">Follow the evolution of your balance day by day</h2>
+        <p class="section-desc light">The balance evolution curve shows you precisely how your money moves over the analyzed period — with the rises (incoming income) and the falls (spending) clearly visible.</p>
+
+        <ul class="feature-list light">
+          <li>Day-by-day curve over the selected period</li>
+          <li>Balance peaks and troughs immediately identifiable</li>
+          <li>Precise dates on the horizontal axis</li>
+        </ul>
+
+        <div style="margin-top: 2rem;">
+          <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--accent-mid); margin-bottom: 1rem; font-weight: 500;">Top spending categories</div>
+          <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.7;">Just below the curve, Stateri lists your <strong style="color: rgba(255,255,255,0.8);">top spending categories</strong> for the period, ranked by decreasing amount — to see at a glance where your money goes.</p>
+        </div>
+
+        <div class="info-box dark-green">
+                    <div>The curve and the category ranking update automatically when you change the period (7 days, 1 month, 1 year, all) or turn on the <strong style="color: var(--accent-mid);">rolling 30 days</strong> mode.</div>
+        </div>
+      </div>
+
+      <div class="app-img dark-shadow">
+        <img src="/stats-solde.png" alt="Stateri — Balance evolution and top categories" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NAVIGATION VERS HISTORIQUE ══ -->
+<div class="content-section alt" id="navigation">
+  <div class="section-inner">
+    <div style="max-width: 760px; margin: 0 auto; text-align: center;">
+      <div class="section-tag" style="display: inline-block; margin-bottom: 0.75rem;">Interactivity</div>
+      <h2 class="section-title" style="max-width: 100%;">Click a chart to see the detail</h2>
+      <p style="font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; max-width: 580px; margin: 0 auto 2rem;">Stateri's charts are not static. Click any category in the pie chart or the histogram — you will be taken straight to the <strong>History</strong> tab, filtered on that category and that period.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left; margin-top: 1rem;">
+        <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem;">
+          <h4 style="font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Click the chart</h4>
+          <p style="font-size: 0.82rem; color: var(--ink-3); font-weight: 300; line-height: 1.6;">Tap a slice of the pie chart or a bar of the histogram</p>
+        </div>
+        <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem;">
+          <h4 style="font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Filtered history</h4>
+          <p style="font-size: 0.82rem; color: var(--ink-3); font-weight: 300; line-height: 1.6;">The History tab opens with the category and period filter applied</p>
+        </div>
+        <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem;">
+          <h4 style="font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Edit if needed</h4>
+          <p style="font-size: 0.82rem; color: var(--ink-3); font-weight: 300; line-height: 1.6;">View and edit each expense directly from the filtered list</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner">
+  <div class="section-inner">
+    <h2>Ready to analyze your budget?</h2>
+    <p>Install Stateri in a few seconds and access your statistics from the very first transaction. Your data stays on your Drive — 100% private.</p>
+    <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener"> Open the app</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img class="logo-mark" src="/logo-header-64.png" alt="" width="28" height="28" />Stateri</div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="#">GitHub</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div> 2026 Stateri — Personal budget app</div>
+  </div>
+</footer>
+
+</body>
+</html>

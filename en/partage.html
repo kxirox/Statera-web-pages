@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shared accounts & multi-person budgets — Stateri</title>
+  <meta name="description" content="Manage a joint account for two with precision: contribution rate per account, automatic calculation from transfers, and a 'My share' view in the statistics." />
+  <link rel="canonical" href="https://stateri.fr/en/partage.html" />
+  <link rel="alternate" hreflang="fr" href="https://stateri.fr/partage.html" />
+  <link rel="alternate" hreflang="en" href="https://stateri.fr/en/partage.html" />
+  <link rel="alternate" hreflang="x-default" href="https://stateri.fr/partage.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f1117; --ink-2: #4a4e5a; --ink-3: #9499a5;
+      --surface: #f7f6f2; --surface-2: #eeecea; --surface-3: #e3e1dc;
+      --accent: #1a6b4a; --accent-light: #e1f5ee; --accent-mid: #5dcaa5;
+      --gold: #bf8a2e; --gold-light: #faeeda;
+      --blue: #1a4a8a; --blue-light: #e8f0fb;
+      --purple: #6b3fa0; --purple-light: #f0eafa;
+      --border: rgba(15,17,23,0.10);
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(247,246,242,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.45rem; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { font-size: 0.875rem; color: var(--ink-2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--ink); }
+
+    .page-hero { padding: 8rem 2rem 3rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); padding: 4px 12px; border-radius: 50px; margin-bottom: 1.25rem; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; margin-bottom: 1rem; }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 1.5rem; }
+    .hero-img { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.12), 0 6px 20px rgba(0,0,0,0.07); }
+    .hero-img img { width: 100%; display: block; }
+
+    .feature-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 400; padding: 4px 12px; border-radius: 50px; background: #fff; border: 1px solid var(--border); color: var(--ink-2); }
+
+    .content-section { padding: 5rem 2rem; border-top: 1px solid var(--border); }
+    .content-section.alt { background: var(--surface-2); }
+    .content-section.dark { background: var(--ink); color: #fff; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .section-tag.light { color: var(--accent-mid); }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem); line-height: 1.15; margin-bottom: 0.75rem; }
+    .section-desc { font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; margin-bottom: 2rem; max-width: 560px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .two-col.wide-img { grid-template-columns: 1fr 1.4fr; }
+    .two-col.wide-img-left { grid-template-columns: 1.4fr 1fr; }
+
+    .app-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+    .app-img img { width: 100%; display: block; }
+    .app-img.large { box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 8px 24px rgba(0,0,0,0.08); }
+
+    .full-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 56px rgba(0,0,0,0.11), 0 6px 18px rgba(0,0,0,0.07); margin-top: 2.5rem; }
+    .full-img img { width: 100%; display: block; }
+
+    .info-box { display: flex; gap: 12px; padding: 1rem 1.25rem; border-radius: 10px; font-size: 0.85rem; line-height: 1.65; font-weight: 300; margin-top: 1.5rem; }
+    .info-box.green { background: var(--accent-light); border: 1px solid rgba(93,202,165,0.4); color: #1a5c30; }
+    .info-box.gold { background: var(--gold-light); border: 1px solid rgba(191,138,46,0.25); color: #7a5200; }
+    .info-box.blue { background: var(--blue-light); border: 1px solid rgba(26,74,138,0.2); color: #1a3a6b; }
+    .info-box.purple { background: var(--purple-light); border: 1px solid rgba(107,63,160,0.2); color: #4a1e80; }
+    .info-box-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--ink-2); font-weight: 300; line-height: 1.6; }
+    .feature-list li::before { content: ''; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-mid); flex-shrink: 0; margin-top: 2px; }
+
+    /* MODE CARDS */
+    .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .mode-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
+    .mode-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .mode-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .mode-card p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+    .mode-card p + p { margin-top: 0.5rem; }
+    .mode-card.highlight { background: var(--accent-light); border-color: rgba(93,202,165,0.4); }
+    .mode-card.highlight h3 { color: #1a5c30; }
+    .mode-card.highlight p { color: #2a6040; }
+
+    /* CONTRIBUTIONS TABLE */
+    .contrib-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 0.875rem; }
+    .contrib-table th { text-align: left; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); padding: 0.5rem 1rem; border-bottom: 1px solid var(--border); }
+    .contrib-table td { padding: 0.7rem 1rem; border-bottom: 1px solid rgba(15,17,23,0.05); color: var(--ink-2); font-weight: 300; }
+    .contrib-table td.coeff { font-weight: 500; color: var(--ink); }
+    .contrib-table td.moi { color: var(--accent); font-weight: 400; }
+
+    /* TOGGLE PREVIEW */
+    .toggle-preview { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .toggle-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 50px; font-size: 0.875rem; font-weight: 500; border: 1.5px solid var(--border); background: #fff; color: var(--ink-2); cursor: default; }
+    .toggle-btn.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+    .toggle-btn.reset { background: var(--blue-light); color: var(--blue); border-color: rgba(26,74,138,0.25); }
+
+    /* ZOOM CALLOUT */
+    .zoom-callout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-top: 2.5rem; }
+    .zoom-callout-img { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .zoom-callout-img img { width: 100%; display: block; }
+    .zoom-callout-text h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .zoom-callout-text p { font-size: 0.875rem; color: var(--ink-2); font-weight: 300; line-height: 1.65; }
+    .zoom-callout-text p + p { margin-top: 0.6rem; }
+
+    .cta-banner { text-align: center; padding: 5rem 2rem; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1rem; }
+    .cta-banner p { font-size: 1rem; color: var(--ink-2); font-weight: 300; max-width: 500px; margin: 0 auto 2rem; line-height: 1.75; }
+    .btn-primary { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; background: var(--ink); color: var(--surface); border: none; border-radius: 50px; padding: 0.8rem 1.75rem; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.2s, opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 2.5rem 2rem; font-size: 0.82rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--font-display); color: rgba(255,255,255,0.75); font-size: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .page-hero { animation: fadeUp 0.55s ease both; }
+
+    @media (max-width: 900px) {
+      .page-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .two-col, .two-col.wide-img, .two-col.wide-img-left { grid-template-columns: 1fr; gap: 2rem; }
+      .mode-grid { grid-template-columns: 1fr; }
+      .zoom-callout { grid-template-columns: 1fr; }
+    }
+      .lang-switch { margin-left: 1rem; padding: 0.2rem 0.55rem; border: 1px solid currentColor; border-radius: 3px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; color: inherit; opacity: 0.75; align-self: center; }
+    .lang-switch:hover { opacity: 1; }
+  </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --ink: #15261d; --ink-2: #46544c; --ink-3: #85908a;
+      --surface: #f7f2e8; --surface-2: #efe8d8; --surface-3: #e3dac5;
+      --accent: #1f4a38; --accent-light: #e8eddf; --accent-mid: #6f8f6b;
+      --gold: #b06a2f; --gold-light: #f5e6d3;
+      --blue: #1f4a38; --blue-light: #e8eddf;
+      --purple: #6b4a2e; --purple-light: #f1e6d8;
+      --border: rgba(21,38,29,0.16);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    .page-hero h1 { font-size: clamp(2.4rem, 4.4vw, 3.7rem); line-height: 1.04; letter-spacing: -0.01em; }
+    .section-title, .cta-banner h2 { font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1.1; }
+    .page-hero h1 em, .section-title em { font-style: italic; }
+    nav { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .nav-logo { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.2rem; font-weight: 600; gap: 10px; }
+    .nav-logo span { color: var(--ink); }
+    .logo-mark { width: 28px; height: 28px; border-radius: 6px; display: block; }
+    .nav-back { font-size: 0.82rem; letter-spacing: 0.04em; }
+    .hero-eyebrow, .section-tag { display: flex; align-items: center; gap: 0.6rem; background: none; padding: 0; border-radius: 0; color: var(--gold); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; width: fit-content; }
+    .hero-eyebrow::before, .section-tag::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .cta-banner .hero-eyebrow { margin-left: auto; margin-right: auto; }
+    .section-tag.light { color: var(--accent-mid); }
+    .pill { border-radius: 2px; background: transparent; border: 1px solid rgba(176,106,47,0.55); color: var(--ink-2); font-size: 0.78rem; letter-spacing: 0.03em; }
+    .feature-card, .usage-card, .taux-card, .zoom-callout, .jump-link-card, .qa-card { background: #fffdf8; border: 1px solid var(--border); border-radius: 4px; box-shadow: none; }
+    .taux-card.highlight { background: var(--accent-light); border-color: rgba(31,74,56,0.3); }
+    .taux-card.highlight h3 { color: var(--accent); } .taux-card.highlight p { color: var(--ink-2); }
+    .usage-grid, .taux-grid, .features-grid { counter-reset: n; }
+    .usage-card::before, .taux-card::before, .feature-card::before { counter-increment: n; content: counter(n, decimal-leading-zero); display: block; font-family: var(--font-display); font-size: 1.6rem; line-height: 1; font-weight: 600; color: var(--gold); margin-bottom: 0.7rem; }
+    .usage-card h3, .taux-card h3, .feature-card h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; }
+    .info-box, .info-box.green, .info-box.gold, .info-box.blue, .info-box.purple { background: var(--surface-2) !important; border: 0 !important; border-left: 3px solid var(--gold) !important; border-radius: 0 !important; color: var(--ink-2) !important; }
+    .info-box strong { color: var(--ink); }
+    .app-img, .hero-img, .full-img, .zoom-callout-img, .screenshot-img { border-radius: 6px; box-shadow: 0 1px 0 var(--border), 0 14px 36px rgba(21,38,29,0.10); }
+    .feature-list li::before { width: 14px; height: 1.5px; border: 0; border-radius: 0; background: var(--gold); margin-top: 0.8em; }
+    .btn-primary { background: var(--accent); color: #f7f2e8; border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; padding: 0.95rem 1.7rem; }
+    .btn-primary:hover { opacity: 1; background: #15261d; transform: none; }
+    .btn-secondary { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    table.cmp { border-radius: 0; } table.cmp th { background: var(--surface-2); font-family: var(--font-display); font-size: 1rem; }
+    table.cmp .us { background: var(--accent-light); color: var(--accent); }
+    .qa h3, .prose h3 { font-family: var(--font-display) !important; font-size: 1.4rem !important; font-weight: 600; }
+    footer { background: #15261d; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; }
+    .footer-logo .logo-mark { width: 24px; height: 24px; }
+    .page-hero { animation: none; }
+    @media (max-width: 700px) { [style*="repeat(3, 1fr)"], [style*="repeat(2, 1fr)"] { grid-template-columns: 1fr !important; } }
+    @media (max-width: 700px) { body { overflow-x: hidden; } .footer-inner { flex-direction: column; align-items: flex-start; } .footer-links { flex-wrap: wrap; gap: 0.5rem 1.25rem; } .tab-divider-inner { flex-wrap: wrap; } }
+    @media (max-width: 500px) { nav { padding: 0.8rem 1rem; } .nav-logo { letter-spacing: 0.1em; font-size: 1.05rem; } .nav-back { white-space: nowrap; font-size: 0.76rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/en/" class="nav-logo"><img class="logo-mark" src="/logo-header-64.png" alt="" width="28" height="28" /><span>Stateri</span></a>
+  <a href="/en/" class="nav-back">← Back to home</a>
+  <a class="lang-switch" href="/partage.html" hreflang="fr" lang="fr" title="Version française">FR</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div>
+    <div class="hero-eyebrow">Multi-person · Shared accounts · My share</div>
+    <h1>A joint account,<br /><em>your own share.</em></h1>
+    <p>Do you share an account with your partner? Stateri automatically calculates your real contribution rate month by month — and isolates your share in all the statistics, with no double counting.</p>
+    <div class="feature-pills">
+      <span class="pill"> Shared accounts</span>
+      <span class="pill"> Rate per account</span>
+      <span class="pill"> Automatic calculation</span>
+      <span class="pill"> "My share" view</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="/partage-taux.png" alt="Stateri — Contribution rate per bank account in the settings" />
+  </div>
+</div>
+
+<!-- ══ TAUX DE CONTRIBUTION ══ -->
+<div class="content-section" id="taux-contribution">
+  <div class="section-inner">
+    <div class="two-col wide-img">
+      <div>
+        <div class="section-tag">Settings</div>
+        <h2 class="section-title">Set your share on each account</h2>
+        <p class="section-desc">In the settings, each bank account has a <strong>contribution rate</strong> — the percentage of that account's expenses that really belongs to you. Default: 100%.</p>
+
+        <ul class="feature-list">
+          <li>A 50/50 shared account → set the rate to <strong>50%</strong></li>
+          <li>An account where you bear 70% of the expenses → <strong>70%</strong></li>
+          <li>Your personal accounts stay at <strong>100%</strong> — nothing to change</li>
+          <li>The rate applies to all the statistics through the <strong>"My share"</strong> toggle</li>
+        </ul>
+
+        <div class="info-box blue" style="margin-top: 1.75rem;">
+                    <div>In the example opposite, the <strong>Crédit Mutuel — Livret Orange</strong> is at 50% — a shared savings account where each half belongs to one person. All the other accounts are personal at 100%.</div>
+        </div>
+      </div>
+
+      <div class="app-img large">
+        <img src="/partage-taux.png" alt="Stateri — Contribution rate per account: 100% personal, 50% shared" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CALCUL AUTOMATIQUE ══ -->
+<div class="content-section alt" id="calcul-auto">
+  <div class="section-inner">
+    <div class="section-tag">Automatic calculation</div>
+    <h2 class="section-title">The rate adjusts to the real transfers</h2>
+    <p class="section-desc" style="max-width: 700px;">For joint accounts, Stateri can calculate your contribution rate automatically by analyzing incoming transfers — whoever paid in more contributes proportionally more.</p>
+
+    <div class="mode-grid">
+      <div class="mode-card highlight">
+                <h3>Automatic mode</h3>
+        <p>Stateri analyzes the incoming transfers on the joint account and calculates each person's coefficient month by month.</p>
+        <p>Example: you transfer <strong>€700</strong> and your partner <strong>€300</strong> → your rate = <strong>70%</strong>, theirs = <strong>30%</strong>. This coefficient changes every month according to the actual transfers.</p>
+      </div>
+      <div class="mode-card">
+                <h3>Manual mode</h3>
+        <p>Prefer a fixed rate? Enter the percentage that suits you directly in the settings.</p>
+        <p>It stays stable until you change it — ideal if your contribution is always the same whatever the month.</p>
+      </div>
+    </div>
+
+    <div class="zoom-callout">
+      <div class="zoom-callout-img">
+        <img src="/partage-contributions.png" alt="Stateri — Monthly contributions table on the joint account" />
+      </div>
+      <div class="zoom-callout-text">
+        <h3> Detailed contributions, month by month</h3>
+        <p>For each month, Stateri shows what you paid in (<em>Me</em>), what your partner paid in (<em>Partner</em>), and the resulting <strong>coefficient</strong>.</p>
+        <p>Here: in January 2026, you paid in <strong>2 400 €</strong> vs 3 050 € → a coefficient of <strong>44%</strong>. In February: 1 453 € vs 750 € → <strong>66%</strong>. The coefficient faithfully reflects the reality of each month.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VUE MA PART ══ -->
+<div class="content-section" id="ma-part">
+  <div class="section-inner">
+    <div class="two-col wide-img-left">
+      <div class="app-img large">
+        <img src="/partage-toggle.png" alt="Stateri — Gross expenses, My actual expenses, My share buttons in the history" />
+      </div>
+
+      <div>
+        <div class="section-tag">History & Stats tab</div>
+        <h2 class="section-title">Three views to analyze your spending at your own pace</h2>
+        <p class="section-desc">In the History tab, three buttons let you switch instantly between three readings of your budget:</p>
+
+        <div class="toggle-preview">
+          <span class="toggle-btn">Gross expenses</span>
+          <span class="toggle-btn">My actual expenses</span>
+          <span class="toggle-btn active"> My share</span>
+          <span class="toggle-btn reset">↺ Reset filters</span>
+        </div>
+
+        <ul class="feature-list" style="margin-top: 2rem;">
+          <li><strong>Gross expenses</strong> — all the expenses of all your accounts at 100%, with no filter or weighting</li>
+          <li><strong>My actual expenses</strong> — your personal expenses, excluding transfers, reimbursements and savings</li>
+          <li><strong>My share</strong> — applies the contribution rate set in the settings to each account: the most accurate view of what your life as a couple really costs you</li>
+        </ul>
+
+        <div class="info-box purple" style="margin-top: 1.75rem;">
+                    <div>The <strong>"My share"</strong> toggle also works in the charts of the Statistics tab: the pie charts, the histogram and the balances all adjust to take your contribution rates into account.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DETTES & CRÉANCES ══ -->
+<div class="content-section alt" id="dettes">
+  <div class="section-inner">
+    <div class="section-tag">Debts & receivables</div>
+    <h2 class="section-title">Who owes you what? <em>Who do you owe?</em></h2>
+    <p class="section-desc" style="max-width: 680px;">Stateri tracks reimbursements between people and keeps a balance per person up to date. At a glance, you know how much you are owed, how much you owe, and what the net balance is.</p>
+
+    <div class="mode-grid">
+      <div class="mode-card">
+                <h3>To receive</h3>
+        <p>Total of the amounts other people owe you, based on the reimbursements recorded in your transactions.</p>
+      </div>
+      <div class="mode-card">
+                <h3>To pay back</h3>
+        <p>Total of the amounts you owe others — expenses advanced by a friend, pending reimbursements, unsettled cost sharing.</p>
+      </div>
+      <div class="mode-card highlight">
+                <h3>Net balance per person</h3>
+        <p>For each person around you, Stateri shows a clear balance: positive = you are owed, negative = you owe. No more calculating by hand.</p>
+      </div>
+    </div>
+
+    <div class="info-box green" style="margin-top: 2rem;">
+            <div>Debts and receivables update automatically with each <strong>reimbursement</strong> recorded in your transactions. No separate entry — your real history is the reference.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-banner" style="border-top: 1px solid var(--border);">
+  <div class="hero-eyebrow" style="margin: 0 auto 1.5rem; width: fit-content;">Joint account, personal budget</div>
+  <h2>Your share, finally calculated precisely</h2>
+  <p>Install Stateri, set your contribution rate, and get a 100% personal view of your budget — even while sharing accounts. 100% private data on your Drive.</p>
+  <a href="https://app.stateri.fr/" class="btn-primary" target="_blank" rel="noopener"> Open the app →</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img class="logo-mark" src="/logo-header-64.png" alt="" width="28" height="28" />Stateri</div>
+    <div class="footer-links">
+      <a href="/en/">Home</a>
+      <a href="devises.html">Multi-currency</a>
+      <a href="statistiques.html">Statistics</a>
+      <a href="patrimoine.html">Net worth</a>
+      <a href="installer.html">Install</a>
+      <a href="feedback.html">Contact</a>
+    </div>
+    <div> 2026 Stateri — Personal budget app</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Frequently asked questions — Stateri</title>
+  <meta name="description" content="All the answers to frequently asked questions about Stateri: privacy, Google Drive, offline use, multi-currency, bank import and much more." />
+  <link rel="canonical" href="https://stateri.fr/en/faq.html" />
+  <link rel="alternate" hreflang="fr" href="https://stateri.fr/faq.html" />
+  <link rel="alternate" hreflang="en" href="https://stateri.fr/en/faq.html" />
+  <link rel="alternate" hreflang="x-default" href="https://stateri.fr/faq.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #FAF8F4;
+      --surface:      #FFFFFF;
+      --dark:         #1A1A1A;
+      --green:        #2D6A4F;
+      --green-light:  #52B788;
+      --green-pale:   rgba(82,183,136,0.12);
+      --muted:        #6B7280;
+      --border:       #E8E4DC;
+      --title:        'Sora', system-ui, sans-serif;
+      --body:         'Inter', system-ui, sans-serif;
+      --r:            16px;
+      --ease:         0.3s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .navbar.scrolled {
+      border-color: var(--border);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    }
+    .nav-logo {
+      font-family: var(--title);
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--dark); text-decoration: none;
+      display: flex; align-items: center; gap: 9px;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-img {
+      width: 34px; height: 34px;
+      border-radius: 9px;
+      object-fit: contain;
+      display: block;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2.25rem;
+    }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--body); font-size: 0.875rem; font-weight: 600;
+      background: var(--green); color: #fff;
+      border-radius: 8px; padding: 0.6rem 1.3rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      min-height: 40px;
+    }
+    .nav-cta:hover {
+      background: #235940;
+      transform: scale(1.03);
+      box-shadow: 0 4px 16px rgba(45,106,79,0.28);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px;
+      background: none; border: none; border-radius: 6px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--dark); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 0; right: 0;
+      width: 280px; height: 100vh;
+      background: var(--surface); z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: -8px 0 48px rgba(0,0,0,0.12);
+      padding: 5.5rem 2rem 2.5rem;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--body); font-size: 1rem; font-weight: 500;
+      color: var(--dark); text-decoration: none;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+      display: block;
+    }
+    .mobile-menu .m-cta {
+      margin-top: 1.5rem;
+      background: var(--green); color: #fff;
+      text-align: center; border-radius: 8px;
+      border-bottom: none; padding: 0.9rem;
+      font-weight: 600;
+    }
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.3); z-index: 998;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ===== HERO ===== */
+    .hero-faq {
+      padding: 9rem 2.5rem 5rem;
+      background: var(--bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-faq::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 600px;
+      background: radial-gradient(ellipse at center top, rgba(82,183,136,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--green);
+      background: var(--green-pale);
+      border: 1px solid rgba(82,183,136,0.25);
+      border-radius: 100px; padding: 6px 16px;
+      margin-bottom: 1.75rem; letter-spacing: 0.01em;
+    }
+    .hero-faq h1 {
+      font-family: var(--title);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.25rem;
+      color: var(--dark);
+    }
+    .hero-faq h1 .g { color: var(--green); }
+    .hero-sub {
+      font-size: 1.05rem; line-height: 1.8;
+      color: var(--muted); font-weight: 400;
+      max-width: 560px; margin: 0 auto 2.75rem;
+    }
+
+    /* Search */
+    .search-wrap {
+      max-width: 560px; margin: 0 auto;
+      position: relative;
+    }
+    .search-icon {
+      position: absolute; left: 1.1rem; top: 50%; transform: translateY(-50%);
+      font-size: 1rem; color: var(--muted); pointer-events: none;
+    }
+    .search-input {
+      width: 100%; font-family: var(--body);
+      font-size: 0.95rem; font-weight: 400;
+      color: var(--dark);
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 0.9rem 1rem 0.9rem 2.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .search-input:focus {
+      border-color: var(--green-light);
+      box-shadow: 0 0 0 3px rgba(82,183,136,0.15);
+    }
+    .search-input::placeholder { color: var(--muted); }
+    .search-clear {
+      position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; font-size: 1rem;
+      color: var(--muted); cursor: pointer; padding: 4px;
+      display: none; line-height: 1;
+      border-radius: 50%;
+      transition: color 0.2s, background 0.2s;
+    }
+    .search-clear:hover { color: var(--dark); background: var(--border); }
+    .search-clear.visible { display: block; }
+
+    /* ===== STATS BAND ===== */
+    .stats-band {
+      background: var(--border);
+      padding: 1.25rem 2.5rem;
+    }
+    .stats-inner {
+      max-width: 900px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      flex: 1; min-width: 140px;
+      text-align: center; padding: 0.75rem 1.5rem;
+      position: relative;
+      font-size: 0.875rem; font-weight: 700; color: var(--dark);
+    }
+    .stat-item + .stat-item::before {
+      content: '';
+      position: absolute; left: 0; top: 20%; height: 60%;
+      width: 1px; background: rgba(26,26,26,0.14);
+    }
+    .stat-item small {
+      display: block; font-size: 0.72rem;
+      font-weight: 400; color: var(--muted); margin-top: 2px;
+    }
+
+    /* ===== FAQ BODY ===== */
+    .faq-body {
+      max-width: 820px; margin: 0 auto;
+      padding: 4rem 2.5rem 6rem;
+    }
+
+    /* Category pills */
+    .cat-pills {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .cat-pill {
+      font-family: var(--body); font-size: 0.8rem; font-weight: 600;
+      color: var(--muted); background: var(--surface);
+      border: 1.5px solid var(--border); border-radius: 100px;
+      padding: 0.45rem 1.1rem; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .cat-pill:hover { color: var(--green); border-color: var(--green-light); }
+    .cat-pill.active {
+      color: #fff; background: var(--green);
+      border-color: var(--green);
+    }
+
+    /* FAQ group */
+    .faq-group {
+      margin-bottom: 3.5rem;
+    }
+    .faq-group-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--green-pale);
+    }
+
+    /* Accordion item */
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .faq-item:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .faq-item.open {
+      border-color: rgba(82,183,136,0.35);
+      box-shadow: 0 4px 24px rgba(45,106,79,0.08);
+    }
+    .faq-question {
+      width: 100%; background: none; border: none;
+      padding: 1.35rem 1.5rem;
+      text-align: left; font-family: var(--body);
+      font-size: 0.975rem; font-weight: 600;
+      color: var(--dark); cursor: pointer;
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 1rem;
+      transition: color 0.2s;
+    }
+    .faq-item.open .faq-question { color: var(--green); }
+    .faq-chevron {
+      width: 28px; height: 28px; flex-shrink: 0;
+      background: var(--bg); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; color: var(--muted);
+      transition: transform 0.3s, background 0.2s, color 0.2s;
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--green-pale); color: var(--green);
+    }
+    .faq-body-wrap {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .faq-item.open .faq-body-wrap { max-height: 600px; }
+    .faq-answer {
+      padding: 0 1.5rem 1.4rem;
+      font-size: 0.9rem; color: var(--muted);
+      font-weight: 400; line-height: 1.8;
+      border-top: 1px solid var(--border);
+      padding-top: 1.1rem;
+    }
+    .faq-answer a {
+      color: var(--green); font-weight: 600;
+      text-decoration: none;
+    }
+    .faq-answer a:hover { text-decoration: underline; }
+    .faq-answer strong { color: var(--dark); font-weight: 600; }
+    .faq-answer code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.85em;
+      background: var(--bg); color: var(--green);
+      padding: 1px 6px; border-radius: 5px;
+      border: 1px solid var(--border);
+    }
+
+    /* No results */
+    .no-results {
+      text-align: center; padding: 4rem 2rem;
+      display: none;
+    }
+    .no-results.visible { display: block; }
+    .no-results-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .no-results h3 {
+      font-family: var(--title); font-size: 1.25rem; font-weight: 700;
+      margin-bottom: 0.5rem; color: var(--dark);
+    }
+    .no-results p { font-size: 0.9rem; color: var(--muted); }
+
+    /* Hidden by filter */
+    .faq-item.hidden { display: none; }
+    .faq-group.hidden { display: none; }
+
+    /* ===== CTA CONTACT ===== */
+    .cta-contact {
+      background: var(--green);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .cta-contact .eyebrow {
+      font-size: 0.73rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); margin-bottom: 1rem;
+    }
+    .cta-contact h3 {
+      font-family: var(--title); font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800; color: #fff;
+      line-height: 1.15; letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+    }
+    .cta-contact p {
+      font-size: 0.95rem; color: rgba(255,255,255,0.65);
+      max-width: 440px; margin: 0 auto 2rem;
+      line-height: 1.75;
+    }
+    .cta-contact-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--body); font-size: 0.95rem; font-weight: 600;
+      background: #fff; color: var(--green);
+      border-radius: 8px; padding: 0.85rem 1.75rem;
+      text-decoration: none; min-height: 48px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-white:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+    }
+    .btn-outline-white {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--body); font-size: 0.95rem; font-weight: 600;
+      background: transparent; color: rgba(255,255,255,0.9);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 8px; padding: 0.85rem 1.5rem;
+      text-decoration: none; min-height: 48px;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.65);
+      transform: scale(1.02);
+    }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--dark); padding: 3.5rem 2.5rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1.75rem;
+    }
+    .footer-logo {
+      font-family: var(--title);
+      font-size: 1.25rem; font-weight: 800; color: #fff;
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .footer-logo-img {
+      width: 30px; height: 30px; border-radius: 8px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+    }
+    .footer-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.38); margin-top: 6px; }
+    .footer-links { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 0.875rem; color: rgba(255,255,255,0.48);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.85); }
+    .footer-bottom {
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+    .footer-app { font-size: 0.8rem; color: var(--green-light); text-decoration: none; font-weight: 500; }
+    .footer-app:hover { text-decoration: underline; }
+
+    /* ===== ANIMATIONS ===== */
+    .fu {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+    }
+    .fu.in { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .navbar { padding: 1rem 1.5rem; }
+      .hero-faq { padding: 7.5rem 1.5rem 3.5rem; }
+      .faq-body { padding: 3rem 1.25rem 5rem; }
+      .footer-top { flex-direction: column; }
+      .cta-contact { padding: 2.25rem 1.5rem; }
+      .stat-item { min-width: 50%; }
+    }
+
+    @media (max-width: 500px) {
+      .hero-faq h1 { font-size: 2rem; }
+      .cta-contact-actions { flex-direction: column; align-items: stretch; }
+      .btn-white, .btn-outline-white { justify-content: center; }
+      .stat-item:nth-child(3)::before { display: none; }
+    }
+      .lang-switch { margin-left: 1rem; padding: 0.2rem 0.55rem; border: 1px solid currentColor; border-radius: 3px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-decoration: none; color: inherit; opacity: 0.75; align-self: center; }
+    .lang-switch:hover { opacity: 1; }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is my financial data really private?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Stateri has no server that stores your financial data. All your transactions, balances, budgets and investments are written directly to a file on your own Google Drive. Stateri itself has no access to it — only your Google account can read that file."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Stateri access all my Google Drive files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Stateri asks for a restricted permission: it can only create and modify the files it created itself (stateri-YYYY-MM-DD-HH-MM.json). Your other Drive files, photos, documents and e-mails are completely out of the app's reach."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I want to stop using Stateri?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Simply delete the stateri-YYYY-MM-DD-HH-MM.json files from your Google Drive and revoke the app's access in your Google account settings. Your data disappears entirely — there is nothing to delete on Stateri's side because nothing is stored there."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there any advertising or tracking in the app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "None. Stateri contains no tracking tool, no advertising, no behavioural analytics. The app has no interest in monetizing your spending habits — your budget never leaves your phone and your Drive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Stateri work without an internet connection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Stateri is a PWA (Progressive Web App) that works entirely offline once installed. You can add expenses, check your stats and browse your history without a network. Syncing with Google Drive starts automatically the next time you are connected."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use Stateri on several devices?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Since all your data is on your Google Drive, you can access Stateri from your phone, your tablet and your computer. Install the app on each device and sign in with the same Google account — your data will be synchronized through your Drive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I have to connect my bank credentials?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Stateri never connects to your bank. You enter your expenses manually (or by voice), or you import a CSV file exported from your online banking. Your bank credentials stay strictly between you and your bank."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I install Stateri on my phone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Open app.stateri.fr in Chrome (Android) or Safari (iPhone), then use the browser menu to \"Add to Home Screen\". The app installs like a native app, without going through the App Store or the Play Store. See our detailed installation guide →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use Stateri with several currencies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Stateri supports multiple currencies natively — ideal if you have accounts in euros and Swiss francs, for example. Each account has its own currency, and Stateri converts amounts into your main display currency using the exchange rates you set. Learn more about multi-currency →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I import my bank transactions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Export a CSV or Excel file from your online banking, then import it into Stateri from the Transactions tab. Stateri is compatible with the Crédit Mutuel and Revolut formats, and any standard CSV. Auto-categorization recognizes common merchants automatically. See the import guide →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the forecast budget hard to set up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not at all. Open the Forecast tab, add your expected expenses and income for the month, and Stateri instantly calculates your projected end-of-month balance. You can set a certainty level (Certain, Probable, Uncertain) for each line. Discover the forecast budget →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Stateri track my investments (equity plan, life insurance, crypto)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The Investments tab lets you enter your purchases per account (equity plan, brokerage, life insurance, crypto…), track total performance in euros and in %, and calculate your XIRR (actual internal rate of return). Your investments are included in the calculation of your total net worth. Discover net worth tracking →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I share an account with my partner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Stateri handles shared accounts through a system of contribution rates: you define the percentage of a joint account's expenses that really belongs to you. A \"My share\" toggle in the statistics gives you a personalized view of your budget, even on shared accounts. Discover shared accounts →"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are all of Stateri's features available?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all the features available today are freely accessible. Forecast budget, net worth tracking, multi-currency, CSV import — nothing is hidden behind a paywall. Stateri is a constantly evolving project: new features may appear in the future, possibly as advanced options."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Stateri funded?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Stateri is an independent project built with passion. Core features are free; there is no advertising and your data is never resold. The business model may evolve over time, and any change would be announced in advance on this site."
+      }
+    }
+  ]
+}
+  </script>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<style id="identite">
+    :root {
+      --bg: #f7f2e8; --surface: #fffdf8; --dark: #15261d;
+      --green: #1f4a38; --green-light: #6f8f6b; --green-pale: rgba(111,143,107,0.14);
+      --muted: #55635b; --border: rgba(21,38,29,0.16);
+      --title: 'Cormorant Garamond', Georgia, serif;
+      --body: 'Source Sans 3', system-ui, sans-serif;
+      --r: 4px;
+      --gold: #b06a2f; --font-display: 'Cormorant Garamond', Georgia, serif;
+    }
+    /* ===== Identité Stateri : papier, vert forêt, cuivre ===== */
+    body { font-size: 17px; }
+    h1, h2, h3 { font-family: var(--font-display, var(--title)); font-weight: 600; }
+    em { color: var(--gold, #b06a2f); }
+    ::selection { background: #e6d2b6; color: #15261d; }
+
+    body { background: var(--bg); }
+    h1, h2, h3, .s-title, .priv-title, .hero h1 { font-family: var(--title); font-weight: 600; letter-spacing: -0.01em; }
+    .hero h1 { font-size: clamp(2.6rem, 5vw, 4.1rem); line-height: 1.03; }
+    .hero h1 .g, .s-title .g { color: var(--gold); font-style: italic; }
+    .s-title, .priv-title { font-size: clamp(2rem, 3.2vw, 2.9rem); line-height: 1.08; }
+    .navbar { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid var(--gold); }
+    .navbar.scrolled { box-shadow: none; }
+    .nav-logo { font-family: var(--title); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.25rem; font-weight: 600; }
+    .nav-cta { white-space: nowrap; letter-spacing: 0.06em; padding-left: 1.1rem; padding-right: 1.1rem; }
+    .nav-cta, .btn-primary, .btn-ghost { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; }
+    .nav-cta, .btn-primary { background: var(--green); color: #f7f2e8; }
+    .nav-cta:hover, .btn-primary:hover { background: #15261d; transform: none; box-shadow: none; }
+    .hero-badge, .s-tag, .priv-eyebrow { background: none !important; border: 0 !important; padding: 0 !important; border-radius: 0 !important; color: var(--gold) !important; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; display: flex; align-items: center; gap: 0.6rem; width: fit-content; }
+    .section-header .s-tag, .priv-eyebrow { margin-left: auto; margin-right: auto; }
+    .hero-badge::before, .s-tag::before, .priv-eyebrow::before { content: ""; width: 20px; height: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b06a2f' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22V10'/%3E%3Cpath d='M12 10C9.4 7.4 9.4 4.2 12 2c2.6 2.2 2.6 5.4 0 8z'/%3E%3Cpath d='M12 15c-4 .4-6.5-1.6-7-4.6 4 0 6.6 1.6 7 4.6z'/%3E%3Cpath d='M12 15c4 .4 6.5-1.6 7-4.6-4 0-6.6 1.6-7 4.6z'/%3E%3C/svg%3E") center/contain no-repeat; flex-shrink: 0; }
+    .feature-card, .priv-card, .reassurance, .phone-screen { box-shadow: none; border-radius: 4px; }
+    .feature-card:hover { transform: none; box-shadow: none; border-color: var(--gold); }
+    .fc-icon { width: auto; height: auto; background: none; border-radius: 0; justify-content: flex-start; font-family: var(--title); font-size: 1.7rem; font-weight: 600; color: var(--gold); margin-bottom: 0.6rem; line-height: 1; }
+    .feature-card h3, .priv-card-name { font-family: var(--title); font-size: 1.35rem; font-weight: 600; }
+    .hero-mockup-bg, .hero-mockup-bg img { border-radius: 6px; }
+    .step-num { font-family: var(--title); background: none; color: var(--gold); border: 1px solid var(--gold); }
+    .tab-btn { border-radius: 2px; }
+    .trust-item::before { color: var(--gold); }
+    .reassurance { background: #efe8d8; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    footer { background: #15261d; }
+    @media (max-width: 700px) { .nav-cta { display: none; } .footer-links { flex-wrap: wrap; } }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <a href="/en/" class="nav-logo">
+    <img src="/logo_stateri.png" alt="Stateri" class="nav-logo-img" />
+    Stateri
+  </a>
+  <div class="nav-links">
+    <a href="/en/#fonctionnalites">Features</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="installer.html">Install</a>
+    <a href="faq.html" class="active">FAQ</a>
+    <a href="feedback.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://app.stateri.fr/" class="nav-cta" target="_blank" rel="noopener">Try it now →</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <a class="lang-switch" href="/faq.html" hreflang="fr" lang="fr" title="Version française">FR</a>
+</nav>
+
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/en/#fonctionnalites">Features</a>
+  <a href="privacy.html">Privacy</a>
+  <a href="installer.html">Install</a>
+  <a href="faq.html">FAQ</a>
+  <a href="feedback.html">Contact</a>
+  <a href="https://app.stateri.fr/" class="m-cta" target="_blank" rel="noopener">Try it now →</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<div class="hero-faq">
+  <div class="hero-badge fu">Frequently asked questions</div>
+  <h1 class="fu" style="--d:.08s">
+    Everything you want<br />to <span class="g">know.</span>
+  </h1>
+  <p class="hero-sub fu" style="--d:.16s">
+    Privacy, Google Drive, data import, features — answers to the most frequently asked questions about Stateri.
+  </p>
+  <div class="search-wrap fu" style="--d:.24s">
+        <input
+      type="text"
+      id="searchInput"
+      class="search-input"
+      placeholder="Search a question…"
+      autocomplete="off"
+    />
+    <button class="search-clear" id="searchClear" aria-label="Clear">✕</button>
+  </div>
+</div>
+
+<!-- ===== STATS BAND ===== -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item">100% private<small>Zero financial data on our servers</small></div>
+    <div class="stat-item">No ads<small>No advertising, ever</small></div>
+    <div class="stat-item">Multi-currency<small>EUR, CHF and more</small></div>
+    <div class="stat-item">Open source<small>Transparent and verifiable</small></div>
+  </div>
+</div>
+
+<!-- ===== FAQ BODY ===== -->
+<div class="faq-body">
+
+  <!-- Category pills -->
+  <div class="cat-pills fu" id="catPills">
+    <button class="cat-pill active" data-cat="all">Show all</button>
+    <button class="cat-pill" data-cat="confidentialite"> Privacy</button>
+    <button class="cat-pill" data-cat="fonctionnement"> How it works</button>
+    <button class="cat-pill" data-cat="fonctionnalites"> Features</button>
+    <button class="cat-pill" data-cat="tarification"> Pricing</button>
+  </div>
+
+  <!-- CONFIDENTIALITÉ -->
+  <div class="faq-group fu" id="group-confidentialite" data-group="confidentialite">
+    <div class="faq-group-label"> Privacy &amp; data</div>
+
+    <div class="faq-item open" data-group="confidentialite">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is my financial data really private? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Yes. Stateri has <strong>no server</strong> that stores your financial data. All your transactions, balances, budgets and investments are written directly to a file on <strong>your own Google Drive</strong>. Stateri itself has no access to it — only your Google account can read that file.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="confidentialite">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Can Stateri access all my Google Drive files? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          No. Stateri asks for a <strong>restricted</strong> permission: it can only create and modify the files it created itself (<code>stateri-YYYY-MM-DD-HH-MM.json</code>). Your other Drive files, photos, documents and e-mails are completely out of the app's reach.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="confidentialite">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What happens if I want to stop using Stateri? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Simply delete the <code>stateri-YYYY-MM-DD-HH-MM.json</code> files from your Google Drive and revoke the app's access in your Google account settings. Your data disappears entirely — there is nothing to delete on Stateri's side because nothing is stored there.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="confidentialite">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is there any advertising or tracking in the app? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          <strong>None.</strong> Stateri contains no tracking tool, no advertising, no behavioural analytics. The app has no interest in monetizing your spending habits — your budget never leaves your phone and your Drive.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FONCTIONNEMENT -->
+  <div class="faq-group fu" id="group-fonctionnement" data-group="fonctionnement" style="--d:.06s">
+    <div class="faq-group-label"> How it works</div>
+
+    <div class="faq-item" data-group="fonctionnement">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Does Stateri work without an internet connection? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Yes. Stateri is a PWA (Progressive Web App) that works entirely <strong>offline</strong> once installed. You can add expenses, check your stats and browse your history without a network. Syncing with Google Drive starts automatically the next time you are connected.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="fonctionnement">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Can I use Stateri on several devices? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Yes. Since all your data is on your Google Drive, you can access Stateri from your phone, your tablet and your computer. Install the app on each device and sign in with the same Google account — your data will be synchronized through your Drive.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="fonctionnement">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Do I have to connect my bank credentials? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          <strong>No.</strong> Stateri never connects to your bank. You enter your expenses manually (or by voice), or you import a CSV file exported from your online banking. Your bank credentials stay strictly between you and your bank.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="fonctionnement">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I install Stateri on my phone? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Open <strong>app.stateri.fr</strong> in Chrome (Android) or Safari (iPhone), then use the browser menu to "Add to Home Screen". The app installs like a native app, without going through the App Store or the Play Store. See our <a href="installer.html">detailed installation guide →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FONCTIONNALITÉS -->
+  <div class="faq-group fu" id="group-fonctionnalites" data-group="fonctionnalites" style="--d:.12s">
+    <div class="faq-group-label"> Features</div>
+
+    <div class="faq-item" data-group="fonctionnalites">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Can I use Stateri with several currencies? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Yes. Stateri supports multiple currencies natively — ideal if you have accounts in euros and Swiss francs, for example. Each account has its own currency, and Stateri converts amounts into your main display currency using the exchange rates you set. <a href="devises.html">Learn more about multi-currency →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="fonctionnalites">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How do I import my bank transactions? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Export a CSV or Excel file from your online banking, then import it into Stateri from the Transactions tab. Stateri is compatible with the Crédit Mutuel and Revolut formats, and any standard CSV. Auto-categorization recognizes common merchants automatically. <a href="transactions.html">See the import guide →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="fonctionnalites">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is the forecast budget hard to set up? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Not at all. Open the Forecast tab, add your expected expenses and income for the month, and Stateri instantly calculates your projected end-of-month balance. You can set a certainty level (Certain, Probable, Uncertain) for each line. <a href="previsionnel.html">Discover the forecast budget →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="fonctionnalites">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Can Stateri track my investments (equity plan, life insurance, crypto)? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Yes. The Investments tab lets you enter your purchases per account (equity plan, brokerage, life insurance, crypto…), track total performance in euros and in %, and calculate your XIRR (actual internal rate of return). Your investments are included in the calculation of your total net worth. <a href="patrimoine.html">Discover net worth tracking →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="fonctionnalites">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Can I share an account with my partner? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Stateri handles shared accounts through a system of <strong>contribution rates</strong>: you define the percentage of a joint account's expenses that really belongs to you. A "My share" toggle in the statistics gives you a personalized view of your budget, even on shared accounts. <a href="partage.html">Discover shared accounts →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TARIFICATION -->
+  <div class="faq-group fu" id="group-tarification" data-group="tarification" style="--d:.18s">
+    <div class="faq-group-label"> Pricing</div>
+
+    <div class="faq-item" data-group="tarification">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Are all of Stateri's features available? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          <strong>Yes, all the features available today are freely accessible.</strong> Forecast budget, net worth tracking, multi-currency, CSV import — nothing is hidden behind a paywall. Stateri is a constantly evolving project: new features may appear in the future, possibly as advanced options.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item" data-group="tarification">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How is Stateri funded? <span class="faq-chevron">▾</span>
+      </button>
+      <div class="faq-body-wrap">
+        <div class="faq-answer">
+          Stateri is an independent project built with passion. Core features are free; there is no advertising and your data is never resold. The business model may evolve over time, and any change would be announced in advance on this site.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No results message -->
+  <div class="no-results" id="noResults">
+        <h3>No results found</h3>
+    <p>Try different terms or <a href="feedback.html" style="color:var(--green);font-weight:600;">ask us your question directly</a>.</p>
+  </div>
+
+  <!-- CTA CONTACT -->
+  <div class="cta-contact fu" style="--d:.2s">
+    <div class="eyebrow">Still have a question?</div>
+    <h3>We reply<br />within a few hours.</h3>
+    <p>Didn't find the answer? Ask us your question directly — we read and reply to every message.</p>
+    <div class="cta-contact-actions">
+      <a href="feedback.html" class="btn-white">Send a message →</a>
+      <a href="https://app.stateri.fr/" class="btn-outline-white" target="_blank" rel="noopener">Try the app</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="/en/" class="footer-logo">
+          <img src="/logo_stateri.png" alt="Stateri" class="footer-logo-img" />
+          Stateri
+        </a>
+        <div class="footer-tagline">Your data, your control.</div>
+      </div>
+      <div class="footer-links">
+        <a href="/en/">Home</a>
+        <a href="comment-ca-marche.html">Get started</a>
+        <a href="statistiques.html">Statistics</a>
+        <a href="patrimoine.html">Net worth</a>
+        <a href="installer.html">Install</a>
+        <a href="faq.html">FAQ</a>
+        <a href="feedback.html">Contact</a>
+        <a href="https://github.com/kxirox/Statera-web-pages" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy"> 2026 Stateri — Personal budget app</div>
+      <a href="https://app.stateri.fr/" class="footer-app" target="_blank" rel="noopener">app.stateri.fr →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Hamburger mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const overlay   = document.getElementById('overlay');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    mobileMenu.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+  overlay.addEventListener('click', () => toggleMenu(false));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // Close all items in same group
+    item.closest('.faq-group').querySelectorAll('.faq-item.open').forEach(i => {
+      if (i !== item) i.classList.remove('open');
+    });
+    item.classList.toggle('open', !isOpen);
+  }
+
+  // Category pills filter
+  const pills = document.querySelectorAll('.cat-pill');
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      filterByCategory(pill.dataset.cat);
+      // Clear search
+      document.getElementById('searchInput').value = '';
+      document.getElementById('searchClear').classList.remove('visible');
+      document.getElementById('noResults').classList.remove('visible');
+    });
+  });
+
+  function filterByCategory(cat) {
+    document.querySelectorAll('.faq-group').forEach(group => {
+      if (cat === 'all' || group.dataset.group === cat) {
+        group.classList.remove('hidden');
+      } else {
+        group.classList.add('hidden');
+      }
+    });
+    document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('hidden'));
+    checkNoResults();
+  }
+
+  // Search
+  const searchInput = document.getElementById('searchInput');
+  const searchClear = document.getElementById('searchClear');
+  const noResults   = document.getElementById('noResults');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    searchClear.classList.toggle('visible', q.length > 0);
+
+    if (q.length === 0) {
+      // Reset to active category
+      const activePill = document.querySelector('.cat-pill.active');
+      filterByCategory(activePill ? activePill.dataset.cat : 'all');
+      return;
+    }
+
+    // Reset category filter for search
+    pills.forEach(p => p.classList.remove('active'));
+    document.querySelector('[data-cat="all"]').classList.add('active');
+
+    document.querySelectorAll('.faq-group').forEach(g => g.classList.remove('hidden'));
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const text = item.querySelector('.faq-question').textContent.toLowerCase()
+                 + item.querySelector('.faq-answer').textContent.toLowerCase();
+      item.classList.toggle('hidden', !text.includes(q));
+    });
+
+    // Hide groups with all items hidden
+    document.querySelectorAll('.faq-group').forEach(group => {
+      const visible = [...group.querySelectorAll('.faq-item')].some(i => !i.classList.contains('hidden'));
+      group.classList.toggle('hidden', !visible);
+    });
+
+    checkNoResults();
+  });
+
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchClear.classList.remove('visible');
+    const activePill = document.querySelector('.cat-pill.active');
+    filterByCategory(activePill ? activePill.dataset.cat : 'all');
+    searchInput.focus();
+  });
+
+  function checkNoResults() {
+    const anyVisible = [...document.querySelectorAll('.faq-group')].some(g => !g.classList.contains('hidden'));
+    noResults.classList.toggle('visible', !anyVisible);
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const delay = entry.target.style.getPropertyValue('--d') || '0s';
+      entry.target.style.transitionDelay = delay;
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fu').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

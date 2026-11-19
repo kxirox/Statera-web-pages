@@ -1,53 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://stateri.fr/</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/installer.html</loc>
-    <lastmod>2026-09-01</lastmod>
+    <loc>https://stateri.fr/application-budget-privee.html</loc>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/application-budget-privee.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/application-budget-privee.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/application-budget-privee.html" />
   </url>
 
   <url>
-    <loc>https://stateri.fr/statistiques.html</loc>
-    <lastmod>2025-04-06</lastmod>
+    <loc>https://stateri.fr/en/application-budget-privee.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/application-budget-privee.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/application-budget-privee.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/application-budget-privee.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/budget-euro-franc-suisse.html</loc>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/budget-euro-franc-suisse.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/budget-euro-franc-suisse.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/budget-euro-franc-suisse.html" />
   </url>
 
   <url>
-    <loc>https://stateri.fr/transactions.html</loc>
-    <lastmod>2025-04-06</lastmod>
+    <loc>https://stateri.fr/en/budget-euro-franc-suisse.html</loc>
+    <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/patrimoine.html</loc>
-    <lastmod>2025-04-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/partage.html</loc>
-    <lastmod>2025-04-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/devises.html</loc>
-    <lastmod>2025-04-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/budget-euro-franc-suisse.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/budget-euro-franc-suisse.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/budget-euro-franc-suisse.html" />
   </url>
 
   <url>
@@ -55,48 +46,19 @@
     <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/comment-ca-marche.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/comment-ca-marche.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/comment-ca-marche.html" />
   </url>
 
   <url>
-    <loc>https://stateri.fr/faq.html</loc>
+    <loc>https://stateri.fr/en/comment-ca-marche.html</loc>
     <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/recurrences.html</loc>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/previsionnel.html</loc>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/feedback.html</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/privacy.html</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://stateri.fr/application-budget-privee.html</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/comment-ca-marche.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/comment-ca-marche.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/comment-ca-marche.html" />
   </url>
 
   <url>
@@ -104,6 +66,79 @@
     <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/comparatif.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/comparatif.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/comparatif.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/comparatif.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/comparatif.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/comparatif.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/comparatif.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/devises.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/devises.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/devises.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/devises.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/devises.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/devises.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/devises.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/devises.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/faq.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/faq.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/faq.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/faq.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/faq.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/faq.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/faq.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/feedback.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/feedback.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/feedback.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/feedback.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/feedback.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/feedback.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/feedback.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/feedback.html" />
   </url>
 
   <url>
@@ -111,6 +146,139 @@
     <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/guide.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/guide.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/guide.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/guide.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/guide.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/guide.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/guide.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/installer.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/installer.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/installer.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/installer.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/installer.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/installer.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/installer.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/installer.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/partage.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/partage.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/partage.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/partage.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/partage.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/partage.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/partage.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/partage.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/patrimoine.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/patrimoine.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/patrimoine.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/patrimoine.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/patrimoine.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/patrimoine.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/patrimoine.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/patrimoine.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/previsionnel.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/previsionnel.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/previsionnel.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/previsionnel.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/previsionnel.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/previsionnel.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/previsionnel.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/previsionnel.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/privacy.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/privacy.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/privacy.html</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/privacy.html" />
   </url>
 
   <url>
@@ -118,11 +286,79 @@
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/quoi-de-neuf.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/quoi-de-neuf.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/quoi-de-neuf.html" />
   </url>
 
   <url>
-    <loc>https://stateri.fr/budget-euro-franc-suisse.html</loc>
+    <loc>https://stateri.fr/en/quoi-de-neuf.html</loc>
     <lastmod>2026-11-18</lastmod>
-    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/quoi-de-neuf.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/quoi-de-neuf.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/quoi-de-neuf.html" />
   </url>
+
+  <url>
+    <loc>https://stateri.fr/recurrences.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/recurrences.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/recurrences.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/recurrences.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/recurrences.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/recurrences.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/recurrences.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/recurrences.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/statistiques.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/statistiques.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/statistiques.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/statistiques.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/statistiques.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/statistiques.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/statistiques.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/statistiques.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/transactions.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/transactions.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/transactions.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/transactions.html" />
+  </url>
+
+  <url>
+    <loc>https://stateri.fr/en/transactions.html</loc>
+    <lastmod>2025-04-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://stateri.fr/transactions.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://stateri.fr/en/transactions.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stateri.fr/transactions.html" />
+  </url>
+
 </urlset>
