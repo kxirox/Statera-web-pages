@@ -180,6 +180,8 @@
     .footer-logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1.05rem; }
     .footer-logo .logo-mark { width: 24px; height: 24px; }
     .page-hero { animation: none; }
+    @media (max-width: 700px) { [style*="repeat(3, 1fr)"], [style*="repeat(2, 1fr)"] { grid-template-columns: 1fr !important; } }
+    @media (max-width: 700px) { body { overflow-x: hidden; } .footer-inner { flex-direction: column; align-items: flex-start; } .footer-links { flex-wrap: wrap; gap: 0.5rem 1.25rem; } .tab-divider-inner { flex-wrap: wrap; } }
     @media (max-width: 500px) { nav { padding: 0.8rem 1rem; } .nav-logo { letter-spacing: 0.1em; font-size: 1.05rem; } .nav-back { white-space: nowrap; font-size: 0.76rem; } }
   </style>
 </head>
@@ -361,24 +363,20 @@
 <div class="content-section alt" id="navigation">
   <div class="section-inner">
     <div style="max-width: 760px; margin: 0 auto; text-align: center;">
-      <div style="font-size: 2.5rem; margin-bottom: 1.25rem;"></div>
       <div class="section-tag" style="display: inline-block; margin-bottom: 0.75rem;">Interactivité</div>
       <h2 class="section-title" style="max-width: 100%;">Cliquez sur un graphique pour voir le détail</h2>
       <p style="font-size: 1rem; color: var(--ink-2); font-weight: 300; line-height: 1.75; max-width: 580px; margin: 0 auto 2rem;">Les graphiques de Stateri ne sont pas statiques. Cliquez sur n'importe quelle catégorie dans le camembert ou l'histogramme — vous serez redirigé directement vers l'onglet <strong>Historique</strong>, filtré sur cette catégorie et cette période.</p>
 
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left; margin-top: 1rem;">
         <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem;">
-          <div style="font-size: 1.5rem; margin-bottom: 0.75rem;"></div>
           <h4 style="font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Cliquez sur le graphique</h4>
           <p style="font-size: 0.82rem; color: var(--ink-3); font-weight: 300; line-height: 1.6;">Appuyez sur une part du camembert ou une barre de l'histogramme</p>
         </div>
         <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem;">
-          <div style="font-size: 1.5rem; margin-bottom: 0.75rem;"></div>
           <h4 style="font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Historique filtré</h4>
           <p style="font-size: 0.82rem; color: var(--ink-3); font-weight: 300; line-height: 1.6;">L'onglet Historique s'ouvre avec le filtre de catégorie et de période appliqué</p>
         </div>
         <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem;">
-          <div style="font-size: 1.5rem; margin-bottom: 0.75rem;"></div>
           <h4 style="font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem;">Éditez au besoin</h4>
           <p style="font-size: 0.82rem; color: var(--ink-3); font-weight: 300; line-height: 1.6;">Consultez et modifiez chaque dépense directement depuis la liste filtrée</p>
         </div>
