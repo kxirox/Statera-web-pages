@@ -42,8 +42,8 @@ export default {
     "Does my data leave my phone for these analyses?",
   ],
   "guide.non-le-scanner-d-abonnement": [
-    "Non. Le scanner d'abonnement et la détection des virements se calculent sur votre appareil, sans modèle de langage ni serveur.",
-    "No. The subscription scanner and transfer detection are computed on your device, with no language model and no server.",
+    "Non. Le scanner d'abonnement et la détection des virements se calculent sur votre appareil : aucune donnée n'est envoyée, ni à un serveur ni à un modèle de langage.",
+    "No. The subscription scanner and transfer detection are computed on your device: no data is sent, neither to a server nor to a language model.",
   ],
   "guide.guide-pas-a-pas": [
     "Guide · Pas à pas",
@@ -126,8 +126,8 @@ export default {
     "The detectors: what Stateri spots for you",
   ],
   "guide.deux-detecteurs-travaillent-sur-votr": [
-    "Deux détecteurs travaillent sur votre historique. <strong>Tous deux tournent sur votre appareil, sans serveur ni modèle de langage.</strong> Ils proposent, vous décidez.",
-    "Two detectors work on your history. <strong>Both run on your device, with no server and no language model.</strong> They suggest, you decide.",
+    "Deux détecteurs travaillent sur votre historique. <strong>Tous deux tournent sur votre appareil et n'envoient aucune donnée, ni à un serveur ni à un modèle de langage.</strong> Ils proposent, vous décidez.",
+    "Two detectors work on your history. <strong>Both run on your device and send no data, neither to a server nor to a language model.</strong> They suggest, you decide.",
   ],
   "guide.le-scanner-d-abonnement": [
     "Le scanner d'abonnement",

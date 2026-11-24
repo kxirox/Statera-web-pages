@@ -6,28 +6,28 @@ export default {
     "Stateri — Manage your budget. Your data stays with you.",
   ],
   "index.stateri-est-une-app-de": [
-    "Stateri est une app de budget qui garde vos transactions sur votre appareil, jamais sur un serveur. Sauvegarde sur votre propre Google Drive. Multi-compte, multi-devise, investissements.",
-    "Stateri is a budget app that keeps your transactions on your device, never on a server. Backup to your own Google Drive. Multi-account, multi-currency, investments.",
+    "Stateri est une app de budget qui garde vos transactions sur votre appareil, sans jamais les envoyer à Stateri. Sauvegarde sur votre propre Google Drive. Multi-compte, multi-devise, investissements.",
+    "Stateri is a budget app that keeps your transactions on your device and never sends them to Stateri. Backup to your own Google Drive. Multi-account, multi-currency, investments.",
   ],
   "index.application-de-budget-gratuite-vos": [
     "Application de budget gratuite : vos données financières restent sur votre appareil, sauvegarde dans votre propre Google Drive.",
     "Free budget app: your financial data stays on your device, backed up to your own Google Drive.",
   ],
   "index.application-de-budget-personnel-dont": [
-    "Application de budget personnel dont toutes les fonctionnalités de base sont gratuites et dont les données financières restent sur l'appareil de l'utilisateur. Aucun serveur Stateri ne stocke les transactions ; sauvegarde facultative dans le Google Drive de l'utilisateur. Multi-comptes, multi-devises (EUR, CHF), investissements, hors ligne.",
-    "Personal budget app whose core features are all free and whose financial data stays on the user's device. No Stateri server stores transactions; optional backup to the user's own Google Drive. Multi-account, multi-currency (EUR, CHF), investments, offline.",
+    "Application de budget personnel dont toutes les fonctionnalités de base sont gratuites et dont les données financières restent sur l'appareil de l'utilisateur. Les transactions ne sont jamais envoyées à Stateri ; sauvegarde facultative dans le Google Drive de l'utilisateur. Multi-comptes, multi-devises (EUR, CHF), investissements, hors ligne.",
+    "Personal budget app whose core features are all free and whose financial data stays on the user's device. Transactions are never sent to Stateri; optional backup to the user's own Google Drive. Multi-account, multi-currency (EUR, CHF), investments, offline.",
   ],
   "index.zero-serveur-stateri-donnees-sur": [
-    "Zéro serveur Stateri — Données sur votre Drive",
-    "Zero Stateri servers — Data on your Drive",
+    "Données financières sur votre appareil — Sauvegarde sur votre Drive",
+    "Financial data on your device — Backup on your Drive",
   ],
   "index.gerez-votre-budget-vos-donnees": [
     "Gérez votre budget.<br /> Vos données restent <span class=\"g\">chez vous.</span>",
     "Manage your budget.<br /> Your data stays <span class=\"g\">with you.</span>",
   ],
   "index.stateri-garde-vos-transactions-sur": [
-    "Stateri garde vos transactions sur votre appareil, jamais sur un serveur. Sauvegarde sur votre propre Google Drive.",
-    "Stateri keeps your transactions on your device, never on a server. Backup to your own Google Drive.",
+    "Vos transactions restent sur votre appareil et ne sont jamais envoyées à Stateri. Sauvegarde sur votre propre Google Drive.",
+    "Your transactions stay on your device and are never sent to Stateri. Backup to your own Google Drive.",
   ],
   "index.voir-les-fonctionnalites": [
     "Voir les fonctionnalités ↓",
@@ -54,16 +54,16 @@ export default {
     "Account in 30 seconds<small>An e-mail address is enough</small>",
   ],
   "index.donnees-sur-votre-drive-zero": [
-    "Données sur votre Drive<small>Zéro serveur Stateri</small>",
-    "Data on your Drive<small>Zero Stateri servers</small>",
+    "Données sur votre Drive<small>Rien n'est envoyé à Stateri</small>",
+    "Data on your Drive<small>Nothing is sent to Stateri</small>",
   ],
   "index.qu-est-ce-que-stateri": [
     "Qu'est-ce que Stateri ?",
     "What is Stateri?",
   ],
   "index.stateri-est-une-application-de": [
-    "Stateri est une application de budget personnel en français, dont <strong>toutes les fonctionnalités de base sont gratuites</strong> et dont les <strong>données financières restent sur votre appareil</strong>. Il n'existe pas de serveur Stateri qui stocke vos transactions, vos soldes ou vos investissements. Vous pouvez sauvegarder dans <strong>votre propre Google Drive</strong>. Elle gère plusieurs comptes et plusieurs devises (euros, francs suisses), fonctionne hors ligne et s'ouvre dans le navigateur, sans installation.",
-    "Stateri is a personal budget app whose <strong>core features are all free</strong> and whose <strong>financial data stays on your device</strong>. There is no Stateri server that stores your transactions, balances or investments. You can back up to <strong>your own Google Drive</strong>. It handles several accounts and several currencies (euros, Swiss francs), works offline and opens in the browser, with nothing to install.",
+    "Stateri est une application de budget personnel en français, dont <strong>toutes les fonctionnalités de base sont gratuites</strong> et dont les <strong>données financières restent sur votre appareil</strong>. Stateri ne reçoit ni ne stocke vos transactions, vos soldes ou vos investissements : seule l'adresse e-mail de votre compte est enregistrée. Vous pouvez sauvegarder dans <strong>votre propre Google Drive</strong>. Elle gère plusieurs comptes et plusieurs devises (euros, francs suisses), fonctionne hors ligne et s'ouvre dans le navigateur, sans installation.",
+    "Stateri is a personal budget app whose <strong>core features are all free</strong> and whose <strong>financial data stays on your device</strong>. Stateri neither receives nor stores your transactions, balances or investments: only your account's e-mail address is recorded. You can back up to <strong>your own Google Drive</strong>. It handles several accounts and several currencies (euros, Swiss francs), works offline and opens in the browser, with nothing to install.",
   ],
   "index.pour-qui-pour-celles-et": [
     "Pour qui ? Pour celles et ceux qui veulent suivre leur budget sans confier leurs données à une entreprise. Le compromis : pas de synchronisation bancaire automatique, on saisit ou on importe un fichier CSV.",
@@ -166,8 +166,8 @@ export default {
     "Our choice ✓",
   ],
   "index.on-ne-peut-pas-vendre": [
-    "\"On ne peut pas vendre ce qu'on n'a pas.\" Zéro donnée sur nos serveurs. Tout reste sur votre Drive personnel.",
-    "\"You can't sell what you don't have.\" Zero data on our servers. Everything stays on your personal Drive.",
+    "\"On ne peut pas vendre ce qu'on n'a pas.\" Aucune donnée financière chez nous. Tout reste sur votre appareil, avec une sauvegarde facultative sur votre Drive personnel.",
+    "\"You can't sell what you don't have.\" No financial data on our side. Everything stays on your device, with an optional backup on your personal Drive.",
   ],
   "index.apercu": [
     "Aperçu",

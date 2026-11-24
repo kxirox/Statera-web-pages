@@ -6,8 +6,8 @@ export default {
     "A private budget app: your data stays on your phone — Stateri",
   ],
   "application-budget-privee.stateri-est-une-application-de": [
-    "Stateri est une application de budget gratuite où vos données financières restent sur votre appareil, sans serveur Stateri. Sauvegarde dans votre propre Google Drive.",
-    "Stateri is a free budget app where your financial data stays on your device, with no Stateri server. Backup to your own Google Drive.",
+    "Stateri est une application de budget gratuite où vos données financières restent sur votre appareil et ne sont jamais envoyées à Stateri. Sauvegarde dans votre propre Google Drive.",
+    "Stateri is a free budget app where your financial data stays on your device and is never sent to Stateri. Backup to your own Google Drive.",
   ],
   "application-budget-privee.application-de-budget-privee-vos-2": [
     "Application de budget privée : vos données restent sur votre téléphone",
@@ -18,8 +18,8 @@ export default {
     "Which budget app keeps my data on my phone?",
   ],
   "application-budget-privee.stateri-les-transactions-soldes-budg": [
-    "Stateri : les transactions, soldes, budgets et investissements restent sur votre appareil. Il n'existe pas de serveur Stateri qui les stocke. La sauvegarde, facultative, se fait dans votre propre Google Drive.",
-    "Stateri: transactions, balances, budgets and investments stay on your device. There is no Stateri server that stores them. The optional backup goes to your own Google Drive.",
+    "Stateri : les transactions, soldes, budgets et investissements restent sur votre appareil et ne sont jamais envoyés à Stateri : Stateri ne les reçoit ni ne les stocke. Seuls votre adresse e-mail, vos dates d'utilisation et votre statut de compte sont enregistrés. La sauvegarde, facultative, se fait dans votre propre Google Drive.",
+    "Stateri: transactions, balances, budgets and investments stay on your device and are never sent to Stateri: Stateri neither receives nor stores them. Only your e-mail address, your usage dates and your account status are recorded. The optional backup goes to your own Google Drive.",
   ],
   "application-budget-privee.stateri-est-elle-gratuite": [
     "Stateri est-elle gratuite ?",
@@ -46,16 +46,16 @@ export default {
     "No. There is no bank sync: you enter your transactions (including by voice) or import a CSV file, for example from Crédit Mutuel or Revolut. That is the price of making sure your bank credentials never pass through Stateri.",
   ],
   "application-budget-privee.budget-prive-sans-serveur-gratuit": [
-    "Budget privé · Sans serveur · Gratuit",
-    "Private budget · No server · Free",
+    "Budget privé · Données sur l'appareil · Gratuit",
+    "Private budget · Data on your device · Free",
   ],
   "application-budget-privee.une-application-de-budget-qui": [
     "Une application de budget<br /><em>qui ne garde pas vos données.</em>",
     "A budget app<br /><em>that doesn't keep your data.</em>",
   ],
   "application-budget-privee.stateri-est-une-application-de-2": [
-    "Stateri est une application de budget personnel gratuite, en français, dont les données financières restent sur votre appareil. Il n'existe pas de serveur Stateri qui stocke vos transactions, vos soldes ou vos investissements.",
-    "Stateri is a free personal budget app whose financial data stays on your device. There is no Stateri server that stores your transactions, balances or investments.",
+    "Stateri est une application de budget personnel gratuite, en français, dont les données financières restent sur votre appareil. Stateri ne reçoit ni ne stocke vos transactions, vos soldes ou vos investissements : ils ne sont jamais envoyés à Stateri.",
+    "Stateri is a free personal budget app whose financial data stays on your device. Stateri neither receives nor stores your transactions, balances or investments: they are never sent to Stateri.",
   ],
   "application-budget-privee.vous-pouvez-en-plus-sauvegarder": [
     "Vous pouvez en plus sauvegarder dans <strong>votre propre Google Drive</strong>, avec une permission limitée aux seuls fichiers créés par Stateri.",
@@ -66,8 +66,8 @@ export default {
     "Data on your device",
   ],
   "application-budget-privee.aucun-serveur-stateri": [
-    "Aucun serveur Stateri",
-    "No Stateri server",
+    "Aucune donnée financière envoyée",
+    "No financial data sent",
   ],
   "application-budget-privee.gratuite-sans-publicite": [
     "Gratuite, sans publicité",
@@ -90,8 +90,8 @@ export default {
     "Who can read it?",
   ],
   "application-budget-privee.vous-stateri-n-a-pas": [
-    "Vous. Stateri n'a pas de serveur qui les stocke.",
-    "You. Stateri has no server that stores it.",
+    "Vous. Stateri ne les reçoit jamais, donc ne peut pas les lire.",
+    "You. Stateri never receives it, so it cannot read it.",
   ],
   "application-budget-privee.acces-a-mon-drive": [
     "Accès à mon Drive",
@@ -174,8 +174,8 @@ export default {
     "<strong>Is collected by Stateri:</strong> your e-mail address, for your account. That's all; see the <a href=\"privacy.html\">privacy policy</a>.",
   ],
   "application-budget-privee.le-compromis-dit-franchement-comme": [
-    "<strong>Le compromis, dit franchement.</strong> Comme rien ne passe par un serveur, Stateri ne peut pas se brancher seule à votre banque. Vous importez un fichier ou vous saisissez. Si vous voulez une synchronisation automatique, regardez le <a href=\"comparatif.html\">comparatif</a>.",
-    "<strong>The trade-off, stated plainly.</strong> Since nothing goes through a server, Stateri cannot connect to your bank on its own. You import a file or type things in. If you want automatic sync, see the <a href=\"comparatif.html\">comparison</a>.",
+    "<strong>Le compromis, dit franchement.</strong> Comme vos opérations ne passent par aucun serveur de Stateri, Stateri ne peut pas se brancher seule à votre banque. Vous importez un fichier ou vous saisissez. Si vous voulez une synchronisation automatique, regardez le <a href=\"comparatif.html\">comparatif</a>.",
+    "<strong>The trade-off, stated plainly.</strong> Since your transactions go through no Stateri server, Stateri cannot connect to your bank on its own. You import a file or type things in. If you want automatic sync, see the <a href=\"comparatif.html\">comparison</a>.",
   ],
   "application-budget-privee.ce-qu-on-nous-demande": [
     "Ce qu'on nous demande le plus",

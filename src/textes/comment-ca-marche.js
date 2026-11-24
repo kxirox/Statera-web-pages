@@ -6,8 +6,8 @@ export default {
     "How it works — Stateri",
   ],
   "comment-ca-marche.demarrez-avec-stateri-en-3": [
-    "Démarrez avec Stateri en 3 étapes : installez l'app, connectez votre Google Drive, ajoutez vos comptes. Fonctionnalités de base gratuites, aucun serveur tiers, 100% privé.",
-    "Get started with Stateri in 3 steps: install the app, connect your Google Drive, add your accounts. Core features free, no third-party servers, 100% private.",
+    "Démarrez avec Stateri en 3 étapes : installez l'app, connectez votre Google Drive, ajoutez vos comptes. Fonctionnalités de base gratuites, données financières chez vous, 100% privé.",
+    "Get started with Stateri in 3 steps: install the app, connect your Google Drive, add your accounts. Core features free, financial data stays with you, 100% private.",
   ],
   "comment-ca-marche.demarrage-installation-premiers-pas": [
     "Démarrage · Installation · Premiers pas",
@@ -66,8 +66,8 @@ export default {
     "Connect your<br /><em>Google Drive</em>",
   ],
   "comment-ca-marche.au-premier-lancement-stateri-vous": [
-    "Au premier lancement, Stateri vous demande l'autorisation d'accéder à votre Google Drive. C'est là que toutes vos données seront stockées — uniquement chez vous, pas sur nos serveurs.",
-    "On first launch, Stateri asks for permission to access your Google Drive. That is where all your data will be stored — only with you, not on our servers.",
+    "Au premier lancement, Stateri vous demande l'autorisation d'accéder à votre Google Drive. C'est là que toutes vos données seront stockées — uniquement chez vous, jamais envoyées à Stateri.",
+    "On first launch, Stateri asks for permission to access your Google Drive. That is where all your data will be stored — only with you, never sent to Stateri.",
   ],
   "comment-ca-marche.cliquez-sur-se-connecter-avec": [
     "Cliquez sur <strong>\"Se connecter avec Google\"</strong>",
