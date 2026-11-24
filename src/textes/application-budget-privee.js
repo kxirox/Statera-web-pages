@@ -18,8 +18,8 @@ export default {
     "Which budget app keeps my data on my phone?",
   ],
   "application-budget-privee.stateri-les-transactions-soldes-budg": [
-    "Stateri : les transactions, soldes, budgets et investissements restent sur votre appareil et ne sont jamais envoyés à Stateri : Stateri ne les reçoit ni ne les stocke. Seuls votre adresse e-mail, vos dates d'utilisation et votre statut de compte sont enregistrés. La sauvegarde, facultative, se fait dans votre propre Google Drive.",
-    "Stateri: transactions, balances, budgets and investments stay on your device and are never sent to Stateri: Stateri neither receives nor stores them. Only your e-mail address, your usage dates and your account status are recorded. The optional backup goes to your own Google Drive.",
+    "Stateri : les transactions, soldes, budgets et investissements restent sur votre appareil et ne sont jamais envoyés à Stateri : Stateri ne les reçoit ni ne les stocke. La sauvegarde, facultative, se fait dans votre propre Google Drive.",
+    "Stateri: transactions, balances, budgets and investments stay on your device and are never sent to Stateri: Stateri neither receives nor stores them. The optional backup goes to your own Google Drive.",
   ],
   "application-budget-privee.stateri-est-elle-gratuite": [
     "Stateri est-elle gratuite ?",

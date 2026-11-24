@@ -14,8 +14,8 @@ export default {
     "Is my financial data really private?",
   ],
   "faq.oui-stateri-ne-possede-aucun": [
-    "Oui. Stateri ne reçoit et ne stocke aucune de vos données financières. Toutes vos transactions, soldes, budgets et investissements sont écrits directement dans un fichier sur votre propre Google Drive. Stateri lui-même n'y a pas accès — seul votre compte Google peut lire ce fichier. Stateri n'enregistre que votre adresse e-mail, vos dates d'utilisation et votre statut de compte.",
-    "Yes. Stateri neither receives nor stores any of your financial data. All your transactions, balances, budgets and investments are written directly to a file on your own Google Drive. Stateri itself has no access to it — only your Google account can read that file. Stateri only records your e-mail address, your usage dates and your account status.",
+    "Oui. Stateri ne reçoit et ne stocke aucune de vos données financières. Toutes vos transactions, soldes, budgets et investissements sont écrits directement dans un fichier sur votre propre Google Drive. Stateri lui-même n'y a pas accès — seul votre compte Google peut lire ce fichier.",
+    "Yes. Stateri neither receives nor stores any of your financial data. All your transactions, balances, budgets and investments are written directly to a file on your own Google Drive. Stateri itself has no access to it — only your Google account can read that file.",
   ],
   "faq.stateri-peut-il-acceder-a": [
     "Stateri peut-il accéder à tous mes fichiers Google Drive ?",
@@ -178,8 +178,8 @@ export default {
     "Is my financial data really private? <span class=\"faq-chevron\">▾</span>",
   ],
   "faq.oui-stateri-ne-possede-aucun-2": [
-    "Oui. Stateri <strong>ne reçoit et ne stocke aucune</strong> de vos données financières. Toutes vos transactions, soldes, budgets et investissements sont écrits directement dans un fichier sur <strong>votre propre Google Drive</strong>. Stateri lui-même n'y a pas accès — seul votre compte Google peut lire ce fichier. Stateri n'enregistre que votre adresse e-mail, vos dates d'utilisation et votre statut de compte.",
-    "Yes. Stateri <strong>neither receives nor stores any</strong> of your financial data. All your transactions, balances, budgets and investments are written directly to a file on <strong>your own Google Drive</strong>. Stateri itself has no access to it — only your Google account can read that file. Stateri only records your e-mail address, your usage dates and your account status.",
+    "Oui. Stateri <strong>ne reçoit et ne stocke aucune</strong> de vos données financières. Toutes vos transactions, soldes, budgets et investissements sont écrits directement dans un fichier sur <strong>votre propre Google Drive</strong>. Stateri lui-même n'y a pas accès — seul votre compte Google peut lire ce fichier.",
+    "Yes. Stateri <strong>neither receives nor stores any</strong> of your financial data. All your transactions, balances, budgets and investments are written directly to a file on <strong>your own Google Drive</strong>. Stateri itself has no access to it — only your Google account can read that file.",
   ],
   "faq.stateri-peut-il-acceder-a-2": [
     "Stateri peut-il accéder à tous mes fichiers Google Drive ? <span class=\"faq-chevron\">▾</span>",
