@@ -1,6 +1,30 @@
 // Textes de la page index.html — une entrée = une clé = [français, English].
 // Modifier UN texte : toujours les DEUX langues, puis « node scripts/site.mjs build ».
 export default {
+  "index.carte-demarrage": [
+    "Prêt en 3 étapes",
+    "Ready in 3 steps",
+  ],
+  "index.carte-demarrage-texte": [
+    "Installez l'application, connectez votre Google Drive, ajoutez vos comptes.",
+    "Install the app, connect your Google Drive, add your accounts.",
+  ],
+  "index.carte-previsionnel": [
+    "Budget prévisionnel",
+    "Forecast budget",
+  ],
+  "index.carte-previsionnel-texte": [
+    "Voyez venir vos fins de mois à partir de vos dépenses prévues.",
+    "See your month ends coming, based on your planned expenses.",
+  ],
+  "index.carte-recurrences": [
+    "Dépenses récurrentes",
+    "Recurring expenses",
+  ],
+  "index.carte-recurrences-texte": [
+    "Loyer, abonnements, salaire : enregistrez vos montants fixes une seule fois.",
+    "Rent, subscriptions, salary: record your fixed amounts just once.",
+  ],
   "index.stateri-gerez-votre-budget-vos": [
     "Stateri — Gérez votre budget. Vos données restent chez vous.",
     "Stateri — Manage your budget. Your data stays with you.",

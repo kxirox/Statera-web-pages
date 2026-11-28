@@ -1771,6 +1771,30 @@
   "6a44fe24ed",
   "c25e53bbd2"
  ],
+ "index.carte-demarrage": [
+  "6c2263f5dd",
+  "8e11e5bd71"
+ ],
+ "index.carte-demarrage-texte": [
+  "1e1ed253be",
+  "6b7c845e28"
+ ],
+ "index.carte-previsionnel": [
+  "39fe7ef38b",
+  "79927c4297"
+ ],
+ "index.carte-previsionnel-texte": [
+  "680b411c43",
+  "f01b7c8a2a"
+ ],
+ "index.carte-recurrences": [
+  "5e86bba7cc",
+  "cf7e49cf0e"
+ ],
+ "index.carte-recurrences-texte": [
+  "8f2ec1c967",
+  "872c12e0d2"
+ ],
  "index.stateri-gerez-votre-budget-vos": [
   "3f116445a1",
   "26e081f697"
